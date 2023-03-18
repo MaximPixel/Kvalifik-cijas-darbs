@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('manf_printers', function (Blueprint $table) {
-            $table->foreignIdFor(\App\Models\Manf::class)->constrained();
+        Schema::create('manf_service_printers', function (Blueprint $table) {
+            $table->foreignIdFor(\App\Models\ManfService::class)->constrained();
             $table->foreignIdFor(\App\Models\Printer::class)->constrained();
-            $table->unsignedInteger("count");
             $table->timestamps();
 
-            $table->primary(["manf_id", "printer_id"]);
+            $table->primary(["manf_service_id", "printer_id"]);
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('manf_printers');
+        Schema::dropIfExists('manf_service_printers');
     }
 };

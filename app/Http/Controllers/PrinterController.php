@@ -8,36 +8,56 @@ use App\Models\Printer;
 
 class PrinterController extends Controller {
 
-    public function view(Request $request, $printerId) {
-        $printer = Printer::find($printerId);
+    public function view(Request $request) {
+        if ($request->has("action")) {
+            $action = $request->query("action");
 
-        if (!$printer) {
-            return redirect()->route("index");
+            if ($action == "create") {
+                return view("model.printer.create");
+            } else if ($action == "edit") {
+                if ($request->has("code")) {
+                    $code = $request->query("code");
+
+                    $printer = Printer::firstCodeOrFail($code);
+
+                    dd($printer);
+                }
+            }
+        } else if ($request->has("code")) {
+            $code = $request->query("code");
+
+            $printer = Printer::query()
+                ->with([
+                    "printerFeats",
+                    "printerFeats.printerFeatValue",
+                    "printerFeats.printerFeatValue.printerFeatType",
+                ])
+                ->firstCodeOrFail($code);
+
+            return view("model.printer.view", ["printer" => $printer]);
         }
-
-        dd($printer);
-
-        return view("model.printer.view");
     }
 
-    public function createView(Request $request) {
-        return view("model.printer.create");
-    }
+    public function post(Request $request) {
+        if ($request->has("action")) {
+            $action = $request->query("action");
 
-    public function createPost(Request $request) {
-        $data = $request->validate([
-            "name" => "required|min:10|max:255",
-            "description" => "required|min:10|max:10000",
-            "manufacturer" => "required",
-        ]);
-
-        $printer = new Printer;
-        $printer->name = $data["name"];
-        $printer->description = $data["description"];
-        $printer->manufacturer = $data["manufacturer"];
-        $printer->creator_user_id = auth()->user()->id;
-        $printer->save();
-
-        return redirect()->route("printer.view", ["printerId" => $printer->id]);
+            if ($action == "create") {
+                $data = $request->validate([
+                    "name" => "required|min:5|max:255",
+                    "description" => "required|min:10|max:1000",
+                    "manufacturer" => "required",
+                ]);
+        
+                $printer = new Printer;
+                $printer->name = $data["name"];
+                $printer->description = $data["description"];
+                $printer->manufacturer = $data["manufacturer"];
+                //$printer->creator_user_id = auth()->user()->id;
+                $printer->save();
+        
+                return redirect($printer->getRoute());
+            }
+        }
     }
 }

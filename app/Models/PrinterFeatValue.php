@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class PrinterFeatValue extends Model
 {
-    use HasFactory;
+    use HasFactory, HasCode;
+
+    public function printerFeatType() {
+        return $this->belongsTo(PrinterFeatType::class);
+    }
 }

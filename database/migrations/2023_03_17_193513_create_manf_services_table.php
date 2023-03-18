@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('printers', function (Blueprint $table) {
+        Schema::create('manf_services', function (Blueprint $table) {
             $table->id();
             $table->string("code")->collation("utf8mb4_bin")->nullable()->unique();
-            $table->foreignIdFor(\App\Models\Printer::class, "parent_printer_id")->nullable()->constrained("printers")->nullOnDelete();
+            $table->foreignIdFor(\App\Models\Manf::class)->constrained();
             $table->string("name");
             $table->text("description");
-            $table->string("manufacturer");
-            $table->foreignIdFor(\App\Models\User::class, "creator_user_id")->nullable()->constrained("users");
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('printers');
+        Schema::dropIfExists('manf_services');
     }
 };

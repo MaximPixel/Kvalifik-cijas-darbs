@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('printers', function (Blueprint $table) {
+        Schema::create('print_models', function (Blueprint $table) {
             $table->id();
             $table->string("code")->collation("utf8mb4_bin")->nullable()->unique();
-            $table->foreignIdFor(\App\Models\Printer::class, "parent_printer_id")->nullable()->constrained("printers")->nullOnDelete();
-            $table->string("name");
-            $table->text("description");
-            $table->string("manufacturer");
-            $table->foreignIdFor(\App\Models\User::class, "creator_user_id")->nullable()->constrained("users");
+            $table->float("length");
+            $table->float("width");
+            $table->float("height");
+            $table->float("diameter");
+            $table->float("volume");
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('printers');
+        Schema::dropIfExists('print_models');
     }
 };

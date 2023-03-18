@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('printer_feat_types', function (Blueprint $table) {
             $table->id();
-            $table->boolean("required");
+            $table->string("code")->collation("utf8mb4_bin")->nullable()->unique();
+            $table->boolean("required")->default(false);
+            $table->boolean("allow_many_values")->default(true);
+            $table->string("measure_type");
             $table->string("name");
+            $table->text("description");
+            $table->foreignIdFor(\App\Models\User::class, "creator_user_id")->nullable()->constrained("users");
             $table->timestamps();
         });
     }

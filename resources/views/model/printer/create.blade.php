@@ -1,30 +1,45 @@
 @extends("layout")
 
 @section("content")
-<form action="" method="POST">
-    @csrf
-    <h3 class="mb-3">@lang("printer.action.create")</h3>
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-        </ul>
-    </div>
-@endif
-    <div class="form-group">
-        <label for="name">@lang("printer.name")</label>
-        <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
-    </div>
-    <div class="form-group">
-        <label for="description">@lang("printer.description")</label>
-        <textarea class="form-control" name="description" id="description" cols="30" rows="10">{{ old('description') }}</textarea>
-    </div>
-    <div class="form-group">
-        <label for="manufacturer">@lang("printer.manufacturer")</label>
-        <input type="text" class="form-control" id="manufacturer" name="manufacturer" value="{{ old('manufacturer') }}">
-    </div>
-    <input type="submit" class="btn btn-primary" value="@lang('printer.action.submit')">
-</form>
+@include("bootstrap-form", [
+    "title" => __("printer.basic-info"),
+    "fields" => [
+        "name" => [
+            "label" => __("printer.name"),
+            "min" => "5",
+            "max" => "255",
+        ],
+        "description" => [
+            "label" => __("printer.description"),
+            "type" => "textarea",
+            "cols" => 30,
+            "rows" => 10,
+            "min" => "10",
+            "max" => "1000",
+        ],
+        "manufacturer" => [
+            "label" => __("printer.manufacturer"),
+            "max" => "255",
+        ],
+    ],
+    "submit" => __("printer.action.submit"),
+])
+@php
+    $requiredFeats = \App\Models\PrinterFeatType::query()
+        ->where("required", true)
+        ->get();
+@endphp
+@include("bootstrap-form", [
+    "title" => __("printer.feats"),
+    "fields" => $requiredFeats->mapWithKeys(function ($printerFeatType) {
+        return [
+            "feat[$printerFeatType->code]" => [
+                "type" => "featValue",
+                "featType" => $printerFeatType,
+                "label" => $printerFeatType->name,
+            ]
+        ];
+    }),
+    "submit" => __("printer.action.submit"),
+])
 @endsection

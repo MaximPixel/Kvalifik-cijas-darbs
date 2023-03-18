@@ -64,6 +64,12 @@ return [
             "throw" => false,
         ],
 
+        "models" => [
+            "driver" => "local",
+            "root" => storage_path("app/models"),
+            "throw" => false,
+        ],
+
     ],
 
     /*

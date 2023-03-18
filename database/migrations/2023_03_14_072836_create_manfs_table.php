@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('manfs', function (Blueprint $table) {
             $table->id();
+            $table->string("code")->collation("utf8mb4_bin")->nullable()->unique();
             $table->string("name");
             $table->string("email");
+            $table->foreignIdFor(\App\Models\User::class, "creator_user_id")->nullable()->constrained("users");
             $table->timestamps();
         });
     }

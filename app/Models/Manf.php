@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Manf extends Model
 {
-    use HasFactory;
+    use HasFactory, HasCode, HasCodeRoute;
 }

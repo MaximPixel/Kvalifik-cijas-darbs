@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('manf_roles', function (Blueprint $table) {
             $table->id();
+            $table->string("code")->collation("utf8mb4_bin")->nullable()->unique();
             $table->foreignIdFor(\App\Models\Manf::class)->constrained();
             $table->string("name");
             $table->timestamps();

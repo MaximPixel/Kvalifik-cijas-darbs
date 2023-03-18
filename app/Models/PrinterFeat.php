@@ -10,4 +10,8 @@ class PrinterFeat extends Model
     use HasFactory;
 
     public $timestamps = false;
+
+    public function printerFeatValue() {
+        return $this->belongsTo(PrinterFeatValue::class);
+    }
 }

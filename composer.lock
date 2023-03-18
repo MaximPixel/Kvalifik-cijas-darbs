@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9fe39fe9cb5f93115b6697bc705b0793",
+    "content-hash": "9ba108be28542705bdba47e4a5727265",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -115,6 +115,59 @@
                 }
             ],
             "time": "2022-08-10T22:54:19+00:00"
+        },
+        {
+            "name": "chubv/php-stl",
+            "version": "v2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ChubV/php-stl.git",
+                "reference": "9e7c4891cd13fd4f342db268eee197dc38615e3d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ChubV/php-stl/zipball/9e7c4891cd13fd4f342db268eee197dc38615e3d",
+                "reference": "9e7c4891cd13fd4f342db268eee197dc38615e3d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3 || ^8.0"
+            },
+            "require-dev": {
+                "nexusphp/tachycardia": "^1.0",
+                "php-coveralls/php-coveralls": "^2.4",
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PHPSTL\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vladimir Chub",
+                    "email": "v@chub.com.ua",
+                    "homepage": "http://github.com/ChubV/"
+                }
+            ],
+            "description": "Library to parse STL file and get some statistics of the model",
+            "homepage": "http://github.com/ChubV/php-stl",
+            "keywords": [
+                "3d",
+                "stl",
+                "volume"
+            ],
+            "support": {
+                "issues": "https://github.com/ChubV/php-stl/issues",
+                "source": "https://github.com/ChubV/php-stl/tree/v2.1.1"
+            },
+            "time": "2022-11-22T09:27:56+00:00"
         },
         {
             "name": "dasprid/enum",
@@ -1472,6 +1525,75 @@
                 "source": "https://github.com/laravel/serializable-closure"
             },
             "time": "2023-01-30T18:31:20+00:00"
+        },
+        {
+            "name": "laravel/telescope",
+            "version": "v4.14.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/telescope.git",
+                "reference": "fafad2e32883eb9dc03b646d0f82b2987e8af880"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/telescope/zipball/fafad2e32883eb9dc03b646d0f82b2987e8af880",
+                "reference": "fafad2e32883eb9dc03b646d0f82b2987e8af880",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "laravel/framework": "^8.37|^9.0|^10.0",
+                "php": "^8.0",
+                "symfony/var-dumper": "^5.0|^6.0"
+            },
+            "require-dev": {
+                "ext-gd": "*",
+                "guzzlehttp/guzzle": "^6.0|^7.0",
+                "orchestra/testbench": "^6.0|^7.0|^8.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Telescope\\TelescopeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Telescope\\": "src/",
+                    "Laravel\\Telescope\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                },
+                {
+                    "name": "Mohamed Said",
+                    "email": "mohamed@laravel.com"
+                }
+            ],
+            "description": "An elegant debug assistant for the Laravel framework.",
+            "keywords": [
+                "debugging",
+                "laravel",
+                "monitoring"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/telescope/issues",
+                "source": "https://github.com/laravel/telescope/tree/v4.14.0"
+            },
+            "time": "2023-02-21T15:49:06+00:00"
         },
         {
             "name": "laravel/tinker",
