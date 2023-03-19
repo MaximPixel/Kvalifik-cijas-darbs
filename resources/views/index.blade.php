@@ -20,4 +20,7 @@ $modelClasses = [
 </p>
 @endforeach
 @endforeach
+<p>
+    <a href="{{ route('model.manf-service', ['action' => 'list']) }}">services list</a>
+</p>
 @endsection

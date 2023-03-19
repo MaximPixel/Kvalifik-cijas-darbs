@@ -15,7 +15,22 @@ class ManfServiceController extends Controller {
         if ($request->has("action")) {
             $action = $request->input("action");
 
-            if ($action == "create") {
+            if ($action == "list") {
+                $totalManfServices = ManfService::all();
+                $manfServicesQuery = ManfService::query();
+                
+                if ($request->has("manf")) {
+                    $manf = Manf::firstCode($request->get("manf"));
+                    if ($manf) {
+                        $manfServicesQuery->where("manf_id", $manf->id);
+                    }
+                }
+
+                return view("model.manf-service.list", [
+                    "totalManfServices" => $totalManfServices,
+                    "manfServices" => $manfServicesQuery->get(),
+                ]);
+            } else if ($action == "create") {
                 if ($request->has("manf")) {
                     $manf = Manf::firstCodeOrFail($request->input("manf"));
                     return view("model.manf-service.create", ["manf" => $manf]);
@@ -43,7 +58,9 @@ class ManfServiceController extends Controller {
         if ($request->has("action")) {
             $action = $request->input("action");
 
-            if ($action == "create") {
+            if ($action == "list") {
+                return redirect()->route("model.manf-service", $request->except("_token"));
+            } else if ($action == "create") {
                 if ($request->has("manf")) {
                     $manf = Manf::firstCodeOrFail($request->input("manf"));
 

@@ -4,19 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
+
     private $faker;
 
-    /**
-     * Run the migrations.
-     */
+    private $users, $featTypes, $printers, $manfs, $services;
+
     public function up(): void
     {
         $this->faker = \Faker\Factory::create();
-        //$this->createUsers();
-        $this->createFeatTypes();
-        $this->createPrinters();
+        $this->users = $this->createUsers();
+        $this->featTypes = $this->createFeatTypes();
+        $this->printers = $this->createPrinters();
+        $this->manfs = $this->createManfs();
+        $this->services = $this->createServices();
     }
 
     private function createUsers($count = 5) {
@@ -81,6 +82,8 @@ return new class extends Migration
             ],
         ];
 
+        $featTypes = collect();
+
         foreach ($data as $row) {
             $printerFeatType = new \App\Models\PrinterFeatType;
             foreach ($row as $key => $value) {
@@ -88,7 +91,10 @@ return new class extends Migration
             }
             $printerFeatType->required = true;
             $printerFeatType->save();
+            $featTypes->push($printerFeatType);
         }
+
+        return $featTypes;
     }
 
     private function createPrinters() {
@@ -236,6 +242,49 @@ return new class extends Migration
         }
 
         return $printer;
+    }
+
+    private function createManfs($count = 4) {
+        $manfs = collect();
+
+        for ($i = 0; $i < $count; $i++) {
+            $manf = new \App\Models\Manf;
+            $manf->name = "MANF $i";
+            $manf->email = $this->faker->email();
+            $manf->save();
+            $manfs->push($manf);
+
+            $manfRole = new \App\Models\ManfRole;
+            $manfRole->manf_id = $manf->id;
+            $manfRole->name = "Creator";
+            $manfRole->save();
+
+            $manfRoleUser = new \App\Models\ManfRoleUser;
+            $manfRoleUser->manf_role_id = $manfRole->id;
+            $manfRoleUser->user_id = $this->users->random()->id;
+            $manfRoleUser->save();
+        }
+
+        return $manfs;
+    }
+
+    private function createServices() {
+        $services = collect();
+
+        foreach ($this->manfs as $i => $manf) {
+            $service = new \App\Models\ManfService;
+            $service->manf_id = $manf->id;
+            $service->name = "SERVICE $i";
+            $service->description = "SERVICE $i DESCRIPTION";
+            $service->save();
+
+            $servicePrinter = new \App\Models\ManfServicePrinter;
+            $servicePrinter->manf_service_id = $service->id;
+            $servicePrinter->printer_id = $this->printers->random()->id;
+            $servicePrinter->save();
+        }
+
+        return $services;
     }
 
     public function down(): void {}

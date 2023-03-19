@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class ManfService extends Model {
 
+    public static function getListRoute() {
+        return route("mode.manf-service", ["action" => "list"]);
+    }
+
     public static function getCreateRoute(Manf $manf) {
         return route("model.manf-service", ["action" => "create", "manf" => $manf->getCode()]);
     }
@@ -15,5 +19,9 @@ class ManfService extends Model {
 
     public function manfServicePrinters() {
         return $this->hasMany(ManfServicePrinter::class);
+    }
+
+    public function manf() {
+        return $this->belongsTo(Manf::class);
     }
 }
