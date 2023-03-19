@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ManfRoleUser extends Model
-{
+class ManfRoleUser extends Model {
+
     use HasFactory;
+
+    public $incrementing = false;
 }

@@ -21,6 +21,10 @@ class Printer extends Model {
         return $this->hasMany(PrinterFeat::class);
     }
 
+    public function manfServicePrinters() {
+        return $this->hasMany(ManfServicePrinter::class);
+    }
+
     public function generateUrl() {
         $this->url = str()->random(10);
     }

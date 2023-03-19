@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Storage;
 
 class PrintModel extends Model {
 
+    public static function getCreateRoute() {
+        return route("model.print-model", ["action" => "create"]);
+    }
+
     use HasFactory, HasCode, HasCodeRoute;
 
     public function delete() {

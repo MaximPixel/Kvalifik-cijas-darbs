@@ -5,24 +5,55 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Manf;
+use App\Models\ManfRole;
+use App\Models\ManfRoleUser;
 
 class ManfController extends Controller {
 
-    public function createView(Request $request) {
-        return view("model.manf.create");
+    public function view(Request $request) {
+        if ($request->has("action")) {
+            $action = $request->query("action");
+
+            if ($action == "create") {
+                return view("model.manf.create");
+            }
+        } else if ($request->has("code")) {
+            $code = $request->query("code");
+
+            $manf = Manf::query()
+                ->firstCodeOrFail($code);
+
+            return view("model.manf.view", ["manf" => $manf]);
+        }
     }
 
-    public function createPost(Request $request) {
-        $data = $request->validate([
-            "name" => "required|min:5|max:255",
-            "email" => "required|email",
-        ]);
+    public function post(Request $request) {
+        if ($request->has("action")) {
+            $action = $request->query("action");
 
-        $manf = new Manf;
-        $manf->name = $data["name"];
-        $manf->email = $data["email"];
-        $manf->save();
+            if ($action == "create") {
+                $data = $request->validate([
+                    "name" => "required|min:5|max:255",
+                    "email" => "required|email",
+                ]);
+        
+                $manf = new Manf;
+                $manf->name = $data["name"];
+                $manf->email = $data["email"];
+                $manf->save();
 
-        return redirect()->route("manf.view", ["manfId" => $manf->id]);
+                $manfRole = new ManfRole;
+                $manfRole->manf_id = $manf->id;
+                $manfRole->name = "Creator";
+                $manfRole->save();
+
+                $manfRoleUser = new ManfRoleUser;
+                $manfRoleUser->manf_role_id = $manfRole->id;
+                $manfRoleUser->user_id = auth()->user()->id;
+                $manfRoleUser->save();
+
+                return redirect($manf->getRoute());
+            }
+        }
     }
 }

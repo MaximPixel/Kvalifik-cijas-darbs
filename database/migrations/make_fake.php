@@ -14,9 +14,9 @@ return new class extends Migration
     public function up(): void
     {
         $this->faker = \Faker\Factory::create();
-        $users = $this->createUsers();
+        //$this->createUsers();
         $this->createFeatTypes();
-        $this->createPrinters($users);
+        $this->createPrinters();
     }
 
     private function createUsers($count = 5) {
@@ -91,7 +91,7 @@ return new class extends Migration
         }
     }
 
-    private function createPrinters($users) {
+    private function createPrinters() {
         $printers = collect();
         $printersData = [
             [
