@@ -24,4 +24,8 @@ class ManfService extends Model {
     public function manf() {
         return $this->belongsTo(Manf::class);
     }
+
+    public function manfServicePrintMaterialColors() {
+        return $this->hasMany(ManfServicePrintMaterialColor::class);
+    }
 }

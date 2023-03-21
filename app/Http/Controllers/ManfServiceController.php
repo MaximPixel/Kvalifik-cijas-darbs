@@ -57,13 +57,17 @@ class ManfServiceController extends Controller {
                 return view("yesno");
             } else if ($action == "delete") {
                 if ($request->has("code")) {
-                    $manfService = ManfService::firstCodeOrFail($request->query("code"));
+                    $manfService = ManfService::firstCodeOrFail($request->get("code"));
                     return view("yesno");
+                }
+            } else if ($action == "edit-materials") {
+                if ($request->has("code")) {
+                    $manfService = ManfService::firstCodeOrFail($request->get("code"));
+                    return view("model.manf-service.edit-materials", ["manfService" => $manfService, "printMaterials" => \App\Models\PrintMaterial::all()]);
                 }
             }
         } else if ($request->has("code")) {
-            $code = $request->input("code");
-            $manfService = ManfService::firstCodeOrFail($code);
+            $manfService = ManfService::firstCodeOrFail($request->get("code"));
             return view("model.manf-service.view", ["manfService" => $manfService]);
         }
     }
@@ -120,6 +124,28 @@ class ManfServiceController extends Controller {
                     $manfService = ManfService::firstCodeOrFail($request->query("code"));
                     $manfService->delete();
                     return redirect()->route("index");
+                }
+            } else if ($action == "edit-materials") {
+                if ($request->has("code")) {
+                    $manfService = ManfService::firstCodeOrFail($request->get("code"));
+
+                    $materialColors = collect($request->get("materialColors"))->keys();
+                    $materialColors = \App\Models\PrintMaterialColor::whereIn("code", $materialColors)->pluck("id");
+
+                    $current = $manfService->manfServicePrintMaterialColors->pluck("printMaterialColor")->pluck("id");
+
+                    $toDelete = $current->diff($materialColors);
+                    $toInsert = $materialColors->diff($current);
+                    
+                    $manfService->manfServicePrintMaterialColors->whereIn("print_material_color_id", $toDelete)->each(fn ($a) => $a->delete());
+                    $toInsert->each(function ($materialColorId) use ($manfService) {
+                        $manfServicePrintMaterialColor = new \App\Models\ManfServicePrintMaterialColor;
+                        $manfServicePrintMaterialColor->manf_service_id = $manfService->id;
+                        $manfServicePrintMaterialColor->print_material_color_id = $materialColorId;
+                        $manfServicePrintMaterialColor->save();
+                    });
+
+                    return redirect($manfService->getRoute());
                 }
             }
         }

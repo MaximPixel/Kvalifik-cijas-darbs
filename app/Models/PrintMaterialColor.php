@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PrintMaterialColor extends Model {
 
     use HasFactory, HasCode, HasCodeRoute;
+
+    public function printMaterial() {
+        return $this->belongsTo(PrintMaterial::class);
+    }
 }

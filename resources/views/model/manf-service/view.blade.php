@@ -19,4 +19,24 @@
     </li>
 @endforeach
 </ul>
+
+<p>materials:</p>
+@php
+    $serviceMaterialColors = $manfService->manfServicePrintMaterialColors;
+    $materialColors = $serviceMaterialColors->pluck("printMaterialColor");
+    $materials = $materialColors->pluck("printMaterial")->unique();
+@endphp
+<ul>
+    <li>
+        <a href="{{ route('model.manf-service', ['code' => $manfService->getCode(), 'action' => 'edit-materials']) }}">edit materials</a>
+    </li>
+@foreach ($materials as $material)
+    <li>{{ $material->name }}</li>
+    <ul>
+    @foreach ($materialColors->where("print_material_id", $material->id) as $color)
+        <li>{{ $color->name }}</li>
+    @endforeach
+    </ul>
+@endforeach
+</ul>
 @endsection
