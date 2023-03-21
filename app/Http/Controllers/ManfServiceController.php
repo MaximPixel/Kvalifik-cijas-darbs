@@ -33,6 +33,13 @@ class ManfServiceController extends Controller {
                     }
                 }
 
+                if ($request->has("material_color")) {
+                    $materialColor = \App\Models\PrintMaterialColor::firstCode($request->get("material_color"));
+                    if ($materialColor) {
+                        $manfServicesQuery->whereHas("manfServicePrintMaterialColors", fn ($query) => $query->where("print_material_color_id", $materialColor->id));
+                    }
+                }
+
                 $manfServicesQuery->orderBy("id");
 
                 return view("model.manf-service.list", [

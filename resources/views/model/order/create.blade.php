@@ -39,11 +39,11 @@
         <label for="material_color">@lang("model.order.material_color")</label>
         <select class="form-select" name="material_color" id="material_color" value="{{ old('material_color', 1) }}">
         @foreach (\App\Models\PrintMaterial::all() as $printMaterial)
-        <optgroup label="{{ $printMaterial->name }}">
+            <optgroup label="{{ $printMaterial->name }}">
             @foreach ($printMaterial->printMaterialColors as $printMaterialColor)
-            <option value="{{ $printMaterialColor->getCode() }}" style="color: #{{ $printMaterialColor->hex }}">{{ $printMaterialColor->name }}</option>
+                <option value="{{ $printMaterialColor->getCode() }}" style="color: #{{ $printMaterialColor->hex }}">{{ $printMaterialColor->name }}</option>
             @endforeach
-        </optgroup>
+            </optgroup>
         @endforeach
         </select>
     </div>
