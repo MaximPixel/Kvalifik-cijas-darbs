@@ -8,4 +8,24 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model {
 
     use HasFactory, HasCode, HasCodeRoute;
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function userAddress() {
+        return $this->belongsTo(UserAddress::class);
+    }
+
+    public function manfService() {
+        return $this->belongsTo(ManfService::class);
+    }
+
+    public function printModel() {
+        return $this->belongsTo(PrintModel::class);
+    }
+
+    public function printMaterialColor() {
+        return $this->belongsTo(PrintMaterialColor::class);
+    }
 }

@@ -29,6 +29,14 @@ class PrintModelController extends Controller {
                     $storage = Storage::disk("models");
                     return $storage->download($printModel->getCode(), $printModel->getCode() . ".stl");
                 }
+            } else if ($action == "list") {
+                if ($request->has("user")) {
+                    $user = \App\Models\User::firstCodeOrFail($request->get("user"));
+                    $printModels = PrintModel::query()
+                        ->where("user_id", $user->id)
+                        ->get();
+                    return view("model.print-model.list", ["printModels" => $printModels]);
+                }
             }
         } else if ($request->has("code")) {
             $printModel = PrintModel::firstCodeOrFail($request->get("code"));
@@ -42,7 +50,7 @@ class PrintModelController extends Controller {
 
             if ($action == "create") {
                 $data = $request->validate([
-                    "modelFile" => "required|file",
+                    "model-file" => "required|file",
                     "name" => "string",
                 ]);
 
@@ -58,7 +66,7 @@ class PrintModelController extends Controller {
 
                 $filename = $printModel->getCode();
                 $storage = Storage::disk("models");
-                $storage->put($filename, file_get_contents($data["modelFile"]));
+                $storage->put($filename, file_get_contents($data["model-file"]));
 
                 $reader = STLReader::forFile($storage->path($filename));
                 $reader->setHandler(new \PHPSTL\Handler\DimensionsHandler);

@@ -332,6 +332,10 @@ return new class extends Migration {
             $service->manf_id = $manf->id;
             $service->name = "SERVICE $i";
             $service->description = "SERVICE $i DESCRIPTION";
+            $service->price_base = 1;
+            $service->price_min = 1;
+            $service->price_per_volume = 1;
+            $service->price_per_time = 1;
             $service->save();
 
             $servicePrinter = new \App\Models\ManfServicePrinter;

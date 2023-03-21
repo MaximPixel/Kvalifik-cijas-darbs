@@ -17,6 +17,10 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Manf::class)->constrained();
             $table->string("name");
             $table->text("description");
+            $table->decimal("price_base");
+            $table->decimal("price_min");
+            $table->decimal("price_per_time");
+            $table->decimal("price_per_volume");
             $table->timestamps();
         });
     }

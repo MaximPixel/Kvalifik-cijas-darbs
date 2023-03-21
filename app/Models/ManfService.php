@@ -28,4 +28,18 @@ class ManfService extends Model {
     public function manfServicePrintMaterialColors() {
         return $this->hasMany(ManfServicePrintMaterialColor::class);
     }
+
+    public function canCalculatePrice(\App\Models\Order $order) {
+        return $order->print_time !== null;
+    }
+
+    public function calculatePrice(\App\Models\Order $order) {
+        $printModel = $order->printModel;
+
+        $price = $this->price_base
+            + $printModel->volume * $this->price_per_volume
+            + $order->print_time * $this->price_per_time;
+
+        return max($order->price_min, $price);
+    }
 }

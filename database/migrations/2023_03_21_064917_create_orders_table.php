@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\PrintMaterialColor::class)->constrained();
             $table->unsignedInteger("amount");
             $table->string("comment")->nullable();
+            $table->unsignedBigInteger("print_time")->nullable();
             $table->timestamps();
         });
     }
