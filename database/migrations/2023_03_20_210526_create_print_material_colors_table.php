@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('print_material_colors', function (Blueprint $table) {
             $table->id();
             $table->string("code")->collation("utf8mb4_bin")->nullable()->unique();
-            $table->foreignIdFor(\App\Models\User::class)->constrained();
-            $table->foreignIdFor(\App\Models\UserAddress::class)->constrained();
-            $table->foreignIdFor(\App\Models\ManfService::class)->constrained();
-            $table->foreignIdFor(\App\Models\PrintModel::class)->constrained();
-            $table->unsignedInteger("amount");
-            $table->string("comment");
+            $table->foreignIdFor(\App\Models\PrintMaterial::class)->constrained();
+            $table->string("name");
+            $table->string("hex");
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('print_material_colors');
     }
 };

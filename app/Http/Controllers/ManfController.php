@@ -16,13 +16,14 @@ class ManfController extends Controller {
 
             if ($action == "create") {
                 return view("model.manf.create");
+            } else if ($action == "delete") {
+                if ($request->has("code")) {
+                    $manf = Manf::firstCodeOrFail($request->query("code"));
+                    return view("yesno");
+                }
             }
         } else if ($request->has("code")) {
-            $code = $request->query("code");
-
-            $manf = Manf::query()
-                ->firstCodeOrFail($code);
-
+            $manf = Manf::firstCodeOrFail($request->query("code"));
             return view("model.manf.view", ["manf" => $manf]);
         }
     }
@@ -53,6 +54,12 @@ class ManfController extends Controller {
                 $manfRoleUser->save();
 
                 return redirect($manf->getRoute());
+            } else if ($action == "delete") {
+                if ($request->has("code")) {
+                    $manf = Manf::firstCodeOrFail($request->query("code"));
+                    $manf->delete();
+                    return redirect()->route("index");
+                }
             }
         }
     }

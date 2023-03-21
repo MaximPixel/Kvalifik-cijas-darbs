@@ -14,11 +14,16 @@ return new class extends Migration
         Schema::create('print_models', function (Blueprint $table) {
             $table->id();
             $table->string("code")->collation("utf8mb4_bin")->nullable()->unique();
+            $table->string("name")->nullable();
             $table->float("length");
             $table->float("width");
             $table->float("height");
             $table->float("diameter");
             $table->float("volume");
+            $table->float("scale_length")->default(1);
+            $table->float("scale_width")->default(1);
+            $table->float("scale_height")->default(1);
+            $table->foreignIdFor(\App\Models\User::class)->nullable()->constrained();
             $table->timestamps();
         });
     }

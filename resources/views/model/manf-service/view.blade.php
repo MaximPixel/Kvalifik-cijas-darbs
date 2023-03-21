@@ -3,6 +3,9 @@
 @section("content")
 <h1>{{ $manfService->name }}</h1>
 <p>{{ $manfService->description }}</p>
+<p>
+    <a href="{{ route('model.order', ['action' => 'create', 'service' => $manfService->getCode()]) }}">create order</a>
+</p>
 
 <p>printers:</p>
 <ul>

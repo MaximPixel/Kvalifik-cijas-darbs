@@ -14,29 +14,46 @@ class PrintModelController extends Controller {
 
     public function view(Request $request) {
         if ($request->has("action")) {
-            $action = $request->query("action");
+            $action = $request->get("action");
 
             if ($action == "create") {
                 return view("model.print-model.create");
+            } else if ($action == "delete") {
+                if ($request->has("code")) {
+                    $printModel = PrintModel::firstCodeOrFail($request->get("code"));
+                    return view("yesno");
+                }
+            } else if ($action == "download") {
+                if ($request->has("code")) {
+                    $printModel = PrintModel::firstCodeOrFail($request->get("code"));
+                    $storage = Storage::disk("models");
+                    return $storage->download($printModel->getCode(), $printModel->getCode() . ".stl");
+                }
             }
+        } else if ($request->has("code")) {
+            $printModel = PrintModel::firstCodeOrFail($request->get("code"));
+            return view("model.print-model.view", ["printModel" => $printModel]);
         }
     }
 
     public function post(Request $request) {
         if ($request->has("action")) {
-            $action = $request->query("action");
+            $action = $request->get("action");
 
             if ($action == "create") {
                 $data = $request->validate([
-                    "modelFile" => "file",
+                    "modelFile" => "required|file",
+                    "name" => "string",
                 ]);
 
                 $printModel = new PrintModel;
+                $printModel->name = $data["name"];
                 $printModel->length = 0;
                 $printModel->width = 0;
                 $printModel->height = 0;
                 $printModel->diameter = 0;
                 $printModel->volume = 0;
+                $printModel->user_id = auth()->user()->id;
                 $printModel->save();
 
                 $filename = $printModel->getCode();
@@ -62,7 +79,13 @@ class PrintModelController extends Controller {
                 $printModel->volume = $volume;
                 $printModel->save();
 
-                return redirect()->route("index");
+                return redirect($printModel->getRoute());
+            } else if ($action == "delete") {
+                if ($request->has("code")) {
+                    $printModel = PrintModel::firstCodeOrFail($request->get("code"));
+                    $printModel->delete();
+                    return redirect()->route("index");
+                }
             }
         }
     }

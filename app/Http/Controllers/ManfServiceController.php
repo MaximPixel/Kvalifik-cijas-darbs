@@ -26,6 +26,15 @@ class ManfServiceController extends Controller {
                     }
                 }
 
+                if ($request->has("model")) {
+                    $model = \App\Models\PrintModel::firstCode($request->get("model"));
+                    if ($model) {
+                        $manfServicesQuery->whereServiceCanPrint($model);
+                    }
+                }
+
+                $manfServicesQuery->orderBy("id");
+
                 return view("model.manf-service.list", [
                     "totalManfServices" => $totalManfServices,
                     "manfServices" => $manfServicesQuery->get(),
@@ -46,6 +55,11 @@ class ManfServiceController extends Controller {
                 return view("model.manf-service.add-printer", ["manfService" => $manfService, "printers" => $printers]);
             } else if ($action == "remove-printer") {
                 return view("yesno");
+            } else if ($action == "delete") {
+                if ($request->has("code")) {
+                    $manfService = ManfService::firstCodeOrFail($request->query("code"));
+                    return view("yesno");
+                }
             }
         } else if ($request->has("code")) {
             $code = $request->input("code");
@@ -101,6 +115,12 @@ class ManfServiceController extends Controller {
                 $manfServicePrinter->delete();
 
                 return redirect($manfService->getRoute());
+            } else if ($action == "delete") {
+                if ($request->has("code")) {
+                    $manfService = ManfService::firstCodeOrFail($request->query("code"));
+                    $manfService->delete();
+                    return redirect()->route("index");
+                }
             }
         }
     }

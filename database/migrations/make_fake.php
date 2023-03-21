@@ -10,14 +10,70 @@ return new class extends Migration {
 
     private $users, $featTypes, $printers, $manfs, $services;
 
-    public function up(): void
-    {
+    public function up(): void {
+        $user = new \App\Models\User;
+        $user->name = "testtest";
+        $user->email = "test@test.test";
+        $user->password = "$2y$10\$KL.WiHnyABT.kCBWkNECH.a6.V8zV5oidlzBK0gyLjExtRVH/oeOi";
+        $user->save();
+
         $this->faker = \Faker\Factory::create();
         $this->users = $this->createUsers();
         $this->featTypes = $this->createFeatTypes();
         $this->printers = $this->createPrinters();
         $this->manfs = $this->createManfs();
         $this->services = $this->createServices();
+        $this->createPrintMaterials();
+    }
+
+    private function createPrintMaterials() {
+        $data = [
+            [
+                "name" => "Ender PLA",
+                "description" => "",
+                "manufacturer" => "CREALITY",
+                "type" => "PLA",
+                "min_temp" => 190,
+                "max_temp" => 230,
+                "colors" => ["WHITE", "FFFFFF", "BLACK", "000000", "RED", "FF0000", "YELLOW", "FFFF00", "GRAY", "808080", "BLUE", "0000FF"],
+            ],
+            [
+                "name" => "CR PLA",
+                "description" => "",
+                "manufacturer" => "CREALITY",
+                "type" => "PLA",
+                "min_temp" => 190,
+                "max_temp" => 230,
+                "colors" => ["WHITE", "FFFFFF", "BLACK", "000000", "RED", "FF0000", "YELLOW", "FFFF00", "GRAY", "808080", "BLUE", "0000FF", "GREEN", "00FF00", "SILVER", "D3D3D3"],
+            ],
+            [
+                "name" => "HP-Ultra PLA",
+                "description" => "",
+                "manufacturer" => "CREALITY",
+                "type" => "PLA",
+                "min_temp" => 190,
+                "max_temp" => 230,
+                "colors" => ["BLUE", "0000FF", "GREEN", "00FF00", "GRAY", "808080", "WHITE", "FFFFFF", "BLACK", "000000", "RED", "FF0000", "ORANGE", "FFA500"],
+            ],
+        ];
+
+        foreach ($data as $row) {
+            $printMaterial = new \App\Models\PrintMaterial;
+            foreach ($row as $key => $value) {
+                if ($key != "colors") {
+                    $printMaterial->$key = $value;
+                }
+            }
+            $printMaterial->save();
+
+            for ($i = 0; $i < count($row["colors"]) / 2; $i++) {
+                $printMaterialColor = new \App\Models\PrintMaterialColor;
+                $printMaterialColor->print_material_id = $printMaterial->id;
+                $printMaterialColor->name = $row["colors"][$i * 2];
+                $printMaterialColor->hex = $row["colors"][$i * 2 + 1];
+                $printMaterialColor->save();
+            }
+        }
     }
 
     private function createUsers($count = 5) {
@@ -156,7 +212,7 @@ return new class extends Migration {
                     "print-resolution" => [0.1, "mm"],
                     "print-volume-x" => [300, "°C"],
                     "print-volume-y" => [300, "°C"],
-                    "print-volume-z" => 320,
+                    "print-volume-z" => [320, "mm"],
                     "printer-layer-height-min" => [0.1, "mm"],
                     "printer-layer-height-max" => [0.35, "mm"],
                     "filament-diameter" => [1.75, "mm"],
@@ -188,7 +244,7 @@ return new class extends Migration {
                     "print-resolution" => [0.1, "mm"],
                     "print-volume-x" => [250, "mm"],
                     "print-volume-y" => [250, "mm"],
-                    "print-volume-z" => 400,
+                    "print-volume-z" => [400, "mm"],
                     "printer-layer-height-min" => [0.1, "mm"],
                     "printer-layer-height-max" => [0.4, "mm"],
                     "filament-diameter" => [1.75, "mm"],

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ManfService extends Model {
 
     public static function getListRoute() {
-        return route("mode.manf-service", ["action" => "list"]);
+        return route("model.manf-service", ["action" => "list"]);
     }
 
     public static function getCreateRoute(Manf $manf) {

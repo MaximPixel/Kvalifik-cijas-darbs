@@ -7,6 +7,8 @@ use App\Http\Controllers\ManfController;
 use App\Http\Controllers\ManfServiceController;
 use App\Http\Controllers\PrinterController;
 use App\Http\Controllers\PrintModelController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UserAddressController;
 
 Route::get("/", fn() => view("index"))->name("index");
 
@@ -27,3 +29,9 @@ Route::post("/printer", [PrinterController::class, "post"]);
 
 Route::get("/model", [PrintModelController::class, "view"])->name("model.print-model");
 Route::post("/model", [PrintModelController::class, "post"]);
+
+Route::get("/order", [OrderController::class, "view"])->name("model.order");
+Route::post("/order", [OrderController::class, "post"]);
+
+Route::get("/address", [UserAddressController::class, "view"])->name("model.user-address");
+Route::post("/address", [UserAddressController::class, "post"]);

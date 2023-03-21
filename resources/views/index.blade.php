@@ -16,7 +16,7 @@ $modelClasses = [
 </p>
 @foreach ($modelClass::all() as $model)
 <p>
-    <a href="{{ $model->getRoute() }}">{{ $model->getCode() }}</a>
+    <a href="{{ $model->getRoute() }}">{{ $model->name }}</a>
 </p>
 @endforeach
 @endforeach

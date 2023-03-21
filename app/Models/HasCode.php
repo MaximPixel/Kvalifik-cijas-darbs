@@ -6,7 +6,9 @@ trait HasCode {
 
     public static function booted() {
         static::saving(function ($model) {
-            $model->generateCode();
+            if (!$model->exists) {
+                $model->generateCode();
+            }
         });
     }
 

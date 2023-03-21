@@ -22,7 +22,7 @@
                         <option
                             value="{{ $model->getCode() }}"
                             @if (request()->get("model") == $model->getCode()) selected @endif
-                        >{{ $model->getCode() }}</option>
+                        >{{ $model->name }}</option>
                     @endforeach
                     </select>
                     <input type="submit" value="filter">
