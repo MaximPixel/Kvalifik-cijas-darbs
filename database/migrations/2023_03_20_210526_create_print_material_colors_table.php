@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('print_material_colors', function (Blueprint $table) {
             $table->id();
             $table->string("code")->collation("utf8mb4_bin")->nullable()->unique();
+            $table->boolean("deleted")->default(false);
             $table->foreignIdFor(\App\Models\PrintMaterial::class)->constrained();
             $table->string("name");
             $table->string("hex");

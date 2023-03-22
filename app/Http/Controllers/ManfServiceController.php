@@ -16,8 +16,8 @@ class ManfServiceController extends Controller {
             $action = $request->input("action");
 
             if ($action == "list") {
-                $totalManfServices = ManfService::all();
-                $manfServicesQuery = ManfService::query();
+                $totalManfServices = ManfService::where("deleted", false)->get();
+                $manfServicesQuery = ManfService::where("deleted", false);
                 
                 if ($request->has("manf")) {
                     $manf = Manf::firstCode($request->get("manf"));
@@ -134,7 +134,8 @@ class ManfServiceController extends Controller {
             } else if ($action == "delete") {
                 if ($request->has("code")) {
                     $manfService = ManfService::firstCodeOrFail($request->query("code"));
-                    $manfService->delete();
+                    $manfService->deleted = true;
+                    $manfService->save();
                     return redirect()->route("index");
                 }
             } else if ($action == "edit-materials") {

@@ -16,6 +16,7 @@ class PrintModel extends Model {
     use HasFactory, HasCode, HasCodeRoute;
 
     public function delete() {
+        parent::delete();
         Storage::disk("models")->delete($this->getCode());
     }
 

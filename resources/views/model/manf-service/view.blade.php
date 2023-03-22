@@ -10,7 +10,7 @@
 <p>printers:</p>
 <ul>
     <li>
-        <a href="{{ route('model.manf-service', ['action' => 'add-printer', 'code' => $manfService->getCode() ]) }}">add printer</a>
+        <a href="{{ $manfService->getActionRoute('add-printer') }}">@lang("model.manf-service.action.add-printer")</a>
     </li>
 @foreach ($manfService->manfServicePrinters as $manfServicePrinter)
 @php $printer = $manfServicePrinter->printer @endphp
@@ -28,7 +28,7 @@
 @endphp
 <ul>
     <li>
-        <a href="{{ route('model.manf-service', ['code' => $manfService->getCode(), 'action' => 'edit-materials']) }}">edit materials</a>
+        <a href="{{ $manfService->getActionRoute('edit-materials') }}">@lang("model.manf-service.action.edit-materials")</a>
     </li>
 @foreach ($materials as $material)
     <li>{{ $material->name }}</li>
@@ -48,4 +48,8 @@
     </li>
 @endforeach
 </ul>
+
+<p>
+    <a href="{{ $manfService->getActionRoute('delete') }}">@lang("model.manf-service.action.delete")</a>
+</p>
 @endsection

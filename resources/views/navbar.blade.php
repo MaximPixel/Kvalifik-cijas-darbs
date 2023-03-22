@@ -7,10 +7,10 @@
         <a class="nav-link" href="{{ route('model.manf-service', ['action' => 'list']) }}">@lang("navbar.services-list")</a>
       </div>
       <div class="navbar-nav ml-auto">
-    @if (auth()->user())
+    @if (auth()->check())
         <li class="nav-item">
             <a class="nav-link" href="{{ route('model.print-model', ['action' => 'list', 'user' => auth()->user()->getCode()]) }}">
-                <span>@lang("navbar.my-models") <span class="badge bg-primary">{{ \App\Models\PrintModel::where("user_id", auth()->user()->id)->count() }}</span></span>
+                <span>@lang("navbar.my-models") <span class="badge bg-primary">{{ auth()->user()->printModelsVisible->count() }}</span></span>
             </a>
         </li>
         <li class="nav-item">

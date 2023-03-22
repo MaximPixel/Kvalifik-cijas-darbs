@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('print_models', function (Blueprint $table) {
             $table->id();
             $table->string("code")->collation("utf8mb4_bin")->nullable()->unique();
+            $table->boolean("deleted")->default(false);
             $table->string("name")->nullable();
             $table->float("length");
             $table->float("width");

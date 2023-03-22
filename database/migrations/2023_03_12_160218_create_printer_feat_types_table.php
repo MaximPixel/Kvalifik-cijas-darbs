@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('printer_feat_types', function (Blueprint $table) {
             $table->id();
             $table->string("code")->collation("utf8mb4_bin")->nullable()->unique();
+            $table->boolean("deleted")->default(false);
             $table->boolean("required")->default(false);
             $table->boolean("allow_many_values")->default(true);
             $table->string("measure_type");

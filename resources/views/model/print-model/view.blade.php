@@ -9,6 +9,12 @@
 <p>diameter: {{ $printModel->diameter }} mm</p>
 <p>volume: {{ $printModel->volume }} mm3</p>
 <p>
-    <a href="{{ route('model.print-model', ['action' => 'download', 'code' => $printModel->getCode()]) }}" target="_blank">download</a>
+    <a href="{{ $printModel->getActionRoute('download') }}" target="_blank">@lang("model.print-model.action.download")</a>
+</p>
+<p>
+    <a href="{{ $printModel->getActionRoute('edit') }}">@lang("model.print-model.action.edit")</a>
+</p>
+<p>
+    <a href="{{ $printModel->getActionRoute('delete') }}">@lang("model.print-model.action.delete")</a>
 </p>
 @endsection

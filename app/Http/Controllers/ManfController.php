@@ -57,7 +57,8 @@ class ManfController extends Controller {
             } else if ($action == "delete") {
                 if ($request->has("code")) {
                     $manf = Manf::firstCodeOrFail($request->query("code"));
-                    $manf->delete();
+                    $manf->deleted = true;
+                    $manf->save();
                     return redirect()->route("index");
                 }
             }

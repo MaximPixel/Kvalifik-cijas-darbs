@@ -12,7 +12,7 @@
         <input class="form-control" type="text" name="name" id="name">
     </div>
     <div class="form-group">
-        <input class="btn btn-primary" type="submit" value="create">
+        <input class="btn btn-primary" type="submit" value="@lang('model.print-model.action.create')">
     </div>
 </form>
 @endsection

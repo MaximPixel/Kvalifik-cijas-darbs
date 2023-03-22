@@ -56,7 +56,8 @@ class OrderController extends Controller {
             } else if ($action == "delete") {
                 if ($request->has("code")) {
                     $order = Order::firstCodeOrFail($request->get("code"));
-                    $order->delete();
+                    $order->deleted = true;
+                    $order->save();
                     return redirect()->route("index");
                 }
             }

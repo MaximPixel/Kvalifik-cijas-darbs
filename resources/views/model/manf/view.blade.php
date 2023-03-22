@@ -13,4 +13,8 @@
     <a href="{{ $manfService->getRoute() }}">{{ $manfService->name }}</a>
 </p>
 @endforeach
+
+<p>
+    <a href="{{ $manf->getActionRoute('delete') }}">@lang("model.manf.action.delete")</a>
+</p>
 @endsection

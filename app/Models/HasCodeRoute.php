@@ -4,8 +4,15 @@ namespace App\Models;
 
 trait HasCodeRoute {
 
+    public function getKebabClass() {
+        return str(basename(__CLASS__))->kebab();
+    }
+
     public function getRoute() {
-        $classKebab = str(basename(__CLASS__))->kebab();
-        return route("model.$classKebab", ["code" => $this->getCode()]);
+        return route("model." . $this->getKebabClass(), ["code" => $this->getCode()]);
+    }
+
+    public function getActionRoute($action) {
+        return route("model." . $this->getKebabClass(), ["code" => $this->getCode(), "action" => $action]);
     }
 }

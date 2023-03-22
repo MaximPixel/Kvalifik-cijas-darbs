@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('printers', function (Blueprint $table) {
             $table->id();
             $table->string("code")->collation("utf8mb4_bin")->nullable()->unique();
+            $table->boolean("deleted")->default(false);
             $table->foreignIdFor(\App\Models\Printer::class, "parent_printer_id")->nullable()->constrained("printers")->nullOnDelete();
             $table->string("name");
             $table->text("description");

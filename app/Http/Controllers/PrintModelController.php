@@ -17,7 +17,16 @@ class PrintModelController extends Controller {
             $action = $request->get("action");
 
             if ($action == "create") {
+                if (!auth()->check()) {
+                    return autoredirect();
+                }
+
                 return view("model.print-model.create");
+            } else if ($action == "edit") {
+                if ($request->has("code")) {
+                    $printModel = PrintModel::firstCodeOrFail($request->get("code"));
+                    return view("model.print-model.edit", ["printModel" => $printModel]);
+                }
             } else if ($action == "delete") {
                 if ($request->has("code")) {
                     $printModel = PrintModel::firstCodeOrFail($request->get("code"));
@@ -32,9 +41,13 @@ class PrintModelController extends Controller {
             } else if ($action == "list") {
                 if ($request->has("user")) {
                     $user = \App\Models\User::firstCodeOrFail($request->get("user"));
-                    $printModels = PrintModel::query()
-                        ->where("user_id", $user->id)
-                        ->get();
+
+                    if (!auth()->check() || $user->id != auth()->user()->id) {
+                        return autoredirect();
+                    }
+
+                    $printModels = auth()->user()->printModelsVisible;
+
                     return view("model.print-model.list", ["printModels" => $printModels]);
                 }
             }
@@ -49,9 +62,13 @@ class PrintModelController extends Controller {
             $action = $request->get("action");
 
             if ($action == "create") {
+                if (!auth()->check()) {
+                    return autoredirect();
+                }
+
                 $data = $request->validate([
                     "model-file" => "required|file",
-                    "name" => "string",
+                    "name" => "string|max:255",
                 ]);
 
                 $printModel = new PrintModel;
@@ -106,11 +123,25 @@ class PrintModelController extends Controller {
                 $printModel->save();
 
                 return redirect($printModel->getRoute());
+            } else if ($action == "edit") {
+                if ($request->has("code")) {
+                    $printModel = PrintModel::firstCodeOrFail($request->get("code"));
+
+                    $data = $request->validate([
+                        "name" => "string|max:255",
+                    ]);
+                    
+                    $printModel->name = $data["name"];
+                    $printModel->save();
+
+                    return redirect($printModel->getRoute());
+                }
             } else if ($action == "delete") {
                 if ($request->has("code")) {
                     $printModel = PrintModel::firstCodeOrFail($request->get("code"));
-                    $printModel->delete();
-                    return redirect()->route("index");
+                    $printModel->deleted = true;
+                    $printModel->save();
+                    return autoredirect();
                 }
             }
         }

@@ -82,7 +82,7 @@
         class="form-control"
         id="{{ $key }}"
         name="{{ $key }}"
-        value="{{ old($key) }}"
+        value="{{ old($key, $field["value"] ?? null) }}"
     @if ($min !== null)
         minlength="{{ $min }}"
     @endif

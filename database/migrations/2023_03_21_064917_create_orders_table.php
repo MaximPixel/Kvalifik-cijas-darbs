@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string("code")->collation("utf8mb4_bin")->nullable()->unique();
+            $table->boolean("deleted")->default(false);
             $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->foreignIdFor(\App\Models\UserAddress::class)->constrained();
             $table->foreignIdFor(\App\Models\ManfService::class)->constrained();
