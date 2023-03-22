@@ -8,8 +8,11 @@
     </p>
     <ul class="list-unstyled">
         @foreach ($printModels as $printModel)
-        <li class="media">
-            <div class="media-body">
+        <li class="d-flex mt-4 align-items-center">
+            <div class="flex-shrink-0">
+                <img class="mr-3 img-thumbnail" style="width: 100px" src="{{ $printModel->image->getUrl() }}" alt="{{ $printModel->name }}">
+            </div>
+            <div class="flex-grow-1 ms-3">
                 <h5 class="mt-0">
                     <a href="{{ $printModel->getRoute() }}">{{ $printModel->name }}</a>
                 </h5>

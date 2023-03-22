@@ -24,6 +24,7 @@ return new class extends Migration
             $table->float("scale_width")->default(1);
             $table->float("scale_height")->default(1);
             $table->foreignIdFor(\App\Models\User::class)->nullable()->constrained();
+            $table->foreignIdFor(\App\Models\Image::class)->nullable()->constrained();
             $table->timestamps();
         });
     }

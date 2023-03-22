@@ -2,6 +2,7 @@
 
 @section("content")
 <h1>{{ $printModel->name }}</h1>
+<img class="rounded img-thumbnail" style="width: 300px" src="{{ $printModel->image->getUrl() }}" alt="{{ $printModel->name }}">
 <p>length: {{ $printModel->length }} mm</p>
 <p>width: {{ $printModel->width }} mm</p>
 <p>height: {{ $printModel->height }} mm</p>

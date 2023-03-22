@@ -4,73 +4,22 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class Test extends Command
-{
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+use Illuminate\Support\Facades\Storage;
+
+class Test extends Command {
+
     protected $signature = 'app:test';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Command description';
 
-    /**
-     * Execute the console command.
-     */
-    public function handle(): void
-    {
-        $this->info(json_encode([
-            [
-                "measure_type" => "accuracy",
-                "name" => "print-resolution",
-                "description" => "",
-            ],
-            [
-                "measure_type" => "length",
-                "name" => "print-volume-x",
-                "description" => "",
-            ],
-            [
-                "measure_type" => "length",
-                "name" => "print-volume-y",
-                "description" => "",
-            ],
-            [
-                "measure_type" => "length",
-                "name" => "print-volume-z",
-                "description" => "",
-            ],
-            [
-                "measure_type" => "length",
-                "name" => "printer-layer-height-min",
-                "description" => "",
-            ],
-            [
-                "measure_type" => "length",
-                "name" => "printer-layer-height-max",
-                "description" => "",
-            ],
-            [
-                "measure_type" => "diameter",
-                "name" => "filament-diameter",
-                "description" => "",
-            ],
-            [
-                "measure_type" => "temperature",
-                "name" => "nozzle-temperature-max",
-                "description" => "",
-            ],
-            [
-                "measure_type" => "temperature",
-                "name" => "bed-temperature-max",
-                "description" => "",
-            ],
-        ], JSON_PRETTY_PRINT));
+    public function handle(): void {
+        dd(base_path() . "/python/stl_render.py");
+        $modelFilepath = Storage::disk("models")->path("TuQayi3BZkVqENB");
+        $imageFilepath = Storage::disk("images")->path("JJ1FGk7Dbxg87Jh");
+        $a = null;
+        $b = null;
+        $modelFilepath = escapeshellarg($modelFilepath);
+        $imageFilepath = escapeshellarg($imageFilepath);
+        $c = exec("python python//stl_render.py --filepath=$modelFilepath --output=$imageFilepath", $a, $b);
     }
 }

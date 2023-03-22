@@ -68,10 +68,12 @@ class PrintModelController extends Controller {
                 $storage = Storage::disk("models");
                 $storage->put($filename, file_get_contents($data["model-file"]));
 
-                $reader = STLReader::forFile($storage->path($filename));
+                $stlFilepath = $storage->path($filename);
+
+                $reader = STLReader::forFile($stlFilepath);
                 $reader->setHandler(new \PHPSTL\Handler\DimensionsHandler);
                 $dimensions = $reader->readModel();
-                $reader = STLReader::forFile($storage->path($filename));
+                $reader = STLReader::forFile($stlFilepath);
                 $reader->setHandler(new \PHPSTL\Handler\VolumeHandler);
                 $volume = $reader->readModel();
 
@@ -85,6 +87,22 @@ class PrintModelController extends Controller {
                 $printModel->height = $height;
                 $printModel->diameter = $diameter;
                 $printModel->volume = $volume;
+                $printModel->save();
+
+                $image = new \App\Models\Image;
+                $image->save();
+
+                $imagesStorage = Storage::disk("images");
+                $imageFilepath = $imagesStorage->path($image->getCode() . ".webp");
+
+                $pythonFilepath = escapeshellarg(base_path() . "/python/stl_render.py");
+                $stlFilepath = escapeshellarg($stlFilepath);
+                $imageFilepath = escapeshellarg($imageFilepath);
+                $a = null;
+                $b = null;
+                $c = exec("C:\Users\Maxim\AppData\Local\Programs\Python\Python311\python.exe $pythonFilepath --filepath=$stlFilepath --output=$imageFilepath", $a, $b);
+
+                $printModel->image_id = $image->id;
                 $printModel->save();
 
                 return redirect($printModel->getRoute());

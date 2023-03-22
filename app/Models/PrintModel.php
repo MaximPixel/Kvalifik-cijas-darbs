@@ -18,4 +18,8 @@ class PrintModel extends Model {
     public function delete() {
         Storage::disk("models")->delete($this->getCode());
     }
+
+    public function image() {
+        return $this->belongsTo(Image::class);
+    }
 }
