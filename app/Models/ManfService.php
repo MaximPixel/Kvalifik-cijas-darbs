@@ -36,9 +36,11 @@ class ManfService extends Model {
     public function calculatePrice(\App\Models\Order $order) {
         $printModel = $order->printModel;
 
-        $price = $this->price_base
-            + $printModel->volume * $this->price_per_volume
-            + $order->print_time * $this->price_per_time;
+        $price = $printModel->volume * $this->price_per_volume + $order->print_time * $this->price_per_time;
+
+        $price *= $order->amount;
+
+        $price += $this->price_base;
 
         return max($order->price_min, $price);
     }

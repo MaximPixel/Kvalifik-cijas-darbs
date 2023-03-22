@@ -39,4 +39,13 @@
     </ul>
 @endforeach
 </ul>
+
+<p>orders:</p>
+<ul>
+@foreach (\App\Models\Order::where("manf_service_id", $manfService->id)->get() as $order)
+    <li>
+        <a href="{{ $order->getRoute() }}">order #{{ $order->getCode() }}</a>
+    </li>
+@endforeach
+</ul>
 @endsection
