@@ -1,7 +1,7 @@
 @extends("layout")
 
 @section("content")
-@include("bootstrap-form", [
+@include("bootstrap.form", [
     "title" => __("model.print-model.action.edit"),
     "fields" => [
         "name" => [

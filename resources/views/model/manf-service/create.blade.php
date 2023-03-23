@@ -1,35 +1,35 @@
 @extends("layout")
 
 @section("content")
-@include("bootstrap-form", [
-    "title" => __("manf-service.action.create"),
+@include("bootstrap.form", [
+    "title" => __("model.manf-service.action.create"),
     "fields" => [
         "name" => [
-            "label" => __("manf-service.name"),
+            "label" => __("model.manf-service.name"),
             "min" => "5",
             "max" => "255",
         ],
         "description" => [
-            "label" => __("manf-service.description"),
+            "label" => __("model.manf-service.description"),
             "type" => "textarea",
         ],
         "price_base" => [
-            "label" => __("manf-service.price_base"),
+            "label" => __("model.manf-service.price_base"),
             "type" => "number",
         ],
         "price_min" => [
-            "label" => __("manf-service.price_min"),
+            "label" => __("model.manf-service.price_min"),
             "type" => "number",
         ],
         "price_per_time" => [
-            "label" => __("manf-service.price_per_time"),
+            "label" => __("model.manf-service.price_per_time"),
             "type" => "number",
         ],
         "price_per_volume" => [
-            "label" => __("manf-service.price_per_volume"),
+            "label" => __("model.manf-service.price_per_volume"),
             "type" => "number",
         ],
     ],
-    "submit" => __("manf-service.action.submit"),
+    "submit" => __("model.manf-service.action.create-submit"),
 ])
 @endsection

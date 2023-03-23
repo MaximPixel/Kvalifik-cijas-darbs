@@ -1,18 +1,17 @@
 @extends("layout")
 
 @section("content")
-<form action="" method="POST" enctype="multipart/form-data">
-    @csrf
-    <div class="form-group">
-        <label for="model-file">@lang("model.print-model.model-file")</label>
-        <input class="form-control" type="file" name="model-file" id="model-file">
-    </div>
-    <div class="form-group">
-        <label for="name">@lang("model.print-model.name")</label>
-        <input class="form-control" type="text" name="name" id="name">
-    </div>
-    <div class="form-group">
-        <input class="btn btn-primary" type="submit" value="@lang('model.print-model.action.create')">
-    </div>
-</form>
+@include("bootstrap.form", [
+    "title" => __("model.print-model.action.create"),
+    "enctype" => "multipart/form-data",
+    "fields" => [
+        "model-file" => [
+            "type" => "file",
+        ],
+        "name" => [
+            "label" => __("model.print-model.name"),
+        ],
+    ],
+    "submit" => __("model.print-model.action.submit-create"),
+])
 @endsection

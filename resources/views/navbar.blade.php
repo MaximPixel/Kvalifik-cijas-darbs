@@ -21,17 +21,14 @@
             </a>
         </li>
         <li class="nav-item">
-            <span class="nav-link">{{ auth()->user()->id }}</span>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('auth.logout') }}">@lang("navbar.logout")</a>
+            <a class="nav-link" href="{{ route('auth.logout', ['redirect' => url()->full() ]) }}">@lang("navbar.logout")</a>
         </li>
     @else
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('auth.login') }}">@lang("navbar.login")</a>
+            <a class="nav-link" href="{{ route('auth.login', ['redirect' => url()->full() ]) }}">@lang("navbar.login")</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('auth.register') }}">@lang("navbar.register")</a>
+            <a class="nav-link" href="{{ route('auth.register', ['redirect' => url()->full() ]) }}">@lang("navbar.register")</a>
         </li>
     @endif
       </div>

@@ -2,19 +2,25 @@
 
 @section("content")
 <h1>{{ $printModel->name }}</h1>
-<img class="rounded img-thumbnail" style="width: 300px" src="{{ $printModel->image->getUrl() }}" alt="{{ $printModel->name }}">
-<p>length: {{ $printModel->length }} mm</p>
-<p>width: {{ $printModel->width }} mm</p>
-<p>height: {{ $printModel->height }} mm</p>
-<p>diameter: {{ $printModel->diameter }} mm</p>
-<p>volume: {{ $printModel->volume }} mm3</p>
+<img class="rounded img-thumbnail mb-3" style="width: 300px" src="{{ $printModel->image->getUrl() }}" alt="{{ $printModel->name }}">
+
+<div class="card mb-3">
+    <div class="card-header">@lang("model.print-model.parameters")</div>
+    <div class="card-body">
+        <p>@lang("model.print-model.length"): {{ $printModel->length }} mm</p>
+        <p>@lang("model.print-model.width"): {{ $printModel->width }} mm</p>
+        <p>@lang("model.print-model.height"): {{ $printModel->height }} mm</p>
+        <p>@lang("model.print-model.volume"): {{ $printModel->volume }} mm3</p>
+    </div>
+</div>
+
 <p>
-    <a href="{{ $printModel->getActionRoute('download') }}" target="_blank">@lang("model.print-model.action.download")</a>
+    <a class="btn btn-primary" href="{{ $printModel->getActionRoute('download') }}" target="_blank">@lang("model.print-model.action.download")</a>
 </p>
 <p>
-    <a href="{{ $printModel->getActionRoute('edit') }}">@lang("model.print-model.action.edit")</a>
+    <a class="btn btn-primary" href="{{ $printModel->getActionRoute('edit') }}">@lang("model.print-model.action.edit")</a>
 </p>
 <p>
-    <a href="{{ $printModel->getActionRoute('delete') }}">@lang("model.print-model.action.delete")</a>
+    <a class="btn btn-primary" href="{{ $printModel->getActionRoute('delete') }}">@lang("model.print-model.action.delete")</a>
 </p>
 @endsection

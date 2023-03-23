@@ -1,7 +1,7 @@
 @extends("layout")
 
 @section("content")
-@include("bootstrap-form", [
+@include("bootstrap.form", [
     "title" => __("auth.register"),
     "fields" => [
         "name" => [

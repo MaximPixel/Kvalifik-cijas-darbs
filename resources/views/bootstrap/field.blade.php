@@ -1,23 +1,9 @@
-<form action="" method="POST">
-    @csrf
-    <h3 class="mb-3">{{ $title }}</h3>
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-        </ul>
-    </div>
-@endif
-@foreach ($fields as $key => $field)
 @php
     $type = $field["type"] ?? "text";
     $label = $field["label"] ?? null;
     $min = $field["min"] ?? null;
     $max = $field["max"] ?? null;
 @endphp
-<div class="form-group">
 @if ($label)
 @if ($type == "featValue")
     <label for="{{ $key }}">{{ $label }} ({{ $field["featType"]->measure_type }})</label>
@@ -91,7 +77,3 @@
     @endif
     >
 @endif
-</div>
-@endforeach
-    <input type="submit" class="btn btn-primary" value="{{ $submit }}">
-</form>

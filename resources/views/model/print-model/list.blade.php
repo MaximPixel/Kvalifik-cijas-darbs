@@ -2,9 +2,9 @@
 
 @section("content")
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-    <h1>models</h1>
+    <h1>@lang("model.print-model.list.title")</h1>
     <p>
-        <a href="{{ route('model.print-model', ['action' => 'create']) }}">upload and create new</a>
+        <a class="btn btn-primary" href="{{ route('model.print-model', ['action' => 'create']) }}">@lang("model.print-model.list.action.create-new")</a>
     </p>
     <ul class="list-unstyled">
         @foreach ($printModels as $printModel)

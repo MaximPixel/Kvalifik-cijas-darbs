@@ -1,19 +1,19 @@
 @extends("layout")
 
 @section("content")
-@include("bootstrap-form", [
-    "title" => __("manf.action.create"),
+@include("bootstrap.form", [
+    "title" => __("model.manf.action.create"),
     "fields" => [
         "name" => [
-            "label" => __("manf.name"),
+            "label" => __("model.manf.name"),
             "min" => "5",
             "max" => "255",
         ],
         "email" => [
-            "label" => __("manf.email"),
+            "label" => __("model.manf.email"),
             "type" => "email",
         ],
     ],
-    "submit" => __("manf.action.submit"),
+    "submit" => __("model.manf.action.submit-create"),
 ])
 @endsection

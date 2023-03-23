@@ -21,7 +21,7 @@ class AuthController extends Controller {
 
         auth()->login($user);
 
-        return redirect()->route("index");
+        return autoredirect();
     }
     
     public function loginView(Request $request) {
@@ -32,7 +32,7 @@ class AuthController extends Controller {
         $data = $request->only("email", "password");
 
         if (auth()->attempt($data)) {
-            return redirect()->route("index");
+            return autoredirect();
         } else {
             return redirect()->back()->withErrors(["msg", "Invalid login credentials"]);
         }
@@ -42,6 +42,6 @@ class AuthController extends Controller {
         auth()->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route("index");
+        return autoredirect();
     }
 }
