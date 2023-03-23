@@ -39,4 +39,22 @@ class User extends Authenticatable {
         return $this->hasMany(PrintModel::class)
             ->where("deleted", false);
     }
+
+    public function userAddresses() {
+        return $this->hasMany(UserAddress::class);
+    }
+
+    public function userAddressesVisible() {
+        return $this->hasMany(UserAddress::class)
+            ->where("deleted", false);
+    }
+
+    public function orders() {
+        return $this->hasMany(Order::class);
+    }
+
+    public function ordersVisible() {
+        return $this->hasMany(Order::class)
+            ->where("deleted", false);
+    }
 }

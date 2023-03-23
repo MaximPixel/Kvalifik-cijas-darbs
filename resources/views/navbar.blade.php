@@ -8,6 +8,13 @@
       </div>
       <div class="navbar-nav ml-auto">
     @if (auth()->check())
+    @if (auth()->user()->ordersVisible->isNotEmpty())
+      <li class="nav-item">
+          <a class="nav-link" href="{{ route('model.order', ['action' => 'list', 'user' => auth()->user()->getCode()]) }}">
+              <span>@lang("navbar.my-orders") <span class="badge bg-primary">{{ auth()->user()->ordersVisible->count() }}</span></span>
+          </a>
+      </li>
+    @endif
         <li class="nav-item">
             <a class="nav-link" href="{{ route('model.print-model', ['action' => 'list', 'user' => auth()->user()->getCode()]) }}">
                 <span>@lang("navbar.my-models") <span class="badge bg-primary">{{ auth()->user()->printModelsVisible->count() }}</span></span>

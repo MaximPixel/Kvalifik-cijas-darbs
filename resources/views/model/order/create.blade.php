@@ -1,10 +1,10 @@
 @extends("layout")
 
 @section("content")
-@if (\App\Models\UserAddress::all()->isEmpty())
+@if (auth()->user()->userAddressesVisible->isEmpty())
 <p>You don't have any addresses. Create?</p>
 <p>
-    <a href="{{ \App\Models\UserAddress::getCreateRoute() }}">create</a>
+    <a href="{{ \App\Models\UserAddress::getCreateRoute(['redirect' => url()->full()]) }}">create</a>
 </p>
 @else
 <form action="" method="POST">
@@ -58,7 +58,7 @@
         <label for="comment">@lang("model.order.comment")</label>
         <textarea class="form-control" name="comment" id="" cols="30" rows="10"></textarea>
     </div>
-    <input type="submit" value="create">
+    <input type="submit" value="@lang('model.order.action.create')">
 </form>
 @endif
 @endsection

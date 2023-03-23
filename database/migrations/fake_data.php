@@ -8,7 +8,7 @@ return new class extends Migration {
 
     private $faker;
 
-    private $users, $featTypes, $printers, $manfs, $services;
+    private $users, $featTypes, $printers, $manfs, $printMaterials, $services;
 
     public function up(): void {
         $user = new \App\Models\User;
@@ -22,8 +22,8 @@ return new class extends Migration {
         $this->featTypes = $this->createFeatTypes();
         $this->printers = $this->createPrinters();
         $this->manfs = $this->createManfs();
+        $this->printMaterials = $this->createPrintMaterials();
         $this->services = $this->createServices();
-        $this->createPrintMaterials();
     }
 
     private function createPrintMaterials() {
@@ -57,6 +57,8 @@ return new class extends Migration {
             ],
         ];
 
+        $printMaterials = collect();
+
         foreach ($data as $row) {
             $printMaterial = new \App\Models\PrintMaterial;
             foreach ($row as $key => $value) {
@@ -73,7 +75,10 @@ return new class extends Migration {
                 $printMaterialColor->hex = $row["colors"][$i * 2 + 1];
                 $printMaterialColor->save();
             }
+            $printMaterials->push($printMaterial);
         }
+
+        return $printMaterials;
     }
 
     private function createUsers($count = 5) {
@@ -342,6 +347,11 @@ return new class extends Migration {
             $servicePrinter->manf_service_id = $service->id;
             $servicePrinter->printer_id = $this->printers->random()->id;
             $servicePrinter->save();
+
+            $servicePrintMaterialColor = new \App\Models\ManfServicePrintMaterialColor;
+            $servicePrintMaterialColor->manf_service_id = $service->id;
+            $servicePrintMaterialColor->print_material_color_id = $this->printMaterials->random()->printMaterialColors->random()->id;
+            $servicePrintMaterialColor->save();
         }
 
         return $services;

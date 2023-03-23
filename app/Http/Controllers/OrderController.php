@@ -23,6 +23,18 @@ class OrderController extends Controller {
                     $order = Order::firstCodeOrFail($request->get("code"));
                     return view("yesno");
                 }
+            } else if ($action == "list") {
+                if ($request->has("user")) {
+                    $user = \App\Models\User::firstCodeOrFail($request->get("user"));
+
+                    if (!auth()->check() || $user->id != auth()->user()->id) {
+                        return autoredirect();
+                    }
+
+                    $orders = auth()->user()->ordersVisible;
+
+                    return view("model.order.list", ["orders" => $orders]);
+                }
             }
         } else if ($request->has("code")) {
             $order = Order::firstCodeOrFail($request->get("code"));

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('user_addresses', function (Blueprint $table) {
             $table->id();
             $table->string("code")->collation("utf8mb4_bin")->nullable()->unique();
+            $table->boolean("deleted")->default(false);
             $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->string("contact_name");
             $table->string("phone_number_prefix");
