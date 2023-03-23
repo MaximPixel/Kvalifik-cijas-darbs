@@ -9,6 +9,7 @@ return new class extends Migration {
     private $faker;
 
     private $users, $featTypes, $printers, $manfs, $printMaterials, $services;
+    private $orderStatuses;
 
     public function up(): void {
         $user = new \App\Models\User;
@@ -24,6 +25,26 @@ return new class extends Migration {
         $this->manfs = $this->createManfs();
         $this->printMaterials = $this->createPrintMaterials();
         $this->services = $this->createServices();
+
+        $this->orderStatuses = $this->createOrderStatuses();
+    }
+
+    private function createOrderStatuses() {
+        $names = [
+            "pending",
+            "awaiting_payment",
+            "printing",
+            "cancelled_by_user",
+            "cancelled_by_manf",
+            "shipped",
+            "finished",
+        ];
+
+        foreach ($names as $name) {
+            $orderStatus = new \App\Models\OrderStatus;
+            $orderStatus->name = $name;
+            $orderStatus->save();
+        }
     }
 
     private function createPrintMaterials() {
