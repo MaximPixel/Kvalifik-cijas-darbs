@@ -5,7 +5,7 @@
 <p>{{ $manfService->description }}</p>
 @if (auth()->check())
 <p>
-    <a class="btn btn-primary" href="{{ route('model.order', ['action' => 'create', 'service' => $manfService->getCode()]) }}">@lang("model.manf.action.create-order")</a>
+    <a class="btn btn-primary" href="{{ route('model.order', ['action' => 'create', 'service' => $manfService->getCode()]) }}">@lang("model.manf-service.action.create-order")</a>
 </p>
 @endif
 

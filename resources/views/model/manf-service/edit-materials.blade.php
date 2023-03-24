@@ -22,6 +22,6 @@
         </ul>
     @endforeach
     </ul>
-    <input type="submit" value="save">
+    <input class="btn btn-primary" type="submit" value="@lang('model.manf-service.action.edit-materials-submit')">
 </form>
 @endsection

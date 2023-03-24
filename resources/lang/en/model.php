@@ -1,10 +1,23 @@
 <?php
 
 return [
+    "manf" => [
+        "services" => "Manufacturer Services",
+        "action" => [
+            "create-service" => "Create Service",
+            "delete" => "Delete",
+        ],
+    ],
     "manf-service" => [
         "printers" => "Service Available Printers",
         "materials" => "Service Available Materials",
         "orders" => "Service Orders",
+        "name" => "Name",
+        "description" => "Description",
+        "price_base" => "Base Price",
+        "price_min" => "Min Price",
+        "price_per_time" => "Price per Print Minute",
+        "price_per_volume" => "Price per Print cm3",
         "list" => [
             "title" => "Services List",
             "manf" => "Filter by Manufacturer",
@@ -15,14 +28,33 @@ return [
             ],
         ],
         "action" => [
+            "create-order" => "Create Order",
             "add-printer" => "Add a Printer to the List",
             "remove-printer" => "remove",
             "edit-materials" => "Edit Available Materials & Colors",
+            "delete" => "Delete",
+            "create" => "Create Service",
+            "create-submit" => "Create",
+            "edit-materials-submit" => "Save Materials",
         ],
     ],
     "order" => [
-        "display-name" => "order #:code",
+        "display-name" => "Order #:code",
+        "address" => "Address",
+        "model" => "Model",
+        "material_color" => "Material Color",
+        "material" => "Material",
+        "amount" => "Amount",
+        "comment" => "Comment",
+        "service" => "Service",
+        "time" => "Time",
+        "time-not-defined" => "not defined",
+        "price" => "Calculated price",
+        "price-cant-calculate" => "Can't calculate price",
         "action" => [
+            "list" => "Orders List",
+            "create" => "Create Order",
+            "submit-create" => "Create",
             "create-address" => "Create Address",
         ],
     ],
@@ -46,5 +78,18 @@ return [
     ],
     "user-address" => [
         "missing" => "You don't have any addresses. Create?",
+        "contact_name" => "Contact Name (First and Last Names)",
+        "phone_number_prefix" => "Phone number prefix",
+        "phone_number" => "Phone number",
+        "address_street" => "address",
+        "address_apt" => "Aprtment, suite, building floor (optional)",
+        "address_province" => "Province",
+        "address_city" => "City",
+        "address_zipcode" => "Zipcode",
+        "comment" => "Comment",
+        "action" => [
+            "create" => "Create Address",
+            "submit" => "Create",
+        ],
     ],
 ];

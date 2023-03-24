@@ -27,6 +27,7 @@ class PrinterController extends Controller {
             $code = $request->query("code");
 
             $printer = Printer::query()
+                ->where("deleted", false)
                 ->with([
                     "printerFeats",
                     "printerFeats.printerFeatValue",

@@ -37,7 +37,7 @@ class OrderController extends Controller {
                 }
             }
         } else if ($request->has("code")) {
-            $order = Order::firstCodeOrFail($request->get("code"));
+            $order = Order::where("deleted", false)->firstCodeOrFail($request->get("code"));
             return view("model.order.view", ["order" => $order]);
         }
     }

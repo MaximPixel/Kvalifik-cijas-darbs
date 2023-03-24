@@ -52,7 +52,7 @@ class PrintModelController extends Controller {
                 }
             }
         } else if ($request->has("code")) {
-            $printModel = PrintModel::firstCodeOrFail($request->get("code"));
+            $printModel = PrintModel::where("deleted", false)->firstCodeOrFail($request->get("code"));
             return view("model.print-model.view", ["printModel" => $printModel]);
         }
     }

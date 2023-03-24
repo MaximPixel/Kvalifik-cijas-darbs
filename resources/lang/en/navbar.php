@@ -5,5 +5,6 @@ return [
     "login" => "Login",
     "register" => "Register",
     "my-models" => "My Models",
+    "my-orders" => "My Orders",
     "logout" => "Logout",
 ];

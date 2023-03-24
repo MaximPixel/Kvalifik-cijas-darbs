@@ -9,12 +9,12 @@ $printMaterials = $printMaterialColors->pluck("printMaterial")->unique("id");
 @if (auth()->user()->userAddressesVisible->isEmpty())
 <p>@lang("model.user-address.missing")</p>
 <p>
-    <a href="{{ \App\Models\UserAddress::getCreateRoute(['redirect' => url()->full()]) }}">@lang("model.order.action.create-address")</a>
+    <a class="btn btn-primary" href="{{ \App\Models\UserAddress::getCreateRoute(['redirect' => url()->full()]) }}">@lang("model.order.action.create-address")</a>
 </p>
 @else
 <form action="" method="POST">
     @csrf
-    <h3 class="mb-3">@lang("model.order.create")</h3>
+    <h3 class="mb-3">@lang("model.order.action.create")</h3>
     @include("bootstrap.errors")
 
     <div class="mb-3">

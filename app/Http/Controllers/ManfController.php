@@ -23,7 +23,7 @@ class ManfController extends Controller {
                 }
             }
         } else if ($request->has("code")) {
-            $manf = Manf::firstCodeOrFail($request->query("code"));
+            $manf = Manf::where("deleted", false)->firstCodeOrFail($request->query("code"));
             return view("model.manf.view", ["manf" => $manf]);
         }
     }

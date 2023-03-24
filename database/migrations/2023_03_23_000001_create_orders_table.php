@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedInteger("amount");
             $table->string("comment")->nullable();
             $table->unsignedBigInteger("print_time")->nullable();
-            $table->foreignIdFor(\App\Models\OrderStatus::class)->constrained();
+            $table->foreignIdFor(\App\Models\OrderStatus::class)->nullable()->constrained();
             $table->timestamps();
         });
     }

@@ -74,7 +74,7 @@ class ManfServiceController extends Controller {
                 }
             }
         } else if ($request->has("code")) {
-            $manfService = ManfService::firstCodeOrFail($request->get("code"));
+            $manfService = ManfService::where("deleted", false)->firstCodeOrFail($request->get("code"));
             return view("model.manf-service.view", ["manfService" => $manfService]);
         }
     }

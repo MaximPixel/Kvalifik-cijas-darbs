@@ -2,7 +2,7 @@
 
 @section("content")
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-    <h1>orders</h1>
+    <h1>@lang("model.order.action.list")</h1>
     <ul class="list-unstyled">
         @foreach ($orders as $order)
         <li class="d-flex mt-4 align-items-center">
