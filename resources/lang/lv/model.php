@@ -69,8 +69,6 @@ return [
             "title" => "Mani modeļi",
             "action" => [
                 "create-new" => "Ielādēt un izveidot jaunu",
-                "create" => "Izveidot",
-                "submit-create" => "Izveidot",
             ],
         ],
         "action" => [
@@ -78,6 +76,8 @@ return [
             "edit" => "Rediģēt",
             "delete" => "Dzēst",
             "save" => "Saglabāt",
+            "create" => "Izveidot",
+            "submit-create" => "Izveidot",
         ],
     ],
     "user-address" => [

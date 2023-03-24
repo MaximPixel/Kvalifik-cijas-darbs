@@ -69,8 +69,6 @@ return [
             "title" => "My Models",
             "action" => [
                 "create-new" => "Upload and Create New",
-                "create" => "Create",
-                "submit-create" => "Create",
             ],
         ],
         "action" => [
@@ -78,6 +76,8 @@ return [
             "edit" => "Edit",
             "delete" => "Delete",
             "save" => "Save",
+            "create" => "Create",
+            "submit-create" => "Create",
         ],
     ],
     "user-address" => [

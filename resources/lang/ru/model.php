@@ -69,8 +69,6 @@ return [
             "title" => "Мои модели",
             "action" => [
                 "create-new" => "Загрузить и создать новую",
-                "create" => "Создать",
-                "submit-create" => "Создать",
             ],
         ],
         "action" => [
@@ -78,6 +76,8 @@ return [
             "edit" => "Редактировать",
             "delete" => "Удалить",
             "save" => "Сохранить",
+            "create" => "Создать",
+            "submit-create" => "Создать",
         ],
     ],
     "user-address" => [
