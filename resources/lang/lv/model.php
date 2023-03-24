@@ -1,0 +1,97 @@
+<?php
+
+return [
+    "manf" => [
+        "services" => "Ražotāja pakalpojumi",
+        "action" => [
+            "create-service" => "Izveidot pakalpojumu",
+            "delete" => "Dzēst",
+        ],
+    ],
+    "manf-service" => [
+        "printers" => "Pakalpojuma pieejamie printeri",
+        "materials" => "Pakalpojuma pieejamie materiāli",
+        "orders" => "Pakalpojuma pasūtījumi",
+        "name" => "Nosaukums",
+        "description" => "Apraksts",
+        "price_base" => "Pamatcena",
+        "price_min" => "Minimālā cena",
+        "price_per_time" => "Cena par izdrukāšanas minūti",
+        "price_per_volume" => "Cena par izdrukāšanas cm3",
+        "list" => [
+            "title" => "Pakalpojumu saraksts",
+            "manf" => "Filtrēt pēc ražotāja",
+            "model" => "Filtrēt pēc modeļa",
+            "material-color" => "Filtrēt pēc materiāla krāsas",
+            "action" => [
+                "filter" => "Filtrēt pakalpojumus",
+            ],
+        ],
+        "action" => [
+            "create-order" => "Izveidot pasūtījumu",
+            "add-printer" => "Pievienot printeri sarakstam",
+            "remove-printer" => "noņemt",
+            "edit-materials" => "Rediģēt pieejamos materiālus un krāsas",
+            "delete" => "Dzēst",
+            "create" => "Izveidot pakalpojumu",
+            "create-submit" => "Izveidot",
+            "edit-materials-submit" => "Saglabāt materiālus",
+        ],
+    ],
+    "order" => [
+        "display-name" => "Pasūtījums #:code",
+        "address" => "Adrese",
+        "model" => "Modelis",
+        "material_color" => "Materiāla krāsa",
+        "material" => "Materiāls",
+        "amount" => "Skaits",
+        "comment" => "Komentārs",
+        "service" => "Pakalpojums",
+        "time" => "Laiks",
+        "time-not-defined" => "nav definēts",
+        "price" => "Aprēķināta cena",
+        "price-cant-calculate" => "Nevar aprēķināt cenu",
+        "action" => [
+            "list" => "Pasūtījumu saraksts",
+            "create" => "Izveidot pasūtījumu",
+            "submit-create" => "Izveidot",
+            "create-address" => "Izveidot adresi",
+        ],
+    ],
+    "print-model" => [
+        "parameters" => "Parametri",
+        "name" => "Nosaukums",
+        "length" => "Garums",
+        "width" => "Platums",
+        "height" => "Augstums",
+        "volume" => "Tilpums",
+        "list" => [
+            "title" => "Mani modeļi",
+            "action" => [
+                "create-new" => "Ielādēt un izveidot jaunu",
+            ],
+        ],
+        "action" => [
+            "download" => "Lejupielādēt",
+            "edit" => "Rediģēt",
+            "delete" => "Dzēst",
+            "save" => "Saglabāt",
+        ],
+    ],
+    "user-address" => [
+        "missing" => "Jums nav neviena adrese. Vai izveidot?",
+        "contact_name" => "Kontaktpersonas vārds (vārds un uzvārds)",
+        "phone_number_prefix" => "Tālruņa numura kods",
+        "phone_number" => "Tālruņa numurs",
+        "address_street" => "Adrese",
+        "address_apt" => "Dzīvoklis, kabinets, ēkas stāvs (nav obligāti)",
+        "address_province" => "Novads",
+        "address_city" => "Pilsēta",
+        "address_zipcode" => "Pasta indekss",
+        "comment" => "Komentārs",
+        "action" => [
+            "create" => "Izveidot adresi",
+            "submit" => "Izveidot",
+        ],
+    ],
+];

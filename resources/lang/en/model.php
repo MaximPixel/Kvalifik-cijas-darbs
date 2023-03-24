@@ -60,6 +60,7 @@ return [
     ],
     "print-model" => [
         "parameters" => "Parameters",
+        "name" => "Name",
         "length" => "Length",
         "width" => "Width",
         "height" => "Height",
@@ -74,6 +75,7 @@ return [
             "download" => "Download",
             "edit" => "Edit",
             "delete" => "Delete",
+            "save" => "Save",
         ],
     ],
     "user-address" => [

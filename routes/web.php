@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ChangeLangController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ManfController;
 use App\Http\Controllers\ManfServiceController;
@@ -11,6 +12,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserAddressController;
 
 Route::get("/", fn() => view("index"))->name("index");
+
+Route::get("/change-lang/{locale}", [ChangeLangController::class, "changeLang"])->name("change-lang");
 
 Route::get("/register", [AuthController::class, "registerView"])->name("auth.register");
 Route::post("/register", [AuthController::class, "registerPost"]);
