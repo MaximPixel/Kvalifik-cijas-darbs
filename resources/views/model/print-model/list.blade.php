@@ -10,7 +10,7 @@
         @foreach ($printModels as $printModel)
         <li class="d-flex mt-4 align-items-center">
             <div class="flex-shrink-0">
-                <img class="mr-3 img-thumbnail" style="width: 100px" src="{{ $printModel->image->getUrl() }}" alt="{{ $printModel->name }}">
+                <img class="mr-3 img-thumbnail" style="width: 100px" src="{{ $printModel->getImageUrl() }}" alt="{{ $printModel->name }}">
             </div>
             <div class="flex-grow-1 ms-3">
                 <h5 class="mt-0">

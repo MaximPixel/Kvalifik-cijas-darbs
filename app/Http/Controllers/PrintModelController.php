@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 
 use App\Models\PrintModel;
 
-use PHPSTL\Reader\STLReader;
+use App\Jobs\CalculateModel;
+use App\Jobs\StlRender;
 
 class PrintModelController extends Controller {
 
@@ -81,46 +82,10 @@ class PrintModelController extends Controller {
                 $printModel->user_id = auth()->user()->id;
                 $printModel->save();
 
-                $filename = $printModel->getCode();
-                $storage = Storage::disk("models");
-                $storage->put($filename, file_get_contents($data["model-file"]));
+                Storage::disk("models")->put($printModel->getCode(), file_get_contents($data["model-file"]));
 
-                $stlFilepath = $storage->path($filename);
-
-                $reader = STLReader::forFile($stlFilepath);
-                $reader->setHandler(new \PHPSTL\Handler\DimensionsHandler);
-                $dimensions = $reader->readModel();
-                $reader = STLReader::forFile($stlFilepath);
-                $reader->setHandler(new \PHPSTL\Handler\VolumeHandler);
-                $volume = $reader->readModel();
-
-                $length = $dimensions->length;
-                $width = $dimensions->width;
-                $height = $dimensions->height;
-                $diameter = $dimensions->bounding_diameter;
-
-                $printModel->length = $length;
-                $printModel->width = $width;
-                $printModel->height = $height;
-                $printModel->diameter = $diameter;
-                $printModel->volume = $volume;
-                $printModel->save();
-
-                $image = new \App\Models\Image;
-                $image->save();
-
-                $imagesStorage = Storage::disk("images");
-                $imageFilepath = $imagesStorage->path($image->getCode() . ".webp");
-
-                $pythonFilepath = escapeshellarg(base_path() . "/python/stl_render.py");
-                $stlFilepath = escapeshellarg($stlFilepath);
-                $imageFilepath = escapeshellarg($imageFilepath);
-                $a = null;
-                $b = null;
-                $c = exec("C:\Users\Maxim\AppData\Local\Programs\Python\Python311\python.exe $pythonFilepath --filepath=$stlFilepath --output=$imageFilepath", $a, $b);
-
-                $printModel->image_id = $image->id;
-                $printModel->save();
+                CalculateModel::dispatch($printModel->id);
+                StlRender::dispatch($printModel->id);
 
                 return redirect($printModel->getRoute());
             } else if ($action == "edit") {

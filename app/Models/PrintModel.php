@@ -15,6 +15,10 @@ class PrintModel extends Model {
 
     use HasFactory, HasCode, HasCodeRoute;
 
+    public function getImageUrl() {
+        return $this->image ? $this->image->getUrl() : "noimage";
+    }
+
     public function delete() {
         parent::delete();
         Storage::disk("models")->delete($this->getCode());

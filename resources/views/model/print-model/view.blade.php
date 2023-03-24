@@ -2,7 +2,7 @@
 
 @section("content")
 <h1>{{ $printModel->name }}</h1>
-<img class="rounded img-thumbnail mb-3" style="width: 300px" src="{{ $printModel->image->getUrl() }}" alt="{{ $printModel->name }}">
+<img class="rounded img-thumbnail mb-3" style="width: 300px" src="{{ $printModel->getImageUrl() }}" alt="{{ $printModel->name }}">
 
 <div class="card mb-3">
     <div class="card-header">@lang("model.print-model.parameters")</div>

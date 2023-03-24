@@ -7,7 +7,7 @@
         @foreach ($orders as $order)
         <li class="d-flex mt-4 align-items-center">
             <div class="flex-shrink-0">
-                <img class="mr-3 img-thumbnail" style="width: 100px" src="{{ $order->printModel->image->getUrl() }}" alt="order #{{ $order->getCode() }}">
+                <img class="mr-3 img-thumbnail" style="width: 100px" src="{{ $order->printModel->getImageUrl() }}" alt="order #{{ $order->getCode() }}">
             </div>
             <div class="flex-grow-1 ms-3">
                 <h5 class="mt-0">
