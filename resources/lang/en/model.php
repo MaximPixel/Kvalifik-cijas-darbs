@@ -69,6 +69,8 @@ return [
             "title" => "My Models",
             "action" => [
                 "create-new" => "Upload and Create New",
+                "create" => "Create",
+                "submit-create" => "Create",
             ],
         ],
         "action" => [

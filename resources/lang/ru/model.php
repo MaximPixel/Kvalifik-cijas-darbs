@@ -69,6 +69,8 @@ return [
             "title" => "Мои модели",
             "action" => [
                 "create-new" => "Загрузить и создать новую",
+                "create" => "Создать",
+                "submit-create" => "Создать",
             ],
         ],
         "action" => [
