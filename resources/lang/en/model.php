@@ -96,4 +96,28 @@ return [
             "submit" => "Create",
         ],
     ],
+    "printer" => [
+        "basic-info" => "Basic Info",
+        "name" => "Printer Name",
+        "description" => "Printer Description",
+        "manufacturer" => "Printer Manufacturer",
+        "feats" => "Features",
+        "feat-type" => [
+            "print-resolution" => "Print Resolution",
+            "print-volume-x" => "Print Volume X (width)",
+            "print-volume-y" => "Print Volume Y (depth)",
+            "print-volume-z" => "Print Volume Z (height)",
+            "printer-layer-height-min" => "Minimal Print Layer Height",
+            "printer-layer-height-max" => "Maximal Print Layer Height",
+            "filament-diameter" => "Filament Diameter",
+            "nozzle-temperature-max" => "Maximal Nozzle Temperature",
+            "bed-temperature-max" => "Maximal Bed Temperature",
+        ],
+        "action" => [
+            "edit" => "Edit",
+            "edit-submit" => "Save Changes",
+            "create" => "Create",
+            "create-submit" => "Create",
+        ]
+    ],
 ];

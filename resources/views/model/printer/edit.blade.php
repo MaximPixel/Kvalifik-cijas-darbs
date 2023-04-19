@@ -1,7 +1,3 @@
-@php
-    $requiredFeatTypes = \App\Models\Printer::getRequiredFeatTypes();
-@endphp
-
 @extends("layout")
 
 @section("content")
@@ -15,6 +11,7 @@
                 "required" => true,
                 "min" => "5",
                 "max" => "255",
+                "value" => $printer->name,
             ],
             "description" => [
                 "label" => __("model.printer.description"),
@@ -23,23 +20,26 @@
                 "rows" => 10,
                 "min" => "10",
                 "max" => "1000",
+                "value" => $printer->description,
             ],
             "manufacturer" => [
                 "label" => __("model.printer.manufacturer"),
                 "required" => true,
                 "max" => "255",
+                "value" => $printer->manufacturer,
             ],
         ],
-        __("model.printer.feats") => $requiredFeatTypes->mapWithKeys(function ($printerFeatType) {
+        __("model.printer.feats") => $printer->getEditFeatTypes()->mapWithKeys(function ($printerFeatType) use ($printer) {
             return [
                 "feat[$printerFeatType->code]" => [
                     "type" => "featValue",
                     "featType" => $printerFeatType,
                     "label" => $printerFeatType->name,
+                    "featValues" => $printer->getPrinterFeatValues($printerFeatType),
                 ],
             ];
         })->merge(["_errors" => $errors->feats]),
     ],
-    "submit" => __("model.printer.action.create-submit"),
+    "submit" => __("model.printer.action.edit-submit"),
 ])
 @endsection

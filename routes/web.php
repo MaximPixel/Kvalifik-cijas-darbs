@@ -10,6 +10,7 @@ use App\Http\Controllers\PrinterController;
 use App\Http\Controllers\PrintModelController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserAddressController;
+use App\Http\Controllers\AdminController;
 
 Route::get("/", fn() => view("index"))->name("index");
 
@@ -38,3 +39,6 @@ Route::post("/order", [OrderController::class, "post"]);
 
 Route::get("/address", [UserAddressController::class, "view"])->name("model.user-address");
 Route::post("/address", [UserAddressController::class, "post"]);
+
+Route::get("/admin", [AdminController::class, "index"])->name("admin");
+Route::post("/admin", [AdminController::class, "indexPost"]);

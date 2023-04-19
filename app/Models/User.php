@@ -57,4 +57,16 @@ class User extends Authenticatable {
         return $this->hasMany(Order::class)
             ->where("deleted", false);
     }
+
+    public function manfRoleUsers() {
+        return $this->hasMany(ManfRoleUser::class);
+    }
+
+    public function userGroup() {
+        return $this->belongsTo(UserGroup::class);
+    }
+
+    public function isAdmin() {
+        return $this->userGroup->name == "admin";
+    }
 }

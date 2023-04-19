@@ -10,4 +10,8 @@ class ManfRoleUser extends Model {
     use HasFactory;
 
     public $incrementing = false;
+
+    public function manfRole() {
+        return $this->belongsTo(ManfRole::class);
+    }
 }

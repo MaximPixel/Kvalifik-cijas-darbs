@@ -13,9 +13,16 @@ return new class extends Migration {
 
     public function up(): void {
         $user = new \App\Models\User;
-        $user->name = "testtest";
-        $user->email = "test@test.test";
+        $user->name = "user";
+        $user->email = "user@gmail.com";
         $user->password = "$2y$10\$KL.WiHnyABT.kCBWkNECH.a6.V8zV5oidlzBK0gyLjExtRVH/oeOi";
+        $user->save();
+
+        $user = new \App\Models\User;
+        $user->name = "admin";
+        $user->email = "admin@gmail.com";
+        $user->password = "$2y$10\$KL.WiHnyABT.kCBWkNECH.a6.V8zV5oidlzBK0gyLjExtRVH/oeOi";
+        $user->user_group_id = 2;
         $user->save();
 
         $this->faker = \Faker\Factory::create();
@@ -309,13 +316,11 @@ return new class extends Migration {
                 $unit = null;
             }
 
-            $featValue = new \App\Models\PrinterFeatValue;
-            $featValue->printer_feat_type_id = $featType->id;
-            $featValue->name = $value;
-            $featValue->description = "";
-            $featValue->decimal_value = $value;
-            $featValue->unit = $unit;
-            $featValue->save();
+            $featValue = \App\Models\PrinterFeatValue::getOrCreate([
+                "name" => $value,
+                "decimal_value" => $value,
+                "unit" => $unit,
+            ], $featType);
 
             $printerFeat = new \App\Models\PrinterFeat;
             $printerFeat->printer_id = $printer->id;

@@ -9,12 +9,12 @@
 <table class="table table-striped table-bordered table-hover">
     <thead></thead>
     <tbody>
-    @foreach ($printer->printerFeats as $index => $printerFeat)
-        <tr>
-            <th>{{ $printerFeat->printerFeatValue->printerFeatType->name }}</th>
-            <td>{{ $printerFeat->printerFeatValue->name }} {{ $printerFeat->printerFeatValue->unit}}</td>
-        </tr>
-    @endforeach
+@foreach ($printer->getDefinedFeatTypes() as $printerFeatType)
+    <tr>
+        <th>{{ $printerFeatType->getDisplayName() }}</th>
+        <td>{{ $printer->getPrinterFeatValues($printerFeatType)->map(fn ($a) => $a->getDisplayName())->join(", ") }}</td>
+    </tr>
+@endforeach
     </tbody>
 </table>
 @endsection

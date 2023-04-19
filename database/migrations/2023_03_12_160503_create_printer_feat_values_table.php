@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('printer_feat_values', function (Blueprint $table) {
             $table->id();
-            $table->string("code")->collation("utf8mb4_bin")->nullable()->unique();
+            $table->string("code")->collation("utf8mb4_bin")->unique();
             $table->boolean("deleted")->default(false);
             $table->foreignIdFor(\App\Models\PrinterFeatType::class)->constrained();
+            $table->string("value_reference")->unique();
             $table->string("name");
             $table->text("description");
             $table->float("decimal_value")->nullable();

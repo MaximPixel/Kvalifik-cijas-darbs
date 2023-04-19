@@ -18,7 +18,7 @@ class ManfServiceController extends Controller {
             if ($action == "list") {
                 $totalManfServices = ManfService::where("deleted", false)->get();
                 $manfServicesQuery = ManfService::where("deleted", false);
-                
+
                 if ($request->has("manf")) {
                     $manf = Manf::firstCode($request->get("manf"));
                     if ($manf) {
@@ -53,29 +53,54 @@ class ManfServiceController extends Controller {
                 }
             } else if ($action == "add-printer") {
                 $manfService = ManfService::firstCodeOrFail($request->input("code"));
-                $printers = Printer::query()
-                    ->whereDoesntHave("manfServicePrinters", function ($query) use ($manfService) {
-                        $query->where("manf_service_id", $manfService->id);
-                    })
-                    ->get();
 
-                return view("model.manf-service.add-printer", ["manfService" => $manfService, "printers" => $printers]);
+                if ($manfService->canEdit($request->user())) {
+                    $printers = Printer::query()
+                        ->whereDoesntHave("manfServicePrinters", function ($query) use ($manfService) {
+                            $query->where("manf_service_id", $manfService->id);
+                        })
+                        ->get();
+
+                    return view("model.manf-service.add-printer", ["manfService" => $manfService, "printers" => $printers]);
+                }
             } else if ($action == "remove-printer") {
-                return view("yesno");
+                $manfService = ManfService::firstCodeOrFail($request->input("code"));
+
+                if ($manfService->canEdit($request->user())) {
+                    return view("yesno");
+                }
             } else if ($action == "delete") {
                 if ($request->has("code")) {
                     $manfService = ManfService::firstCodeOrFail($request->get("code"));
-                    return view("yesno");
+
+                    if ($manfService->canEdit($request->user())) {
+                        return view("yesno");
+                    }
                 }
             } else if ($action == "edit-materials") {
                 if ($request->has("code")) {
                     $manfService = ManfService::firstCodeOrFail($request->get("code"));
-                    return view("model.manf-service.edit-materials", ["manfService" => $manfService, "printMaterials" => \App\Models\PrintMaterial::all()]);
+                    
+                    if ($manfService->canEdit($request->user())) {
+                        return view("model.manf-service.edit-materials", ["manfService" => $manfService, "printMaterials" => \App\Models\PrintMaterial::all()]);
+                    }
+                }
+            } else if ($action == "edit") {
+                if ($request->has("code")) {
+                    $manfService = ManfService::firstCodeOrFail($request->get("code"));
+
+                    if ($manfService->canEdit($request->user())) {
+                        return view("model.manf-service.edit", ["manfService" => $manfService]);
+                    }
                 }
             }
         } else if ($request->has("code")) {
-            $manfService = ManfService::where("deleted", false)->firstCodeOrFail($request->get("code"));
-            return view("model.manf-service.view", ["manfService" => $manfService]);
+            $manfService = ManfService::firstCodeOrFail($request->get("code"));
+
+            if ($manfService->canView($request->user())) {
+                return view("model.manf-service.view", ["manfService" => $manfService]);
+            }
+            abort(404);
         }
     }
 
@@ -110,55 +135,88 @@ class ManfServiceController extends Controller {
             } else if ($action == "add-printer") {
                 $manfService = ManfService::firstCodeOrFail($request->input("code"));
                 
-                $printer = Printer::firstCodeOrFail($request->input("printer"));
-                
-                $manfServicePrinter = new ManfServicePrinter;
-                $manfServicePrinter->manf_service_id = $manfService->id;
-                $manfServicePrinter->printer_id  = $printer->id;
-                $manfServicePrinter->save();
+                if ($manfService->canEdit($request->user())) {
+                    $printer = Printer::firstCodeOrFail($request->input("printer"));
+                    
+                    $manfServicePrinter = new ManfServicePrinter;
+                    $manfServicePrinter->manf_service_id = $manfService->id;
+                    $manfServicePrinter->printer_id  = $printer->id;
+                    $manfServicePrinter->save();
 
-                return redirect($manfService->getRoute());
+                    return autoredirect($manfService->getRoute());
+                }
             } else if ($action == "remove-printer") {
                 $manfService = ManfService::firstCodeOrFail($request->input("code"));
-                
-                $printer = Printer::firstCodeOrFail($request->input("printer"));
-                
-                $manfServicePrinter = ManfServicePrinter::query()
-                    ->where("manf_service_id", $manfService->id)
-                    ->where("printer_id", $printer->id)
-                    ->firstOrFail();
 
-                $manfServicePrinter->delete();
+                if ($manfService->canEdit($request->user())) {
+                    $printer = Printer::firstCodeOrFail($request->input("printer"));
+                    
+                    $manfServicePrinter = ManfServicePrinter::query()
+                        ->where("manf_service_id", $manfService->id)
+                        ->where("printer_id", $printer->id)
+                        ->firstOrFail();
 
-                return redirect($manfService->getRoute());
+                    $manfServicePrinter->delete();
+
+                    return redirect($manfService->getRoute());
+                }
             } else if ($action == "delete") {
                 if ($request->has("code")) {
                     $manfService = ManfService::firstCodeOrFail($request->query("code"));
-                    $manfService->deleted = true;
-                    $manfService->save();
-                    return redirect()->route("index");
+
+                    if ($manfService->canEdit($request->user())) {
+                        $manfService->deleted = true;
+                        $manfService->save();
+                        return redirect()->route("index");
+                    }
                 }
             } else if ($action == "edit-materials") {
                 if ($request->has("code")) {
                     $manfService = ManfService::firstCodeOrFail($request->get("code"));
 
-                    $materialColors = collect($request->get("materialColors"))->keys();
-                    $materialColors = \App\Models\PrintMaterialColor::whereIn("code", $materialColors)->pluck("id");
+                    if ($manfService->canEdit($request->user())) {
+                        $materialColors = collect($request->get("materialColors"))->keys();
+                        $materialColors = \App\Models\PrintMaterialColor::whereIn("code", $materialColors)->pluck("id");
 
-                    $current = $manfService->manfServicePrintMaterialColors->pluck("printMaterialColor")->pluck("id");
+                        $current = $manfService->manfServicePrintMaterialColors->pluck("printMaterialColor")->pluck("id");
 
-                    $toDelete = $current->diff($materialColors);
-                    $toInsert = $materialColors->diff($current);
-                    
-                    $manfService->manfServicePrintMaterialColors->whereIn("print_material_color_id", $toDelete)->each(fn ($a) => $a->delete());
-                    $toInsert->each(function ($materialColorId) use ($manfService) {
-                        $manfServicePrintMaterialColor = new \App\Models\ManfServicePrintMaterialColor;
-                        $manfServicePrintMaterialColor->manf_service_id = $manfService->id;
-                        $manfServicePrintMaterialColor->print_material_color_id = $materialColorId;
-                        $manfServicePrintMaterialColor->save();
-                    });
+                        $toDelete = $current->diff($materialColors);
+                        $toInsert = $materialColors->diff($current);
+                        
+                        $manfService->manfServicePrintMaterialColors->whereIn("print_material_color_id", $toDelete)->each(fn ($a) => $a->delete());
+                        $toInsert->each(function ($materialColorId) use ($manfService) {
+                            $manfServicePrintMaterialColor = new \App\Models\ManfServicePrintMaterialColor;
+                            $manfServicePrintMaterialColor->manf_service_id = $manfService->id;
+                            $manfServicePrintMaterialColor->print_material_color_id = $materialColorId;
+                            $manfServicePrintMaterialColor->save();
+                        });
 
-                    return redirect($manfService->getRoute());
+                        return redirect($manfService->getRoute());
+                    }
+                }
+            } else if ($action == "edit") {
+                if ($request->has("code")) {
+                    $manfService = ManfService::firstCodeOrFail($request->get("code"));
+
+                    if ($manfService->canEdit($request->user())) {
+                        $data = $request->validate([
+                            "name" => "required|min:5|max:255",
+                            "description" => "required|min:5|max:1000",
+                            "price_base" => "required|decimal:0,2",
+                            "price_min" => "required|decimal:0,2",
+                            "price_per_time" => "required|decimal:0,2",
+                            "price_per_volume" => "required|decimal:0,2",
+                        ]);
+
+                        foreach ($data as $key => $value) {
+                            $manfService->$key = $value;
+                        }
+                        if ($manfService->isDirty()) {
+                            $manfService->save();
+                        }
+
+                        return redirect($manfService->getRoute());
+                    }
                 }
             }
         }

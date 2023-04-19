@@ -6,5 +6,6 @@ return [
     "name" => "Username",
     "email" => "E-mail",
     "password" => "Password",
-    "password-confirmation" => "Password Confirmation",
+    "password-confirmation" => "Password confirmation",
+    "invalid" => "Invalid login credentials",
 ];

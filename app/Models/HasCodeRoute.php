@@ -8,11 +8,13 @@ trait HasCodeRoute {
         return str(basename(__CLASS__))->kebab();
     }
 
-    public function getRoute() {
-        return route("model." . $this->getKebabClass(), ["code" => $this->getCode()]);
+    public function getRoute($params = null) {
+        $params = collect($params)->merge(collect(["code" => $this->getCode()]))->toArray();
+        return route("model." . $this->getKebabClass(), $params);
     }
 
-    public function getActionRoute($action) {
-        return route("model." . $this->getKebabClass(), ["code" => $this->getCode(), "action" => $action]);
+    public function getActionRoute($action, $params = null) {
+        $params = collect($params)->merge(collect(["action" => $action]))->toArray();
+        return $this->getRoute($params);
     }
 }

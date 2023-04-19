@@ -15,7 +15,7 @@ class ManfService extends Model {
         return route("model.manf-service", ["action" => "create", "manf" => $manf->getCode()]);
     }
 
-    use HasFactory, HasCode, HasCodeRoute;
+    use HasFactory, HasCode, HasCodeRoute, HasCodeEditRoute;
 
     public function manfServicePrinters() {
         return $this->hasMany(ManfServicePrinter::class);
@@ -27,6 +27,10 @@ class ManfService extends Model {
 
     public function manfServicePrintMaterialColors() {
         return $this->hasMany(ManfServicePrintMaterialColor::class);
+    }
+
+    public function orders() {
+        return $this->hasMany(Order::class);
     }
 
     public function canCalculatePrice(\App\Models\Order $order) {
@@ -43,5 +47,21 @@ class ManfService extends Model {
         $price += $this->price_base;
 
         return max($order->price_min, $price);
+    }
+
+    public function canEdit(User|null $user) {
+        return $this->canView($user) && $this->manf->canEdit($user);
+    }
+
+    public function canView(User|null $user) {
+        if (!$this->deleted) {
+            return true;
+        }
+
+        return $user && $user->isAdmin();
+    }
+
+    public function getAddPrinterRoute() {
+        return $this->getActionRoute("add-printer", ["redirect" => $this->getRoute()]);
     }
 }

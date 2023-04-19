@@ -34,7 +34,7 @@ class AuthController extends Controller {
         if (auth()->attempt($data)) {
             return autoredirect();
         } else {
-            return redirect()->back()->withErrors(["msg", "Invalid login credentials"]);
+            return redirect()->back()->withErrors([__("auth.invalid")]);
         }
     }
 

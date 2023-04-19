@@ -11,6 +11,14 @@ class Printer extends Model {
         return route("model.printer", ["action" => "create"]);
     }
 
+    public static function getRequiredFeatTypes() {
+        $requiredFeats = PrinterFeatType::query()
+            ->where("required", true)
+            ->get();
+        
+        return $requiredFeats;
+    }
+
     use HasFactory, HasCode, HasCodeRoute, HasCodeEditRoute;
 
     public function creatorUser() {
@@ -25,7 +33,31 @@ class Printer extends Model {
         return $this->hasMany(ManfServicePrinter::class);
     }
 
-    public function generateUrl() {
-        $this->url = str()->random(10);
+    public function canEdit(User|null $user) {
+        return $this->user_id != null && $this->user_id == $user->id;
+    }
+
+    public function getDefinedFeatTypes() {
+        return $this->printerFeats->pluck("printerFeatValue")->pluck("printerFeatType");
+    }
+
+    public function getEditFeatTypes() {
+        $requiredFeatTypes = $this->getRequiredFeatTypes();
+        $currentFeatTypes = $this->getDefinedFeatTypes();
+
+        return collect([$requiredFeatTypes, $currentFeatTypes])
+            ->collapse()
+            ->unique("id")
+            ->values();
+    }
+
+    public function getPrinterFeatValues(PrinterFeatType $printerFeatType) {
+        return $this->printerFeats->pluck("printerFeatValue")
+            ->filter(fn ($printerFeatValue) => $printerFeatValue->printer_feat_type_id == $printerFeatType->id)
+            ->values();
+    }
+
+    public function addPrinterFeatValue(PrinterFeatType $printerFeatType) {
+
     }
 }

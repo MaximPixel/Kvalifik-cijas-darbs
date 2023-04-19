@@ -5,6 +5,10 @@ namespace App\Models;
 trait HasCode {
 
     public static function booted() {
+        self::bootedHasCode();
+    }
+
+    protected static function bootedHasCode() {
         static::saving(function ($model) {
             if (!$model->exists) {
                 $model->generateCode();

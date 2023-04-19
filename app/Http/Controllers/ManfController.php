@@ -19,7 +19,10 @@ class ManfController extends Controller {
             } else if ($action == "delete") {
                 if ($request->has("code")) {
                     $manf = Manf::firstCodeOrFail($request->query("code"));
-                    return view("yesno");
+
+                    if ($manf->canEdit($request->user())) {
+                        return view("yesno");
+                    }
                 }
             }
         } else if ($request->has("code")) {
@@ -57,9 +60,12 @@ class ManfController extends Controller {
             } else if ($action == "delete") {
                 if ($request->has("code")) {
                     $manf = Manf::firstCodeOrFail($request->query("code"));
-                    $manf->deleted = true;
-                    $manf->save();
-                    return redirect()->route("index");
+
+                    if ($manf->canEdit($request->user())) {
+                        $manf->deleted = true;
+                        $manf->save();
+                        return redirect()->route("index");
+                    }
                 }
             }
         }

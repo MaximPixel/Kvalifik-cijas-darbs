@@ -20,7 +20,7 @@ class PrinterController extends Controller {
 
                     $printer = Printer::firstCodeOrFail($code);
 
-                    dd($printer);
+                    return view("model.printer.edit", ["printer" => $printer]);
                 }
             }
         } else if ($request->has("code")) {
@@ -58,6 +58,41 @@ class PrinterController extends Controller {
                 $printer->save();
         
                 return redirect($printer->getRoute());
+            } else if ($action == "edit") {
+                $printer = Printer::firstCodeOrFail($request->get("code"));
+
+                if ($printer->canEdit($request->user()) || true) {
+                    $basicData = $request->validateWithBag("basicInfo", [
+                        "name" => "required|min:5|max:255",
+                        "description" => "required|min:10|max:1000",
+                        "manufacturer" => "required",
+                    ]);
+
+                    $editFeatTypes = $printer->getEditFeatTypes();
+
+                    $validateRules = $editFeatTypes
+                        ->mapWithKeys(function ($featType) {
+                            $key = "feat." . $featType->getCode() . ".value";
+                            return [$key => "required|numeric|between:0,99999.99"];
+                        })->merge([
+                            "feat" => "required|array",
+                        ])->toArray();
+
+                    $params = $editFeatTypes
+                        ->mapWithKeys(function ($featType) {
+                            $code = $featType->getCode();
+                            $displayName = $featType->getDisplayName();
+                            return [
+                                "feat.$code.value.required" => __("validation.required", ["attribute" => $displayName]),
+                                "feat.$code.value.numeric" => __("validation.numeric", ["attribute" => $displayName]),
+                                "feat.$code.value.between.numeric" => __("validation.numeric", ["attribute" => $displayName, "min" => 0, "max" => 99999.99]),
+                            ];
+                        })->toArray();
+
+                    $featsData = $request->validateWithBag("feats", $validateRules, $params);
+
+                    dd($basicData, $featsData, $request->all());
+                }
             }
         }
     }

@@ -9,7 +9,7 @@
 </head>
 <body>
     @include("navbar")
-    <div class="container">
+    <div class="container" style="margin-bottom: 100px">
         @yield("content")
     </div>
     <footer class="bg-light text-center text-lg-start fixed-bottom">

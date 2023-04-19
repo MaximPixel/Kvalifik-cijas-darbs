@@ -16,4 +16,14 @@ class Manf extends Model {
     public function manfServices() {
         return $this->hasMany(ManfService::class);
     }
+
+    public function manfRoles() {
+        return $this->hasMany(ManfRole::class);
+    }
+
+    public function canEdit(User|null $user) {
+        return $user && $user->manfRoleUsers->contains(function ($manfRoleUser) {
+            return $manfRoleUser->manfRole->where("manf_id", $this->id);
+        }) || $user->isAdmin();
+    }
 }
