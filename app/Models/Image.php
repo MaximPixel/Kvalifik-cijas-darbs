@@ -9,19 +9,36 @@ use Illuminate\Support\Facades\Storage;
 
 class Image extends Model {
 
+    public static function upload($url) {
+        $image = new Image;
+        $image->save();
+
+        Storage::disk("images")->put($image->getFilename(), file_get_contents($url));
+
+        return $image;
+    }
+
     use HasFactory, HasCode;
 
     public function delete() {
         parent::delete();
-        Storage::disk("images")->delete($this->getCode() . ".webp");
+        Storage::disk("images")->delete($this->getFilename());
     }
 
     public function printModels() {
         return $this->hasMany(PrintModel::class);
     }
 
+    public function getFilename() {
+        return $this->getCode() . ".webp";
+    }
+
     public function getUrl() {
-        return Storage::disk("images")->url($this->getCode() . ".webp");
+        return Storage::disk("images")->url($this->getFilename());
+    }
+
+    public function getPath() {
+        return Storage::disk("images")->path($this->getFilename());
     }
 
     public function findUsages() {

@@ -3,6 +3,7 @@
 @section("content")
 <h1>{{ $printer->name }}</h1>
 <p>{{ $printer->description }}</p>
+<img src="{{ $printer->getImageUrl() }}" alt="">
 <p>
     <a href="{{ $printer->getEditRoute() }}">@lang("model.printer.action.edit")</a>
 </p>

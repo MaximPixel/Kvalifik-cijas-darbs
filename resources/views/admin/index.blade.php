@@ -12,6 +12,10 @@
             "label" => __("admin.model.manf"),
             "class" => \App\Models\Manf::class,
         ],
+        [
+            "label" => __("admin.model.printer"),
+            "class" => \App\Models\Printer::class,
+        ],
     ];
 @endphp
 

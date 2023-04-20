@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text("description");
             $table->string("manufacturer")->index();
             $table->foreignIdFor(\App\Models\User::class, "creator_user_id")->nullable()->constrained("users");
+            $table->foreignIdFor(\App\Models\Image::class)->nullable()->constrained();
             $table->timestamps();
         });
     }

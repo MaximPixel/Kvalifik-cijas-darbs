@@ -30,8 +30,8 @@ class StlRender implements ShouldQueue {
         $image->save();
 
         try {
-            $stlFilepath = Storage::disk("models")->path($printModel->getCode());
-            $imageFilepath = Storage::disk("images")->path($image->getCode() . ".webp");
+            $stlFilepath = $printModel->getPath();
+            $imageFilepath = $image->getPath();
 
             $pythonFilepath = escapeshellarg(base_path() . "/python/stl_render.py");
             $stlFilepath = escapeshellarg($stlFilepath);

@@ -160,6 +160,15 @@ return new class extends Migration {
             ],
             [
                 "measure_type" => "diameter",
+                "name" => "nozzle-diameter",
+                "description" => [
+                    "en" => "",
+                    "lv" => "",
+                    "ru" => "",
+                ],
+            ],
+            [
+                "measure_type" => "diameter",
                 "name" => "filament-diameter",
                 "description" => [
                     "en" => "Determines the diameter of the material filament used for printing. Most commonly, this is 1.75 mm",
@@ -310,6 +319,132 @@ return new class extends Migration {
                     "bed-temperature-max" => [100, "°C"],
                 ],
             ],
+            [
+                "name" => "Anycubic Kobra Go",
+                "description" => "",
+                "manufacturer" => "ANYCUBIC",
+                "feats" => [
+                    "print-resolution" => [0.1, "mm"],
+                    "print-volume-x" => [220, "mm"],
+                    "print-volume-y" => [220, "mm"],
+                    "print-volume-z" => [250, "mm"],
+                    "printer-layer-height-min" => [0.1, "mm"],
+                    "printer-layer-height-max" => [0.4, "mm"],
+                    "nozzle-diameter" => [0.4, "mm"],
+                    "filament-diameter" => [1.75, "mm"],
+                    "nozzle-temperature-max" => [260, "°C"],
+                    "bed-temperature-max" => [110, "°C"],
+                ],
+                "image" => "https://www.anycubic.com/cdn/shop/products/KobraGo_1_7977c357-eeca-49ab-8746-f77ba820a396_540x.jpg?v=1680332374",
+            ],
+            [
+                "name" => "Anycubic Kobra Plus",
+                "description" => "",
+                "manufacturer" => "ANYCUBIC",
+                "feats" => [
+                    "print-resolution" => [0.1, "mm"],
+                    "print-volume-x" => [300, "mm"],
+                    "print-volume-y" => [300, "mm"],
+                    "print-volume-z" => [350, "mm"],
+                    "printer-layer-height-min" => [0.1, "mm"],
+                    "printer-layer-height-max" => [0.4, "mm"],
+                    "nozzle-diameter" => [0.4, "mm"],
+                    "filament-diameter" => [1.75, "mm"],
+                    "nozzle-temperature-max" => [260, "°C"],
+                    "bed-temperature-max" => [100, "°C"],
+                ],
+                "image" => "https://www.anycubic.com/cdn/shop/products/KobraPlus_1_540x.jpg?v=1680332368",
+            ],
+            [
+                "name" => "Vyper",
+                "description" => "",
+                "manufacturer" => "ANYCUBIC",
+                "feats" => [
+                    "print-resolution" => [0.1, "mm"],
+                    "print-volume-x" => [245, "mm"],
+                    "print-volume-y" => [245, "mm"],
+                    "print-volume-z" => [260, "mm"],
+                    "printer-layer-height-min" => [0.1, "mm"],
+                    "printer-layer-height-max" => [0.4, "mm"],
+                    "nozzle-diameter" => [0.4, "mm"],
+                    "filament-diameter" => [1.75, "mm"],
+                    "nozzle-temperature-max" => [260, "°C"],
+                    "bed-temperature-max" => [110, "°C"],
+                ],
+                "image" => "https://www.anycubic.com/cdn/shop/products/KobraGo_1_7977c357-eeca-49ab-8746-f77ba820a396_540x.jpg?v=1680332374",
+            ],
+            [
+                "name" => "Mega X",
+                "description" => "",
+                "manufacturer" => "ANYCUBIC",
+                "feats" => [
+                    "print-resolution" => [0.1, "mm"],
+                    "print-volume-x" => [300, "mm"],
+                    "print-volume-y" => [300, "mm"],
+                    "print-volume-z" => [305, "mm"],
+                    "printer-layer-height-min" => [0.05, "mm"],
+                    "printer-layer-height-max" => [0.3, "mm"],
+                    "nozzle-diameter" => [0.4, "mm"],
+                    "filament-diameter" => [1.75, "mm"],
+                    "nozzle-temperature-max" => [250, "°C"],
+                    "bed-temperature-max" => [90, "°C"],
+                ],
+                "image" => "https://www.anycubic.com/cdn/shop/products/01_ba98cb9d-2895-40c2-a0d0-c458a7bc4a3c_1800x1800.jpg?v=1654067392",
+            ],
+            [
+                "name" => "Original Prusa MK4",
+                "description" => "",
+                "manufacturer" => "PRUSA",
+                "feats" => [
+                    "print-resolution" => [0.1, "mm"],
+                    "print-volume-x" => [250, "mm"],
+                    "print-volume-y" => [210, "mm"],
+                    "print-volume-z" => [220, "mm"],
+                    "printer-layer-height-min" => [0.05, "mm"],
+                    "printer-layer-height-max" => [0.3, "mm"],
+                    "nozzle-diameter" => [0.4, "mm"],
+                    "filament-diameter" => [1.75, "mm"],
+                    "nozzle-temperature-max" => [300, "°C"],
+                    "bed-temperature-max" => [120, "°C"],
+                ],
+                "image" => "https://cdn.prusa3d.com/content/images/product/default/5508.jpg",
+            ],
+            [
+                "name" => "Original Prusa MINI+",
+                "description" => "",
+                "manufacturer" => "PRUSA",
+                "feats" => [
+                    "print-resolution" => [0.1, "mm"],
+                    "print-volume-x" => [180, "mm"],
+                    "print-volume-y" => [180, "mm"],
+                    "print-volume-z" => [180, "mm"],
+                    "printer-layer-height-min" => [0.05, "mm"],
+                    "printer-layer-height-max" => [0.25, "mm"],
+                    "nozzle-diameter" => [0.4, "mm"],
+                    "filament-diameter" => [1.75, "mm"],
+                    "nozzle-temperature-max" => [280, "°C"],
+                    "bed-temperature-max" => [100, "°C"],
+                ],
+                "image" => "https://cdn.prusa3d.com/content/images/product/default/2280.jpg",
+            ],
+            [
+                "name" => "Original Prusa XL",
+                "description" => "",
+                "manufacturer" => "PRUSA",
+                "feats" => [
+                    "print-resolution" => [0.1, "mm"],
+                    "print-volume-x" => [360, "mm"],
+                    "print-volume-y" => [360, "mm"],
+                    "print-volume-z" => [360, "mm"],
+                    "printer-layer-height-min" => [0.05, "mm"],
+                    "printer-layer-height-max" => [0.25, "mm"],
+                    "nozzle-diameter" => [0.4, "mm"],
+                    "filament-diameter" => [1.75, "mm"],
+                    "nozzle-temperature-max" => [280, "°C"],
+                    "bed-temperature-max" => [100, "°C"],
+                ],
+                "image" => "https://cdn.prusa3d.com/content/images/product/default/5422.jpg",
+            ],
         ];
         foreach ($printersData as $data) {
             $printer = $this->createPrinter(
@@ -318,6 +453,13 @@ return new class extends Migration {
                 $data["manufacturer"],
                 $data["feats"],
             );
+
+            if (isset($data["image"])) {
+                $printerImage = \App\Models\Image::upload($data["image"]);
+                $printer->image_id = $printerImage->id;
+                $printer->save();
+            }
+
             $printers->push($printer);
         }
         return $printers;

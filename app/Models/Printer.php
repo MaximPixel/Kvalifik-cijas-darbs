@@ -21,6 +21,10 @@ class Printer extends Model {
 
     use HasFactory, HasCode, HasCodeRoute, HasCodeEditRoute;
 
+    public function image() {
+        return $this->belongsTo(Image::class);
+    }
+
     public function creatorUser() {
         return $this->belongsTo(User::class, "creator_user_id");
     }
@@ -59,5 +63,13 @@ class Printer extends Model {
 
     public function addPrinterFeatValue(PrinterFeatType $printerFeatType) {
 
+    }
+
+    public function getImageUrl() {
+        return $this->image ? $this->image->getUrl() : "noimage";
+    }
+
+    public function getDisplayName() {
+        return $this->name;
     }
 }
