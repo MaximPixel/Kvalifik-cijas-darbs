@@ -19,6 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->foreignIdFor(\App\Models\UserGroup::class)->default(1)->constrained();
             $table->timestamps();
         });
     }

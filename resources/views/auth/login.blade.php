@@ -1,9 +1,5 @@
 @extends("layout")
 
-@php
-    dump($errors);
-@endphp
-
 @section("content")
 @include("bootstrap.form", [
     "title" => __("auth.login"),

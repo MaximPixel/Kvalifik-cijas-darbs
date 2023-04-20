@@ -11,7 +11,18 @@
     <label for="{{ $key }}">{{ $label }}</label>
 @endif
 @endif
-@if ($type == "featValue")
+@if ($type == "select")
+    <select class="form-select" name="{{ $key }}" id="{{ $key }}">
+    @foreach ($field["values"] as $selectValue)
+        <option
+            value="{{ $selectValue['value'] }}"
+        @if (old($key, $field["value"] ?? null) == $selectValue['value'])
+            selected
+        @endif
+        >{{ $selectValue["label"] }}</option>
+    @endforeach
+    </select>
+@elseif ($type == "featValue")
     @include("bootstrap.field.feat-value")
 @elseif ($type == "textarea")
     @include("bootstrap.field.textarea")

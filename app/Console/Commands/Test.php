@@ -13,13 +13,17 @@ class Test extends Command {
     protected $description = 'Command description';
 
     public function handle(): void {
-        dd(base_path() . "/python/stl_render.py");
-        $modelFilepath = Storage::disk("models")->path("TuQayi3BZkVqENB");
-        $imageFilepath = Storage::disk("images")->path("JJ1FGk7Dbxg87Jh");
-        $a = null;
-        $b = null;
-        $modelFilepath = escapeshellarg($modelFilepath);
-        $imageFilepath = escapeshellarg($imageFilepath);
-        $c = exec("python python//stl_render.py --filepath=$modelFilepath --output=$imageFilepath", $a, $b);
+        $path = base_path() . "/database/migrations";
+        $files = scandir($path);
+
+        $i = 0;
+
+        foreach ($files as $file) {
+            if ($file != "." && $file != ".." && $file != "fake_data.php") {
+                $newName = "2023_04_19_" . str($i)->padLeft(6, "0") . "_" . str($file)->after("_")->after("_")->after("_")->after("_");
+                rename($path . "/" . $file, $path . "/" . $newName);
+                $i++;
+            }
+        }
     }
 }

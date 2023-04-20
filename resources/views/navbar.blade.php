@@ -11,6 +11,13 @@
             <a class="nav-link" href="#">{{ request()->get("redirect") }}</a>
         </li>
       @if (auth()->check())
+      @if (auth()->user()->isAdmin())
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin') }}">
+                <span>@lang("admin")</span>
+            </a>
+        </li>
+      @endif
       @if (auth()->user()->ordersVisible->isNotEmpty())
         <li class="nav-item">
             <a class="nav-link" href="{{ route('model.order', ['action' => 'list', 'user' => auth()->user()->getCode()]) }}">
@@ -22,6 +29,9 @@
             <a class="nav-link" href="{{ route('model.print-model', ['action' => 'list', 'user' => auth()->user()->getCode()]) }}">
                 <span>@lang("navbar.my-models") <span class="badge bg-primary">{{ auth()->user()->printModelsVisible->count() }}</span></span>
             </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ auth()->user()->getRoute() }}">@lang("navbar.user")</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('auth.logout', ['redirect' => url()->full() ]) }}">@lang("navbar.logout")</a>

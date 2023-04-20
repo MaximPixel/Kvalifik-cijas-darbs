@@ -32,26 +32,6 @@ return new class extends Migration {
         $this->manfs = $this->createManfs();
         $this->printMaterials = $this->createPrintMaterials();
         $this->services = $this->createServices();
-
-        $this->orderStatuses = $this->createOrderStatuses();
-    }
-
-    private function createOrderStatuses() {
-        $names = [
-            "pending",
-            "awaiting_payment",
-            "printing",
-            "cancelled_by_user",
-            "cancelled_by_manf",
-            "shipped",
-            "finished",
-        ];
-
-        foreach ($names as $name) {
-            $orderStatus = new \App\Models\OrderStatus;
-            $orderStatus->name = $name;
-            $orderStatus->save();
-        }
     }
 
     private function createPrintMaterials() {
@@ -127,47 +107,84 @@ return new class extends Migration {
             [
                 "measure_type" => "accuracy",
                 "name" => "print-resolution",
-                "description" => "",
+                "description" => [
+                    "en" => "The parameter refers to the minimum size of an object that can be printed on a 3D printer. The higher the resolution, the more detailed objects can be printed.",
+                    "lv" => "Parametrs attiecas uz minimālo objekta izmēru, kas var tikt izdrukāts uz 3D printeri. Jo augstāka izšķirtspēja, jo detalizētāki objekti var tikt izdrukāti.",
+                    "ru" => "Параметр относится к минимальному размеру объекта, который может быть распечатан на 3D принтере. Чем выше разрешение, тем более детализированные объекты могут быть распечатаны.",
+                ],
             ],
             [
                 "measure_type" => "length",
                 "name" => "print-volume-x",
-                "description" => "",
+                "description" => [
+                    "en" => "Parameter determines the maximum length of an object that can be printed on a 3D printer along the X-axis.",
+                    "lv" => "Parametrs nosaka maksimālo objekta garumu, kas var tikt izdrukāts uz 3D printeri pa X asi.",
+                    "ru" => "Параметр определяет максимальную длину объекта, который может быть распечатан на 3D принтере вдоль оси X.",
+                ],
             ],
             [
                 "measure_type" => "length",
                 "name" => "print-volume-y",
-                "description" => "",
+                "description" => [
+                    "en" => "Parameter determines the maximum length of an object that can be printed on a 3D printer along the Y-axis.",
+                    "lv" => "Parametrs nosaka maksimālo objekta garumu, kas var tikt izdrukāts uz 3D printeri pa Y asi.",
+                    "ru" => "Параметр определяет максимальную длину объекта, который может быть распечатан на 3D принтере вдоль оси Y.",
+                ],
             ],
             [
                 "measure_type" => "length",
                 "name" => "print-volume-z",
-                "description" => "",
+                "description" => [
+                    "en" => "Parameter determines the maximum length of an object that can be printed on a 3D printer along the Z-axis.",
+                    "lv" => "Parametrs nosaka maksimālo objekta garumu, kas var tikt izdrukāts uz 3D printeri pa Z asi.",
+                    "ru" => "Параметр определяет максимальную длину объекта, который может быть распечатан на 3D принтере вдоль оси Z.",
+                ],
             ],
             [
                 "measure_type" => "length",
                 "name" => "printer-layer-height-min",
-                "description" => "",
+                "description" => [
+                    "en" => "Determines the minimum thickness of the material layer that the printer will apply when printing an object. The lower the value, the more precise the print and the longer the print time.",
+                    "lv" => "Nosaka minimālo materiāla slāņa biezumu, ko 3D printeris uzklās, kad tiek drukāts objekts. Jo zemāka ir šī vērtība, jo precīzāka ir druka, bet ilgāks ir drukas laiks.",
+                    "ru" => "Определяет, какую минимальную толщину слоя материала будет наносить принтер при печати объекта. Чем меньше значение, тем точнее и дольше длится печать.",
+                ],
             ],
             [
                 "measure_type" => "length",
                 "name" => "printer-layer-height-max",
-                "description" => "",
+                "description" => [
+                    "en" => "Determines the maximum thickness of the material layer that the printer will apply when printing an object. The higher the value, the lower the quality and the faster the print time.",
+                    "lv" => "Nosaka maksimālo materiāla slāņa biezumu, ko 3D printeris uzklās, kad tiek drukāts objekts. Jo augstāka ir šī vērtība, jo zemāka ir kvalitāte un ātrāks ir drukas laiks.",
+                    "ru" => "Определяет, какую максимальную толщину слоя материала будет наносить принтер при печати объекта. Чем больше значение, тем меньше качество и быстее длится печать.",
+                ],
             ],
             [
                 "measure_type" => "diameter",
                 "name" => "filament-diameter",
-                "description" => "",
+                "description" => [
+                    "en" => "Determines the diameter of the material filament used for printing. Most commonly, this is 1.75 mm",
+                    "lv" => "Noteic materiāla filaments, kas tiek izmantots drukāšanai, diametru. Visbiežāk tas ir 1.75 mm.",
+                    "ru" => "Определяет диаметр нити материала, который используется при печати. Чаще всего это 1.75 мм.",
+                ],
             ],
             [
                 "measure_type" => "temperature",
                 "name" => "nozzle-temperature-max",
-                "description" => "",
+                "description" => [
+                    "en" => "Determines the maximum temperature of the 3D printer nozzle. This affects the materials that can be used for printing.",
+                    "lv" => "Noteic 3D printeris izmantojamā sukas maksimālo temperatūru. Tas ietekmē materiālus, kas var tikt izmantoti drukāšanai.",
+                    "ru" => "Определяет максимальную температуру сопла 3д принтера. Влияет на то, какие материалы возможно использовать для печати.",
+                ],
             ],
             [
                 "measure_type" => "temperature",
                 "name" => "bed-temperature-max",
-                "description" => "",
+                "description" => [
+                    "en" => "Determines the maximum temperature of the 3D printer bed. This affects material selection and how well the selected material adheres to the bed.",
+                    "lv" => "Noteic 3D printera gultnes maksimālo temperatūru. Tas ietekmē materiāla izvēli un to, cik labi izvēlētais materiāls piestiprinās pie gultnes.",
+                    "ru" => "Определяет максимальную температуру стола 3д принтера. Влияет на выбор материала и на прилипание выбранного материала.",
+                ],
+                "required" => false,
             ],
         ];
 
@@ -175,11 +192,19 @@ return new class extends Migration {
 
         foreach ($data as $row) {
             $printerFeatType = new \App\Models\PrinterFeatType;
-            foreach ($row as $key => $value) {
-                $printerFeatType->$key = $value;
-            }
-            $printerFeatType->required = true;
+            $printerFeatType->name = $row["name"];
+            $printerFeatType->measure_type = $row["measure_type"];
+            $printerFeatType->required = $row["required"] ?? true;
             $printerFeatType->save();
+
+            foreach ($row["description"] as $langCode => $description) {
+                $printerFeatTypeLang = new \App\Models\PrinterFeatTypeLang;
+                $printerFeatTypeLang->printer_feat_type_id = $printerFeatType->id;
+                $printerFeatTypeLang->lang_id = \App\Models\Lang::where("name", $langCode)->first()->id;
+                $printerFeatTypeLang->description = $description;
+                $printerFeatTypeLang->save();
+            }
+
             $featTypes->push($printerFeatType);
         }
 

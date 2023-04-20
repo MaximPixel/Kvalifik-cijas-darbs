@@ -73,9 +73,9 @@ class PrinterController extends Controller {
                     $validateRules = $editFeatTypes
                         ->mapWithKeys(function ($featType) {
                             $key = "feat." . $featType->getCode() . ".value";
-                            return [$key => "required|numeric|between:0,99999.99"];
+                            return [$key => $featType->getValidationRules()];
                         })->merge([
-                            "feat" => "required|array",
+                            "feat" => ["required", "array"],
                         ])->toArray();
 
                     $params = $editFeatTypes

@@ -64,4 +64,8 @@ class ManfService extends Model {
     public function getAddPrinterRoute() {
         return $this->getActionRoute("add-printer", ["redirect" => $this->getRoute()]);
     }
+
+    public function getDisplayName() {
+        return $this->name;
+    }
 }

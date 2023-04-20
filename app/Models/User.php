@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable {
 
-    use HasApiTokens, HasFactory, Notifiable, HasCode;
+    use HasApiTokens, HasFactory, Notifiable, HasCode, HasCodeRoute;
 
     protected $fillable = [
         'name',
@@ -68,5 +68,17 @@ class User extends Authenticatable {
 
     public function isAdmin() {
         return $this->userGroup->name == "admin";
+    }
+
+    public function getDisplayName() {
+        return $this->name;
+    }
+
+    public function canEdit(User|null $user) {
+        return $this->canView($user);
+    }
+
+    public function canView(User|null $user) {
+        return $user && ($user->id == $this->id || $user->isAdmin());
     }
 }

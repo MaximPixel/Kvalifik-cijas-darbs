@@ -1,13 +1,16 @@
 <?php
 
 if (!function_exists("autoredirect")) {
-    function autoredirect($defaultRoute = null) {
+    function autoredirect($defaultUrl = null) {
         if (request()->has("redirect")) {
             return redirect(request()->get("redirect"));
         }
 
-        $route = $defaultRoute === null ? "index" : $defaultRoute;
-        return redirect()->route($route);
+        if ($defaultUrl !== null) {
+            return redirect($defaultUrl);
+        }
+
+        return redirect()->route("index");
     }
 }
 

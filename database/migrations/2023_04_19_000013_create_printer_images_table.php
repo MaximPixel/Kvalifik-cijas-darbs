@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_order_statuses', function (Blueprint $table) {
+        Schema::create('printer_images', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Order::class)->constrained();
-            $table->foreignIdFor(\App\Models\OrderStatus::class)->constrained();
-            $table->foreignIdFor(\App\Models\User::class)->constrained();
+            $table->foreignIdFor(\App\Models\Printer::class)->constrained();
+            $table->foreignIdFor(\App\Models\Image::class)->constrained();
             $table->timestamps();
-
-            $table->index(["created_at"]);
         });
     }
 
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('order_order_statuses');
+        Schema::dropIfExists('printer_images');
     }
 };

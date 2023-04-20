@@ -8,16 +8,12 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('user_groups', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
+            $table->string("name")->unique();
             $table->timestamps();
         });
 
         $user = $this->createUserGroup("user");
         $admin = $this->createUserGroup("admin");
-
-        Schema::table('users', function (Blueprint $table) use ($user) {
-            $table->foreignIdFor(\App\Models\UserGroup::class)->default($user->id)->constrained();
-        });
     }
 
     protected function createUserGroup(string $name) {
@@ -28,10 +24,6 @@ return new class extends Migration {
     }
 
     public function down(): void {
-        Schema::table('users', function (Blueprint $table) {
-            // TODO
-        });
-
         Schema::dropIfExists('user_groups');
     }
 };

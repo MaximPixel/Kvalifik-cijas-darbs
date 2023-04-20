@@ -26,4 +26,8 @@ class Manf extends Model {
             return $manfRoleUser->manfRole->where("manf_id", $this->id);
         }) || $user->isAdmin();
     }
+
+    public function getDisplayName() {
+        return $this->name;
+    }
 }

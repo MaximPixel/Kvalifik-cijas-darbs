@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('printer_images', function (Blueprint $table) {
-            $table->foreignIdFor(\App\Models\Printer::class)->constrained();
-            $table->foreignIdFor(\App\Models\Image::class)->constrained();
+        Schema::create('printer_feat_type_langs', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(\App\Models\PrinterFeatType::class);
+            $table->foreignIdFor(\App\Models\Lang::class);
+            $table->text("description");
             $table->timestamps();
 
-            $table->primary(["printer_id", "image_id"]);
+            $table->unique(["printer_feat_type_id", "lang_id"]);
         });
     }
 
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('printer_images');
+        Schema::dropIfExists('printer_feat_types');
     }
 };

@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('printer_feat_types', function (Blueprint $table) {
+        Schema::create('printers', function (Blueprint $table) {
             $table->id();
             $table->string("code")->collation("utf8mb4_bin")->nullable()->unique();
             $table->boolean("deleted")->default(false);
-            $table->boolean("required")->default(false);
-            $table->boolean("allow_many_values")->default(true);
-            $table->string("measure_type");
+            $table->foreignIdFor(\App\Models\Printer::class, "parent_printer_id")->nullable()->constrained("printers")->nullOnDelete();
             $table->string("name");
             $table->text("description");
+            $table->string("manufacturer")->index();
             $table->foreignIdFor(\App\Models\User::class, "creator_user_id")->nullable()->constrained("users");
             $table->timestamps();
         });
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('printer_feat_types');
+        Schema::dropIfExists('printers');
     }
 };
