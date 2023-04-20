@@ -89,7 +89,7 @@ return new class extends Migration {
         return $printMaterials;
     }
 
-    private function createUsers($count = 5) {
+    private function createUsers($count = 50) {
         $users = collect();
         for ($i = 0; $i < $count; $i++) {
             $user = new \App\Models\User;
@@ -356,7 +356,7 @@ return new class extends Migration {
         return $printer;
     }
 
-    private function createManfs($count = 4) {
+    private function createManfs($count = 40) {
         $manfs = collect();
 
         for ($i = 0; $i < $count; $i++) {

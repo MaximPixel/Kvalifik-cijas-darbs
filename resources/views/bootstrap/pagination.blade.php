@@ -46,7 +46,7 @@
     </li>
 @endif
 
-<li class="page-item @if($current == $last) disabled @endif">
-    <a class="page-link" href="{{ $pagination->nextPageUrl() }}">@lang("pagination.next")</a>
-</li>
+    <li class="page-item @if($current == $last) disabled @endif">
+        <a class="page-link" href="{{ $pagination->nextPageUrl() }}">@lang("pagination.next")</a>
+    </li>
 </ul>

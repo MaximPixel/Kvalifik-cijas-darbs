@@ -20,7 +20,8 @@
 @section("content")
 @foreach ($modelTypes as $modelType)
 @php
-    $pagination = new \App\Classes\CustomPaginator($modelType["class"]::paginate(perPage: 6, pageName: $modelType["class"])->withQueryString());
+    $pageName = (string) str($modelType["class"])->afterLast("\\")->snake("-") . "-page";
+    $pagination = (new \App\Classes\CustomPaginator($modelType["class"]::paginate(perPage: 6, pageName: $pageName)))->withQueryString();
 @endphp
 <div class="card mb-3" id="{{ $modelType['class'] }}">
     <div class="card-header">{{ $modelType["label"] }}</div>
