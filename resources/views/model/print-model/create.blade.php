@@ -6,6 +6,7 @@
     "enctype" => "multipart/form-data",
     "fields" => [
         "model-file" => [
+            "label" => __("model.print-model.file"),
             "type" => "file",
         ],
         "name" => [

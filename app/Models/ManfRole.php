@@ -7,5 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class ManfRole extends Model {
 
-    use HasFactory, HasCode;
+    use HasFactory, HasCode, HasCodeRoute;
+
+    public function manf() {
+        return $this->belongsTo(Manf::class);
+    }
+
+    public function manfRoleUsers() {
+        return $this->hasMany(ManfRoleUser::class);
+    }
 }

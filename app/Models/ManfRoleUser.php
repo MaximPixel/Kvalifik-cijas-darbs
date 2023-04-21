@@ -14,4 +14,8 @@ class ManfRoleUser extends Model {
     public function manfRole() {
         return $this->belongsTo(ManfRole::class);
     }
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

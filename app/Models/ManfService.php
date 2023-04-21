@@ -61,8 +61,16 @@ class ManfService extends Model {
         return $user && $user->isAdmin();
     }
 
-    public function getAddPrinterRoute() {
-        return $this->getActionRoute("add-printer", ["redirect" => $this->getRoute()]);
+    public function getAddPrinterRoute(Printer $printer = null) {
+        $params = [];
+        if ($printer) {
+            $params["printer"] = $printer->getCode();
+        }
+        return $this->getActionRoute("add-printer", $params);
+    }
+
+    public function getRemovePrinterRoute(Printer $printer) {
+        return $this->getActionRoute("remove-printer", ["printer" => $printer->getCode()]);
     }
 
     public function getDisplayName() {

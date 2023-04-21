@@ -25,10 +25,14 @@ class PrintModel extends Model {
     }
 
     public function getImageUrl() {
-        return $this->image ? $this->image->getUrl() : "noimage";
+        return $this->image ? $this->image->getUrl() : config("images.default");
     }
 
     public function getPath() {
         return Storage::disk("models")->path($this->getCode());
+    }
+
+    public function getDisplayName() {
+        return $this->name;
     }
 }

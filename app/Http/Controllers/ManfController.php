@@ -24,6 +24,12 @@ class ManfController extends Controller {
                         return view("yesno");
                     }
                 }
+            } else if ($action == "edit") {
+                $manf = Manf::firstCodeOrFail($request->query("code"));
+
+                if ($manf->canEdit($request->user())) {
+                    return view("model.manf.edit", ["manf" => $manf]);
+                }
             }
         } else if ($request->has("code")) {
             $manf = Manf::where("deleted", false)->firstCodeOrFail($request->query("code"));
@@ -64,7 +70,24 @@ class ManfController extends Controller {
                     if ($manf->canEdit($request->user())) {
                         $manf->deleted = true;
                         $manf->save();
-                        return redirect()->route("index");
+                        return autoredirect();
+                    }
+                }
+            } else if ($action == "edit") {
+                if ($request->has("code")) {
+                    $manf = Manf::firstCodeOrFail($request->query("code"));
+
+                    if ($manf->canEdit($request->user())) {
+                        $data = $request->validate([
+                            "name" => "required|min:5|max:255",
+                            "email" => "required|email",
+                        ]);
+                        $manf->name = $data["name"];
+                        $manf->email = $data["email"];
+                        if ($manf->isDirty()) {
+                            $manf->save();
+                        }
+                        return autoredirect($manf->getRoute());
                     }
                 }
             }

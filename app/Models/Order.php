@@ -28,4 +28,8 @@ class Order extends Model {
     public function printMaterialColor() {
         return $this->belongsTo(PrintMaterialColor::class);
     }
+
+    public function canEdit(User|null $user) {
+        return $this->manfService->canEdit($user);
+    }
 }

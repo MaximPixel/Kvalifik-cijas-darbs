@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Order;
+use App\Models\OrderStatus;
+use App\Models\OrderOrderStatus;
 use App\Models\PrintModel;
 use App\Models\UserAddress;
 use App\Models\ManfService;
@@ -71,6 +73,21 @@ class OrderController extends Controller {
                     $order->deleted = true;
                     $order->save();
                     return redirect()->route("index");
+                }
+            } else if ($action == "change-status") {
+                if ($request->has("code") && $request->has("status")) {
+                    $order = Order::firstCodeOrFail($request->get("code"));
+
+                    if ($order->canEdit($request->user())) {
+                        $orderStatus = OrderStatus::where("name", $request->get("status"))->firstOrFail();
+
+                        $orderOrderStatus = new OrderOrderStatus;
+                        $orderOrderStatus->order_id = $order->id;
+                        $orderOrderStatus->order_status_id = $orderStatus->id;
+                        $orderOrderStatus->comment = $request->get("comment");
+                        $orderOrderStatus->user_id = $request->user()->id ?? null;
+                        $orderOrderStatus->save();
+                    }
                 }
             }
         }

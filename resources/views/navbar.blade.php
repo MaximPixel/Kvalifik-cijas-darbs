@@ -14,7 +14,7 @@
       @if (auth()->user()->isAdmin())
         <li class="nav-item">
             <a class="nav-link" href="{{ route('admin') }}">
-                <span>@lang("admin")</span>
+                <span>@lang("navbar.admin")</span>
             </a>
         </li>
       @endif

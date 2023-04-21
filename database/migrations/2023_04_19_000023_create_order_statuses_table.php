@@ -16,6 +16,22 @@ return new class extends Migration
             $table->string("name");
             $table->timestamps();
         });
+
+        $names = [
+            "pending",
+            "awaiting-payment",
+            "printing",
+            "cancelled-by-user",
+            "cancelled-by-manf",
+            "shipped",
+            "finished",
+        ];
+
+        foreach ($names as $name) {
+            $orderStatus = new \App\Models\OrderStatus;
+            $orderStatus->name = $name;
+            $orderStatus->save();
+        }
     }
 
     /**

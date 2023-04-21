@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChangeLangController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ManfController;
+use App\Http\Controllers\ManfRoleController;
 use App\Http\Controllers\ManfServiceController;
 use App\Http\Controllers\PrinterController;
 use App\Http\Controllers\PrintModelController;
@@ -25,6 +26,9 @@ Route::any("/logout", [AuthController::class, "logout"])->name("auth.logout");
 
 Route::get("/manf", [ManfController::class, "view"])->name("model.manf");
 Route::post("/manf", [ManfController::class, "post"]);
+
+Route::get("/manf-role", [ManfRoleController::class, "view"])->name("model.manf-role");
+Route::post("/manf-role", [ManfRoleController::class, "post"]);
 
 Route::get("/service", [ManfServiceController::class, "view"])->name("model.manf-service");
 Route::post("/service", [ManfServiceController::class, "post"]);

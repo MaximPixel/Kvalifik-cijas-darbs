@@ -3,7 +3,12 @@
 return [
     "manf" => [
         "services" => "Manufacturer Services",
+        "roles" => "Roles",
+        "name" => "Manufacturer Name",
+        "email" => "Manufacturer Email",
         "action" => [
+            "edit" => "Edit",
+            "submit-edit" => "Save Changes",
             "create-service" => "Create Service",
             "delete" => "Delete",
         ],
@@ -18,6 +23,7 @@ return [
         "price_min" => "Min Price",
         "price_per_time" => "Price per Print Minute",
         "price_per_volume" => "Price per Print cm3",
+        "manf" => "Manufacturer",
         "list" => [
             "title" => "Services List",
             "manf" => "Filter by Manufacturer",
@@ -26,8 +32,10 @@ return [
             "action" => [
                 "filter" => "Filter Services",
             ],
+            "show" => "Showing :count of :total",
         ],
         "action" => [
+            "edit" => "Edit",
             "create-order" => "Create Order",
             "add-printer" => "Add a Printer to the List",
             "remove-printer" => "remove",
@@ -36,6 +44,11 @@ return [
             "create" => "Create Service",
             "create-submit" => "Create",
             "edit-materials-submit" => "Save Materials",
+        ],
+        "add-printer" => [
+            "filters" => "Filters",
+            "filter" => "Filter",
+            "any-manf" => "Any Manufacturer",
         ],
     ],
     "order" => [
@@ -56,6 +69,21 @@ return [
             "create" => "Create Order",
             "submit-create" => "Create",
             "create-address" => "Create Address",
+            "change-status" => "Change Status",
+            "change-status-submit" => "Submit",
+        ],
+        "status" => [
+            "type" => "Status Type",
+            "comment" => "Comment (optional)",
+            "types" => [
+                "pending" => "Pending",
+                "awaiting-payment" => "Awaiting Payment",
+                "printing" => "Printing",
+                "cancelled-by-user" => "Cancelled by User",
+                "cancelled-by-manf" => "Cancelled by Manufacturer",
+                "shipped" => "Shipped",
+                "finished" => "Finished",
+            ],
         ],
     ],
     "print-model" => [
@@ -85,7 +113,7 @@ return [
         "contact_name" => "Contact Name (First and Last Names)",
         "phone_number_prefix" => "Phone number prefix",
         "phone_number" => "Phone number",
-        "address_street" => "address",
+        "address_street" => "Address",
         "address_apt" => "Aprtment, suite, building floor (optional)",
         "address_province" => "Province",
         "address_city" => "City",
@@ -119,5 +147,16 @@ return [
             "create" => "Create",
             "create-submit" => "Create",
         ]
+    ],
+    "user" => [
+        "name" => "Name",
+        "email" => "Email",
+        "password" => "Password",
+        "user_group" => "User Group",
+        "action" => [
+            "edit" => "Edit",
+            "submit-edit" => "Save Changes",
+            "delete" => "Delete",
+        ],
     ],
 ];

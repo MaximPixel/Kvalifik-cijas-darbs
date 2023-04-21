@@ -1,3 +1,4 @@
+@if ($pagination->hasPages())
 @php
     $current = $pagination->currentPage();
     $last = $pagination->lastPage();
@@ -50,3 +51,4 @@
         <a class="page-link" href="{{ $pagination->nextPageUrl() }}">@lang("pagination.next")</a>
     </li>
 </ul>
+@endif

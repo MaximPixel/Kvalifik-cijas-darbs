@@ -1,5 +1,5 @@
 @php
-    $canEdit = $manf->canEdit(auth()->user());
+    $canEdit = $manf->canEdit(request()->user());
 @endphp
 
 @extends("layout")
@@ -7,6 +7,32 @@
 @section("content")
 <h1>{{ $manf->name }}</h1>
 <p>{{ $manf->description }}</p>
+
+@if ($canEdit)
+<p>
+    <a class="btn btn-primary mb-3" href="{{ $manf->getActionRoute('edit') }}">@lang("model.manf.action.edit")</a>
+</p>
+
+<div class="card mb-3">
+    <div class="card-header">@lang("model.manf.roles")</div>
+    <div class="card-body">
+        <a class="btn btn-primary mb-3" href="#">TODO</a>
+        
+        <div class="overflow-auto">
+            <div class="d-inline-flex">
+                @foreach ($manf->manfRoles as $manfRole)
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $manfRole->name }}</h5>
+                        <p>{{ $manfRole->manfRoleUsers->pluck("user")->pluck("name")->join(", ") }}</p>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 
 <div class="card mb-3">
     <div class="card-header">@lang("model.manf.services")</div>

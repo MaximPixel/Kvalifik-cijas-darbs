@@ -22,9 +22,13 @@ class Manf extends Model {
     }
 
     public function canEdit(User|null $user) {
-        return $user && $user->manfRoleUsers->contains(function ($manfRoleUser) {
+        if (!$user) {
+            return false;
+        }
+
+        return $user->isAdmin() || $user->manfRoleUsers->contains(function ($manfRoleUser) {
             return $manfRoleUser->manfRole->where("manf_id", $this->id);
-        }) || $user->isAdmin();
+        });
     }
 
     public function getDisplayName() {

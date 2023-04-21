@@ -20,7 +20,9 @@ class PrinterController extends Controller {
 
                     $printer = Printer::firstCodeOrFail($code);
 
-                    return view("model.printer.edit", ["printer" => $printer]);
+                    if ($printer->canEdit($request->user())) {
+                        return view("model.printer.edit", ["printer" => $printer]);
+                    }
                 }
             }
         } else if ($request->has("code")) {

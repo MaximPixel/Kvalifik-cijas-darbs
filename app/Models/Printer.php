@@ -38,7 +38,10 @@ class Printer extends Model {
     }
 
     public function canEdit(User|null $user) {
-        return $this->user_id != null && $this->user_id == $user->id;
+        if (!$user) {
+            return false;
+        }
+        return ($this->creator_user_id != null && $this->creator_user_id == $user->id) || $user->isAdmin();
     }
 
     public function getDefinedFeatTypes() {
@@ -66,10 +69,31 @@ class Printer extends Model {
     }
 
     public function getImageUrl() {
-        return $this->image ? $this->image->getUrl() : "noimage";
+        return $this->image ? $this->image->getUrl() : config("images.default");
     }
 
     public function getDisplayName() {
         return $this->name;
+    }
+
+    public function getPrintVolume(string $axis = null) {
+        if ($axis === null) {
+            $axis = ["x", "y", "z"];
+        } else {
+            $axis = [$axis];
+        }
+
+        $data = collect($axis)->map(function ($axis) {
+            $printVolumeFeatType = PrinterFeatType::where("name", "print-volume-$axis")->first();
+            $printerFeatValue = $this->printerFeats->pluck("printerFeatValue")->where("printer_feat_type_id", $printVolumeFeatType->id)->first();
+            return $printerFeatValue->decimal_value;
+        });
+
+        if ($data->containsOneItem()) {
+            return $data->first();
+        }
+
+        
+        return $data->join(" x ") . " mm";
     }
 }

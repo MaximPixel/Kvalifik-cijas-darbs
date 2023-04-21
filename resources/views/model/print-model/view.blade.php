@@ -1,8 +1,12 @@
 @extends("layout")
 
 @section("content")
-<h1>{{ $printModel->name }}</h1>
-<img class="rounded img-thumbnail mb-3" style="width: 300px" src="{{ $printModel->getImageUrl() }}" alt="{{ $printModel->name }}">
+<div class="d-flex position-relative">
+    <img style="width: 200px" src="{{ $printModel->getImageUrl() }}">
+    <div>
+        <h5 class="mt-0">{{ $printModel->name }}</h5>
+    </div>
+</div>
 
 <div class="card mb-3">
     <div class="card-header">@lang("model.print-model.parameters")</div>

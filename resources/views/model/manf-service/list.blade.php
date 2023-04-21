@@ -21,11 +21,16 @@
                         </select>
                     </div>
 
+                    @php
+                        $printModels = request()->user()->printModelsVisible ?? collect();
+                    @endphp
+
+                    @if ($printModels->isNotEmpty())
                     <div class="mb-3">
                         <label for="model">@lang("model.manf-service.list.model")</label>
                         <select class="form-select" name="model" id="model">
                             <option value="">-</option>
-                        @foreach (\App\Models\PrintModel::all() as $model)
+                        @foreach ($printModels as $model)
                             <option
                                 value="{{ $model->getCode() }}"
                             @if (request()->get("model") == $model->getCode()) selected @endif
@@ -33,6 +38,7 @@
                         @endforeach
                         </select>
                     </div>
+                    @endif
 
                     <div class="mb-3">
                         <label for="material_color">@lang("model.manf-service.list.material-color")</label>
@@ -58,18 +64,29 @@
         </nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <h1>@lang("model.manf-service.list.title")</h1>
+            <p>@lang("model.manf-service.list.show", ["count" => $manfServicesPagination->count(), "total" => $manfServicesPagination->total()])</p>
             <ul class="list-unstyled">
-                @foreach ($manfServices as $manfService)
+                @foreach ($manfServicesPagination->items() as $manfService)
                 <li class="media">
                     <div class="media-body">
                         <h5 class="mt-0">
                             <a href="{{ $manfService->getRoute() }}">{{ $manfService->name }}</a>
                         </h5>
                         <p>{{ $manfService->description }}</p>
+                        @php
+                            $printerNames = $manfService->manfServicePrinters->pluck("printer")->map(fn ($a) => $a->getDisplayName());
+                            $visiblePrinterNames = $printerNames->take(2);
+                        @endphp
+                    @if ($printerNames->count() == $visiblePrinterNames->count())
+                        <p>{{ $visiblePrinterNames->join(", ") }}</p>
+                    @else
+                        <p>{{ $visiblePrinterNames->join(", ") }}, ({{ $printerNames->count() - $visiblePrinterNames->count() }} more)</p>
+                    @endif
                     </div>
                 </li>
                 @endforeach
             </ul>
+            @include("bootstrap.pagination", ["pagination" => $manfServicesPagination])
         </main>
     </div>
 </div>

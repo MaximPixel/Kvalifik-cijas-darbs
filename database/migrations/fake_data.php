@@ -9,7 +9,6 @@ return new class extends Migration {
     private $faker;
 
     private $users, $featTypes, $printers, $manfs, $printMaterials, $services;
-    private $orderStatuses;
 
     public function up(): void {
         $user = new \App\Models\User;
@@ -510,7 +509,7 @@ return new class extends Migration {
 
             $manfRole = new \App\Models\ManfRole;
             $manfRole->manf_id = $manf->id;
-            $manfRole->name = "Creator";
+            $manfRole->name = "Founder";
             $manfRole->save();
 
             $manfRoleUser = new \App\Models\ManfRoleUser;
@@ -536,15 +535,21 @@ return new class extends Migration {
             $service->price_per_time = 1;
             $service->save();
 
-            $servicePrinter = new \App\Models\ManfServicePrinter;
-            $servicePrinter->manf_service_id = $service->id;
-            $servicePrinter->printer_id = $this->printers->random()->id;
-            $servicePrinter->save();
+            $printers = $this->printers->shuffle()->take(rand(1, 4));
+            foreach ($printers as $printer) {
+                $servicePrinter = new \App\Models\ManfServicePrinter;
+                $servicePrinter->manf_service_id = $service->id;
+                $servicePrinter->printer_id = $printer->id;
+                $servicePrinter->save();
+            }
 
-            $servicePrintMaterialColor = new \App\Models\ManfServicePrintMaterialColor;
-            $servicePrintMaterialColor->manf_service_id = $service->id;
-            $servicePrintMaterialColor->print_material_color_id = $this->printMaterials->random()->printMaterialColors->random()->id;
-            $servicePrintMaterialColor->save();
+            $printMaterialColors = $this->printMaterials->pluck("printMaterialColors")->collapse()->shuffle()->take(rand(1, 4));
+            foreach ($printMaterialColors as $printMaterialColor) {
+                $servicePrintMaterialColor = new \App\Models\ManfServicePrintMaterialColor;
+                $servicePrintMaterialColor->manf_service_id = $service->id;
+                $servicePrintMaterialColor->print_material_color_id = $printMaterialColor->id;
+                $servicePrintMaterialColor->save();
+            }
         }
 
         return $services;

@@ -42,6 +42,6 @@
 @include("bootstrap.form", [
     "title" => __("model.user.action.edit"),
     "fields" => $fields,
-    "submit" => __("model.user.action.save"),
+    "submit" => __("model.user.action.submit-edit"),
 ])
 @endsection

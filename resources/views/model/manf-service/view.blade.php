@@ -9,6 +9,9 @@
     {{ $manfService->name }}
 </h1>
 <p>{{ $manfService->description }}</p>
+<p>
+    @lang("model.manf-service.manf"): <a href="{{ $manfService->manf->getRoute() }}">{{ $manfService->manf->getDisplayName() }}</a>
+</p>
 @if ($canEdit)
 <p>
     <a class="btn btn-primary" href="{{ $manfService->getEditRoute() }}">@lang("model.manf-service.action.edit")</a>
@@ -26,17 +29,30 @@
     @if ($canEdit)
         <a class="btn btn-primary mb-3" href="{{ $manfService->getAddPrinterRoute() }}">@lang("model.manf-service.action.add-printer")</a>
     @endif
-        <ul class="list-group list-group-flush">
-        @foreach ($manfService->manfServicePrinters as $manfServicePrinter)
-        @php $printer = $manfServicePrinter->printer @endphp
-            <li class="list-group-item">
-                <a href="{{ $printer->getRoute() }}">{{ $printer->name }}</a>
-            @if ($canEdit)
-                <a href="{{ route('model.manf-service', ['code' => $manfService->getCode(), 'printer' => $printer->getCode(), 'action' => 'remove-printer']) }}">@lang("model.manf-service.action.remove-printer")</a>
-            @endif
-            </li>
-        @endforeach
-        </ul>
+        <div class="overflow-auto">
+            <div class="d-inline-flex">
+                @foreach ($manfService->manfServicePrinters as $manfServicePrinter)
+                @php $printer = $manfServicePrinter->printer @endphp
+                <div class="d-inline-block" style="width: 200px">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-text" style="position: relative;">
+                                <img src="{{ $printer->getImageUrl() }}" alt="" style="width: 100%">
+                                <h5 class="card-title">{{ $printer->getDisplayName() }}</h5>
+                                <p class="card-text">{{ $printer->getPrintVolume() }}</p>
+                                <a href="{{ $printer->getRoute() }}" class="stretched-link"></a>
+                            </div>
+                        @if ($canEdit)
+                            <div class="card-text">
+                                <a class="btn btn-danger" href="{{ $manfService->getRemovePrinterRoute($printer) }}">@lang("model.manf-service.action.remove-printer")</a>
+                            </div>
+                        @endif
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
     </div>
 </div>
 
