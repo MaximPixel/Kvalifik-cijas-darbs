@@ -9,7 +9,7 @@
                     @csrf
 
                     <div class="mb-3">
-                        <label for="manf">@lang("model.manf-service.list.manf")</label>
+                        <label class="form-label" for="manf">@lang("model.manf-service.list.manf")</label>
                         <select class="form-select" name="manf" id="manf">
                             <option value="">-</option>
                         @foreach ($totalManfServices->pluck("manf")->unique("id") as $manf)
@@ -27,7 +27,7 @@
 
                     @if ($printModels->isNotEmpty())
                     <div class="mb-3">
-                        <label for="model">@lang("model.manf-service.list.model")</label>
+                        <label class="form-label" for="model">@lang("model.manf-service.list.model")</label>
                         <select class="form-select" name="model" id="model">
                             <option value="">-</option>
                         @foreach ($printModels as $model)
@@ -41,7 +41,7 @@
                     @endif
 
                     <div class="mb-3">
-                        <label for="material_color">@lang("model.manf-service.list.material-color")</label>
+                        <label class="form-label" for="material_color">@lang("model.manf-service.list.material-color")</label>
                         <select class="form-select" name="material_color" id="material_color">
                             <option value="">-</option>
                             @foreach (\App\Models\PrintMaterial::all() as $printMaterial)
@@ -58,6 +58,23 @@
                         </select>
                     </div>
 
+                    <div class="mb-3">
+                        <label class="form-label" for="sort">@lang("model.manf-service.list.sort")</label>
+                        <select class="form-select" name="sort" id="sort">
+                        @php
+                            $sorts = ["creation-asc", "creation-desc", "orders-asc", "orders-desc"];
+                        @endphp
+                        @foreach ($sorts as $sort)
+                            <option
+                            @if (!$loop->first && request()->get("sort") == $sort)
+                                selected
+                            @endif
+                                value="{{ $loop->first ? null : $sort }}"
+                            >@lang("model.manf-service.list.sorts.$sort")</option>
+                        @endforeach
+                        </select>
+                    </div>
+
                     <input class="btn btn-primary" type="submit" value="@lang('model.manf-service.list.action.filter')">
                 </form>
             </div>
@@ -71,6 +88,9 @@
                     <div class="media-body">
                         <h5 class="mt-0">
                             <a href="{{ $manfService->getRoute() }}">{{ $manfService->name }}</a>
+                        @if ($manfService->_orders_count > 0)
+                            <small class="text-muted ms-4">@lang("model.manf-service.orders-count", ["count" => $manfService->_orders_count])</small>
+                        @endif
                         </h5>
                         <p>{{ $manfService->description }}</p>
                         @php

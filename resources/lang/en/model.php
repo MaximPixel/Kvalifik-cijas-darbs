@@ -24,6 +24,7 @@ return [
         "price_per_time" => "Price per Print Minute",
         "price_per_volume" => "Price per Print cm3",
         "manf" => "Manufacturer",
+        "orders-count" => ":count orders",
         "list" => [
             "title" => "Services List",
             "manf" => "Filter by Manufacturer",
@@ -33,6 +34,13 @@ return [
                 "filter" => "Filter Services",
             ],
             "show" => "Showing :count of :total",
+            "sort" => "Sort by",
+            "sorts" => [
+                "creation-asc" => "Creation Date ↑",
+                "creation-desc" => "Creation Date ↓",
+                "orders-asc" => "Orders Count ↑",
+                "orders-desc" => "Orders Count ↓",
+            ],
         ],
         "action" => [
             "edit" => "Edit",

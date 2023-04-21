@@ -9,6 +9,13 @@ class Order extends Model {
 
     use HasFactory, HasCode, HasCodeRoute;
 
+    public static function booted() {
+        static::created(function ($model) {
+            $model->manfService->increment("_orders_count");
+        });
+        self::bootedHasCode();
+    }
+
     public function user() {
         return $this->belongsTo(User::class);
     }

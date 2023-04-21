@@ -40,6 +40,18 @@ class ManfServiceController extends Controller {
                     }
                 }
 
+                $sort = $request->get("sort");
+
+                if ($sort == "creation-desc") {
+                    $manfServicesQuery->orderBy("created_at", "desc");
+                } else if ($sort == "orders-asc") {
+                    $manfServicesQuery->orderBy("_orders_count", "asc");
+                } else if ($sort == "orders-desc") {
+                    $manfServicesQuery->orderBy("_orders_count", "desc");
+                } else {
+                    $manfServicesQuery->orderBy("created_at", "asc");
+                }
+
                 $manfServicesQuery->orderBy("id");
 
                 return view("model.manf-service.list", [
