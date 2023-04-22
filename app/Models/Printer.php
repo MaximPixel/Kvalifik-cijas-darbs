@@ -76,9 +76,13 @@ class Printer extends Model {
         return $this->name;
     }
 
+    public function isCylindricalPrintVolume() {
+        return $this->printerFeats->pluck("printerFeatValue")->pluck("printerFeatType")->where("name", "print-volume-d")->isNotEmpty();
+    }
+
     public function getPrintVolume(string $axis = null) {
         if ($axis === null) {
-            $axis = ["x", "y", "z"];
+            $axis = $this->isCylindricalPrintVolume() ? ["d", "z"] : ["x", "y", "z"];
         } else {
             $axis = [$axis];
         }
@@ -93,7 +97,12 @@ class Printer extends Model {
             return $data->first();
         }
 
-        
-        return $data->join(" x ") . " mm";
+        $string = $data->join(" x ") . " mm";
+
+        if ($this->isCylindricalPrintVolume()) {
+            $string = "ø $string";
+        }
+
+        return $string;
     }
 }

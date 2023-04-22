@@ -158,6 +158,11 @@ return new class extends Migration {
                 ],
             ],
             [
+                "measure_type" => "diameter",
+                "name" => "print-volume-d",
+                "description" => [],
+            ],
+            [
                 "measure_type" => "length",
                 "name" => "print-volume-z",
                 "description" => [
@@ -422,6 +427,22 @@ return new class extends Migration {
                     "bed-temperature-max" => [90, "°C"],
                 ],
                 "image" => "https://www.anycubic.com/cdn/shop/products/01_ba98cb9d-2895-40c2-a0d0-c458a7bc4a3c_1800x1800.jpg?v=1654067392",
+            ],
+            [
+                "name" => "Predator",
+                "description" => "",
+                "manufacturer" => "ANYCUBIC",
+                "feats" => [
+                    "print-resolution" => [0.1, "mm"],
+                    "print-volume-d" => [370, "mm"],
+                    "print-volume-z" => [455, "mm"],
+                    "printer-layer-height-min" => [0.05, "mm"],
+                    "printer-layer-height-max" => [0.3, "mm"],
+                    "nozzle-diameter" => [0.4, "mm"],
+                    "filament-diameter" => [1.75, "mm"],
+                    "nozzle-temperature-max" => [250, "°C"],
+                ],
+                "image" => "https://cdn.shopify.com/s/files/1/0245/5519/2380/products/Predator_1_540x.jpg?v=1562731178",
             ],
             [
                 "name" => "Original Prusa MK4",
