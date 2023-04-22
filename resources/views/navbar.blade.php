@@ -7,9 +7,6 @@
         <a class="nav-link" href="{{ route('model.manf-service', ['action' => 'list']) }}">@lang("navbar.services-list")</a>
       </div>
       <div class="navbar-nav ml-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="#">{{ request()->get("redirect") }}</a>
-        </li>
       @if (auth()->check())
       @if (auth()->user()->isAdmin())
         <li class="nav-item">

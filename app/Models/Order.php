@@ -36,6 +36,10 @@ class Order extends Model {
         return $this->belongsTo(PrintMaterialColor::class);
     }
 
+    public function orderOrderStatuses() {
+        return $this->hasMany(OrderOrderStatus::class);
+    }
+
     public function canEdit(User|null $user) {
         return $this->manfService->canEdit($user);
     }

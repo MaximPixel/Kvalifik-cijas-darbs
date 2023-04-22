@@ -6,9 +6,9 @@
 @endphp
 @if ($label)
 @if ($type == "featValue")
-    <label for="{{ $key }}Value">@lang("model.printer.feat-type.$label") ({{ $field["featType"]->measure_type }})</label>
+    <label class="form-label" for="{{ $key }}Value">@lang("model.printer.feat-type.$label") ({{ $field["featType"]->measure_type }})</label>
 @else
-    <label for="{{ $key }}">{{ $label }}</label>
+    <label class="form-label" for="{{ $key }}">{{ $label }}</label>
 @endif
 @endif
 @if ($type == "select")

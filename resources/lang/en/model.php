@@ -82,7 +82,9 @@ return [
         ],
         "status" => [
             "type" => "Status Type",
-            "comment" => "Comment (optional)",
+            "comment" => "Comment",
+            "comment-label" => "Comment (optional)",
+            "updated-at" => "Updated at",
             "types" => [
                 "pending" => "Pending",
                 "awaiting-payment" => "Awaiting Payment",

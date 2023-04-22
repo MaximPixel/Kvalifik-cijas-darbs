@@ -86,7 +86,7 @@ class OrderController extends Controller {
                         $orderOrderStatus = new OrderOrderStatus;
                         $orderOrderStatus->order_id = $order->id;
                         $orderOrderStatus->order_status_id = $orderStatus->id;
-                        $orderOrderStatus->comment = $request->get("comment");
+                        $orderOrderStatus->comment = $request->get("comment") ?? "";
                         $orderOrderStatus->user_id = $request->user()->id ?? null;
                         $orderOrderStatus->save();
                     }

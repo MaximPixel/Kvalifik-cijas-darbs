@@ -19,9 +19,9 @@ class OrderOrderStatus extends Model {
 
     public static function booted() {
         static::created(function ($model) {
-            $model->orderStatus->order_status_id = $model->order_status_id;
-            if ($model->orderStatus->isDirty()) {
-                $model->orderStatus->save();
+            $model->order->order_status_id = $model->order_status_id;
+            if ($model->order->isDirty()) {
+                $model->order->save();
             }
         });
     }
