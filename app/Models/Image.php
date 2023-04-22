@@ -7,13 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Facades\Storage;
 
+use Intervention\Image\ImageManagerStatic;
+
 class Image extends Model {
 
     public static function upload($url) {
         $image = new Image;
         $image->save();
 
-        Storage::disk("images")->put($image->getFilename(), file_get_contents($url));
+        ImageManagerStatic::make($url)->resize(500, 500)->save($image->getPath());
 
         return $image;
     }
