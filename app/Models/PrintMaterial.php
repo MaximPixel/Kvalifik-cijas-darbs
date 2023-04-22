@@ -17,6 +17,10 @@ class PrintMaterial extends Model {
         return $this->belongsTo(Image::class);
     }
 
+    public function getDisplayName() {
+        return $this->name;
+    }
+
     public function getImageUrl() {
         return $this->image ? $this->image->getUrl() : config("images.default");
     }

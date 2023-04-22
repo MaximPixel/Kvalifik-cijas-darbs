@@ -67,16 +67,21 @@
     @if ($canEdit)
         <a class="btn btn-primary mb-3"href="{{ $manfService->getActionRoute('edit-materials') }}">@lang("model.manf-service.action.edit-materials")</a>
     @endif
-        <ul class="list-group list-group-flush">
-        @foreach ($materials as $material)
-            <li class="list-group-item">{{ $material->name }}</li>
-            <ul class="list-group list-group-flush ms-5">
-            @foreach ($materialColors->where("print_material_id", $material->id) as $color)
-                <li class="list-group-item">{{ $color->name }}</li>
+    @foreach ($materials as $material)
+        <div class="card">
+            <div class="card-header">{{ $material->getDisplayName() }}</div>
+            <div class="card-body d-inline-flex">
+            @foreach ($materialColors->where("print_material_id", $material->id) as $materialColor)
+                <div class="card">
+                    <div class="card-body p-1">
+                        <img src="{{ $materialColor->getImageUrl() }}" style="width: 100px">
+                        <p>{{ $materialColor->getDisplayName() }}</p>
+                    </div>
+                </div>
             @endforeach
-            </ul>
-        @endforeach
-        </ul>
+            </div>
+        </div>
+    @endforeach
     </div>
 </div>
 

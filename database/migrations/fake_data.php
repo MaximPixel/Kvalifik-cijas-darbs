@@ -43,6 +43,14 @@ return new class extends Migration {
                 "min_temp" => 190,
                 "max_temp" => 230,
                 "colors" => ["WHITE", "FFFFFF", "BLACK", "000000", "RED", "FF0000", "YELLOW", "FFFF00", "GRAY", "808080", "BLUE", "0000FF"],
+                "images" => [
+                    "WHITE" => "https://img.staticdj.com/aa674b005a9c00e8ff37900c22b26973_1008x.jpg",
+                    "BLACK" => "https://img.staticdj.com/902d83798d8551fc7a5551b42b2ce7bb_1008x.jpg",
+                    "RED" => "https://img.staticdj.com/e4cadf5336308b5795c7cebf95017366_1008x.jpg",
+                    "YELLOW" => "https://img.staticdj.com/90d4ef5a95a218b349ad926fba038454_1008x.jpg",
+                    "GRAY" => "https://img.staticdj.com/868bba0bc1335abe795ff8905d66b3d9_1008x.jpg",
+                    "BLUE" => "https://img.staticdj.com/1ed04eb261b5be86312febcecdd4a513_1008x.jpg",
+                ],
             ],
             [
                 "name" => "CR PLA",
@@ -52,6 +60,7 @@ return new class extends Migration {
                 "min_temp" => 190,
                 "max_temp" => 230,
                 "colors" => ["WHITE", "FFFFFF", "BLACK", "000000", "RED", "FF0000", "YELLOW", "FFFF00", "GRAY", "808080", "BLUE", "0000FF", "GREEN", "00FF00", "SILVER", "D3D3D3"],
+                "image" => "https://img.staticdj.com/bb3e277daa83afc75717c61e7a07bba2_1008x.jpg",
             ],
             [
                 "name" => "HP-Ultra PLA",
@@ -61,6 +70,7 @@ return new class extends Migration {
                 "min_temp" => 190,
                 "max_temp" => 230,
                 "colors" => ["BLUE", "0000FF", "GREEN", "00FF00", "GRAY", "808080", "WHITE", "FFFFFF", "BLACK", "000000", "RED", "FF0000", "ORANGE", "FFA500"],
+                "image" => "https://img.staticdj.com/5caea5cb0c5255e4b8d4e696b632e4e8_1008x.jpg",
             ],
         ];
 
@@ -69,11 +79,13 @@ return new class extends Migration {
         foreach ($data as $row) {
             $printMaterial = new \App\Models\PrintMaterial;
             foreach ($row as $key => $value) {
-                if ($key != "colors") {
+                if ($key != "colors" && $key != "image" && $key != "images") {
                     $printMaterial->$key = $value;
                 }
             }
             $printMaterial->save();
+
+            $colors = [];
 
             for ($i = 0; $i < count($row["colors"]) / 2; $i++) {
                 $printMaterialColor = new \App\Models\PrintMaterialColor;
@@ -81,7 +93,22 @@ return new class extends Migration {
                 $printMaterialColor->name = $row["colors"][$i * 2];
                 $printMaterialColor->hex = $row["colors"][$i * 2 + 1];
                 $printMaterialColor->save();
+                $colors[$row["colors"][$i * 2]] = $printMaterialColor;
             }
+
+            if (isset($row["images"])) {
+                foreach ($row["images"] as $color => $url) {
+                    $image = \App\Models\Image::upload($url);
+                    $colors[$color]->image_id = $image->id;
+                    $colors[$color]->save();
+                }
+
+            } else if (isset($row["image"])) {
+                $image = \App\Models\Image::upload($row["image"]);
+                $printMaterial->image_id = $image->id;
+                $printMaterial->save();
+            }
+
             $printMaterials->push($printMaterial);
         }
 
@@ -237,6 +264,7 @@ return new class extends Migration {
                     "nozzle-temperature-max" => [300, "°C"],
                     "bed-temperature-max" => [100, "°C"],
                 ],
+                "image" => "https://img.staticdj.com/13c0b3f1f222b6a82aba3d8d69d3fbdd_800x.jpg",
             ],
             [
                 "name" => "Ender-3 S1 Pro",
@@ -253,6 +281,7 @@ return new class extends Migration {
                     "nozzle-temperature-max" => [300, "°C"],
                     "bed-temperature-max" => [110, "°C"],
                 ],
+                "image" => "https://img.staticdj.com/c0f135c0027c756f79a705b8ae094c42_800x.jpg",
             ],
             [
                 "name" => "Ender-3 S1",
@@ -269,6 +298,7 @@ return new class extends Migration {
                     "nozzle-temperature-max" => [260, "°C"],
                     "bed-temperature-max" => [100, "°C"],
                 ],
+                "image" => "https://img.staticdj.com/6d05474d7d317c87acbea738e8f186d9_800x.jpg",
             ],
             [
                 "name" => "Ender-3 Max Neo",
@@ -285,6 +315,7 @@ return new class extends Migration {
                     "nozzle-temperature-max" => [260, "°C"],
                     "bed-temperature-max" => [100, "°C"],
                 ],
+                "image" => "https://img.staticdj.com/6d05474d7d317c87acbea738e8f186d9_800x.jpg",
             ],
             [
                 "name" => "Ender-3 V2 Neo",
@@ -301,6 +332,7 @@ return new class extends Migration {
                     "nozzle-temperature-max" => [260, "°C"],
                     "bed-temperature-max" => [100, "°C"],
                 ],
+                "image" => "https://img.staticdj.com/7c791677ed9be3da3a56c1b106d74a58_800x.jpg",
             ],
             [
                 "name" => "Ender-6",
@@ -317,6 +349,7 @@ return new class extends Migration {
                     "nozzle-temperature-max" => [260, "°C"],
                     "bed-temperature-max" => [100, "°C"],
                 ],
+                "image" => "https://img.staticdj.com/e4e89b0097a2ad7bd58a545bcc2ee0c1_800x.jpg",
             ],
             [
                 "name" => "Anycubic Kobra Go",
