@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->foreignIdFor(\App\Models\UserGroup::class)->default(1)->constrained();
+            $table->foreignIdFor(\App\Models\Image::class)->nullable()->constrained();
             $table->timestamps();
         });
     }

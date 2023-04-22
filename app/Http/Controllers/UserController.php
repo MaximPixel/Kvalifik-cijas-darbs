@@ -56,6 +56,7 @@ class UserController extends Controller {
                             "min:2",
                             "max:255",
                         ],
+                        "image" => "file",
                     ];
 
                     if ($isAdminEdited) {
@@ -71,6 +72,13 @@ class UserController extends Controller {
                     $data = $request->validate($validateParams);
 
                     $userModel->name = $data["name"];
+
+                    $image = $data["image"];
+
+                    if ($image) {
+                        $imageModel = \App\Models\Image::upload($image->path());
+                        $userModel->image_id = $imageModel->id;
+                    }
 
                     if ($isAdminEdited) {
                         $userModel->email = $data["email"];

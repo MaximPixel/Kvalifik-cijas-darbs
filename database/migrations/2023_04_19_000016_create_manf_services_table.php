@@ -22,6 +22,7 @@ return new class extends Migration
             $table->decimal("price_min");
             $table->decimal("price_per_time");
             $table->decimal("price_per_volume");
+            $table->foreignIdFor(\App\Models\Image::class)->nullable()->constrained();
             $table->unsignedInteger("_orders_count")->default(0)->index();
             $table->timestamps();
         });

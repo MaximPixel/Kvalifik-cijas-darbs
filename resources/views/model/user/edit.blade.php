@@ -11,6 +11,10 @@
             "max" => "255",
             "value" => $user->name,
         ],
+        "image" => [
+            "label" => __("model.user.image"),
+            "type" => "file",
+        ],
     ];
 
     if ($admin) {
@@ -41,6 +45,7 @@
 
 @include("bootstrap.form", [
     "title" => __("model.user.action.edit"),
+    "enctype" => "multipart/form-data",
     "fields" => $fields,
     "submit" => __("model.user.action.submit-edit"),
 ])

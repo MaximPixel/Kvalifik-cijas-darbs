@@ -161,6 +161,7 @@ return [
         "email" => "Email",
         "password" => "Password",
         "user_group" => "User Group",
+        "image" => "Profile Image",
         "action" => [
             "edit" => "Edit",
             "submit-edit" => "Save Changes",

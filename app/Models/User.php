@@ -66,6 +66,10 @@ class User extends Authenticatable {
         return $this->belongsTo(UserGroup::class);
     }
 
+    public function image() {
+        return $this->belongsTo(Image::class);
+    }
+
     public function isAdmin() {
         return $this->userGroup->name == "admin";
     }
@@ -80,5 +84,9 @@ class User extends Authenticatable {
 
     public function canView(User|null $user) {
         return $user && ($user->id == $this->id || $user->isAdmin());
+    }
+
+    public function getImageUrl() {
+        return $this->image ? $this->image->getUrl() : config("images.default");
     }
 }

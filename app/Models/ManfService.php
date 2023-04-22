@@ -33,6 +33,10 @@ class ManfService extends Model {
         return $this->hasMany(Order::class);
     }
 
+    public function image() {
+        return $this->belongsTo(Image::class);
+    }
+
     public function canCalculatePrice(\App\Models\Order $order) {
         return $order->print_time !== null;
     }
@@ -75,5 +79,9 @@ class ManfService extends Model {
 
     public function getDisplayName() {
         return $this->name;
+    }
+
+    public function getImageUrl() {
+        return $this->image ? $this->image->getUrl() : config("images.default");
     }
 }

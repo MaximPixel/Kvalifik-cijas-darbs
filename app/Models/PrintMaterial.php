@@ -12,4 +12,12 @@ class PrintMaterial extends Model {
     public function printMaterialColors() {
         return $this->hasMany(PrintMaterialColor::class);
     }
+
+    public function image() {
+        return $this->belongsTo(Image::class);
+    }
+
+    public function getImageUrl() {
+        return $this->image ? $this->image->getUrl() : config("images.default");
+    }
 }

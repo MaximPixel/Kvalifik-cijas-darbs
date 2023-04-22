@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\PrintMaterial::class)->constrained();
             $table->string("name");
             $table->string("hex");
+            $table->foreignIdFor(\App\Models\Image::class)->nullable()->constrained();
             $table->timestamps();
         });
     }

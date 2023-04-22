@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string("type");
             $table->float("min_temp");
             $table->float("max_temp");
+            $table->foreignIdFor(\App\Models\Image::class)->nullable()->constrained();
             $table->timestamps();
         });
     }
