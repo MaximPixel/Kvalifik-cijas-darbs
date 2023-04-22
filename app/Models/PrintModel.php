@@ -35,4 +35,12 @@ class PrintModel extends Model {
     public function getDisplayName() {
         return $this->name;
     }
+
+    public function canEdit(User|null $user) {
+        if (!$user) {
+            return false;
+        }
+
+        return $this->user_id == $user->id || $user->idAdmin();
+    } 
 }

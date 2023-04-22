@@ -94,21 +94,35 @@ class PrintModelController extends Controller {
                 if ($request->has("code")) {
                     $printModel = PrintModel::firstCodeOrFail($request->get("code"));
 
-                    $data = $request->validate([
-                        "name" => "string|max:255",
-                    ]);
-                    
-                    $printModel->name = $data["name"];
-                    $printModel->save();
+                    if ($printModel->canEdit($request->user())) {
+                        $data = $request->validate([
+                            "name" => "required|string|max:255",
+                            "scaleLength" => "required|numeric|between:0.01,100",
+                            "scaleWidth" => "required|numeric|between:0.01,100",
+                            "scaleHeight" => "required|numeric|between:0.01,100",
+                        ]);
+                        
+                        $printModel->name = $data["name"];
+                        $printModel->length = $printModel->length / $printModel->scale_length * $data["scaleLength"];
+                        $printModel->width = $printModel->width / $printModel->scale_width * $data["scaleWidth"];
+                        $printModel->height = $printModel->height / $printModel->scale_height * $data["scaleHeight"];
+                        $printModel->scale_length = $data["scaleLength"];
+                        $printModel->scale_width = $data["scaleWidth"];
+                        $printModel->scale_height = $data["scaleHeight"];
+                        $printModel->save();
 
-                    return redirect($printModel->getRoute());
+                        return redirect($printModel->getRoute());
+                    }
                 }
             } else if ($action == "delete") {
                 if ($request->has("code")) {
                     $printModel = PrintModel::firstCodeOrFail($request->get("code"));
-                    $printModel->deleted = true;
-                    $printModel->save();
-                    return autoredirect();
+
+                    if ($printModel->canEdit($request->user())) {
+                        $printModel->deleted = true;
+                        $printModel->save();
+                        return autoredirect();
+                    }
                 }
             }
         }

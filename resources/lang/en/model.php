@@ -103,6 +103,8 @@ return [
         "width" => "Width",
         "height" => "Height",
         "volume" => "Volume",
+        "scale" => "Scale",
+        "apply-on-all-axes" => "Apply on All Axes",
         "list" => [
             "title" => "My Models",
             "action" => [
