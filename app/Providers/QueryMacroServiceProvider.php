@@ -28,17 +28,29 @@ class QueryMacroServiceProvider extends ServiceProvider {
         // Printer macros
         Builder::macro("wherePrinterCanPrint", function (\App\Models\PrintModel $model) {
             return $this
-                ->whereHas("printerFeats", function ($query) use ($model) {
-                    $query->whereHas("printerFeatValue", function ($query) use ($model) {
-                        $query->whereHas("printerFeatType", function ($query) use ($model) {
-                            $query->where("decimal_value", ">", $model->length)->where("name", "print-volume-x");
-                        });
-                    });
-                })
-                ->whereHas("printerFeats", function ($query) use ($model) {
-                    $query->whereHas("printerFeatValue", function ($query) use ($model) {
-                        $query->whereHas("printerFeatType", function ($query) use ($model) {
-                            $query->where("decimal_value", ">", $model->width)->where("name", "print-volume-y");
+                ->where(function ($query) use ($model) {
+                    $query->where(function ($query) use ($model) {
+                        $query
+                            ->whereHas("printerFeats", function ($query) use ($model) {
+                                $query->whereHas("printerFeatValue", function ($query) use ($model) {
+                                    $query->whereHas("printerFeatType", function ($query) use ($model) {
+                                        $query->where("decimal_value", ">", $model->length)->where("name", "print-volume-x");
+                                    });
+                                });
+                            })
+                            ->whereHas("printerFeats", function ($query) use ($model) {
+                                $query->whereHas("printerFeatValue", function ($query) use ($model) {
+                                    $query->whereHas("printerFeatType", function ($query) use ($model) {
+                                        $query->where("decimal_value", ">", $model->width)->where("name", "print-volume-y");
+                                    });
+                                });
+                            });
+                    })
+                    ->orWhereHas("printerFeats", function ($query) use ($model) {
+                        $query->whereHas("printerFeatValue", function ($query) use ($model) {
+                            $query->whereHas("printerFeatType", function ($query) use ($model) {
+                                $query->where("decimal_value", ">", $model->diameter)->where("name", "print-volume-d");
+                            });
                         });
                     });
                 })
