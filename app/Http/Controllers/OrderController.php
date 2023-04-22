@@ -42,6 +42,8 @@ class OrderController extends Controller {
             $order = Order::where("deleted", false)->firstCodeOrFail($request->get("code"));
             return view("model.order.view", ["order" => $order]);
         }
+
+        abort(404);
     }
 
     public function post(Request $request) {
@@ -91,5 +93,7 @@ class OrderController extends Controller {
                 }
             }
         }
+
+        abort(404);
     }
 }

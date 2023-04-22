@@ -56,6 +56,8 @@ class PrintModelController extends Controller {
             $printModel = PrintModel::where("deleted", false)->firstCodeOrFail($request->get("code"));
             return view("model.print-model.view", ["printModel" => $printModel]);
         }
+
+        abort(404);
     }
 
     public function post(Request $request) {
@@ -110,5 +112,7 @@ class PrintModelController extends Controller {
                 }
             }
         }
+
+        abort(404);
     }
 }

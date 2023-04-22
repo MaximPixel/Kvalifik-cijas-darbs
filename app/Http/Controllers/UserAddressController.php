@@ -16,6 +16,8 @@ class UserAddressController extends Controller {
                 return view("model.user-address.create");
             }
         }
+
+        abort(404);
     }
 
     public function post(Request $request) {
@@ -45,5 +47,7 @@ class UserAddressController extends Controller {
                 return autoredirect();
             }
         }
+
+        abort(404);
     }
 }

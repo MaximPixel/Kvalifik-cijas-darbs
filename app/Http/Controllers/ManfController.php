@@ -35,6 +35,8 @@ class ManfController extends Controller {
             $manf = Manf::where("deleted", false)->firstCodeOrFail($request->query("code"));
             return view("model.manf.view", ["manf" => $manf]);
         }
+
+        abort(404);
     }
 
     public function post(Request $request) {
@@ -92,5 +94,7 @@ class ManfController extends Controller {
                 }
             }
         }
+
+        abort(404);
     }
 }

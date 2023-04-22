@@ -39,6 +39,8 @@ class PrinterController extends Controller {
 
             return view("model.printer.view", ["printer" => $printer]);
         }
+
+        abort(404);
     }
 
     public function post(Request $request) {
@@ -97,5 +99,7 @@ class PrinterController extends Controller {
                 }
             }
         }
+
+        abort(404);
     }
 }

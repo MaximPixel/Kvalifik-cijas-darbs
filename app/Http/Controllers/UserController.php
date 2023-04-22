@@ -34,9 +34,9 @@ class UserController extends Controller {
             if ($userModel->canView($request->user())) {
                 return view("model.user.view", ["user" => $userModel]);
             }
-
-            abort(404);
         }
+
+        abort(404);
     }
 
     public function post(Request $request) {
@@ -111,5 +111,7 @@ class UserController extends Controller {
                 }
             }
         }
+
+        abort(404);
     }
 }

@@ -131,8 +131,9 @@ class ManfServiceController extends Controller {
             if ($manfService->canView($request->user())) {
                 return view("model.manf-service.view", ["manfService" => $manfService]);
             }
-            abort(404);
         }
+
+        abort(404);
     }
 
     public function post(Request $request) {
@@ -240,5 +241,7 @@ class ManfServiceController extends Controller {
                 }
             }
         }
+
+        abort(404);
     }
 }
