@@ -103,12 +103,7 @@ class PrintModelController extends Controller {
                         ]);
                         
                         $printModel->name = $data["name"];
-                        $printModel->length = $printModel->length / $printModel->scale_length * $data["scaleLength"];
-                        $printModel->width = $printModel->width / $printModel->scale_width * $data["scaleWidth"];
-                        $printModel->height = $printModel->height / $printModel->scale_height * $data["scaleHeight"];
-                        $printModel->scale_length = $data["scaleLength"];
-                        $printModel->scale_width = $data["scaleWidth"];
-                        $printModel->scale_height = $data["scaleHeight"];
+                        $printModel->scale($data["scaleLength"], $data["scaleWidth"], $data["scaleHeight"]);
                         $printModel->save();
 
                         return redirect($printModel->getRoute());

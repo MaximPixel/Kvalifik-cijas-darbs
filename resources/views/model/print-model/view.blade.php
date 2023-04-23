@@ -14,6 +14,7 @@
         <p>@lang("model.print-model.length"): {{ $printModel->length }} mm</p>
         <p>@lang("model.print-model.width"): {{ $printModel->width }} mm</p>
         <p>@lang("model.print-model.height"): {{ $printModel->height }} mm</p>
+        <p>@lang("model.print-model.diameter"): {{ $printModel->diameter }} mm</p>
         <p>@lang("model.print-model.volume"): {{ $printModel->volume }} mm3</p>
     </div>
 </div>

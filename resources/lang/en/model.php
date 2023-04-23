@@ -44,6 +44,7 @@ return [
         ],
         "action" => [
             "edit" => "Edit",
+            "edit-submit" => "Save Changes",
             "create-order" => "Create Order",
             "add-printer" => "Add a Printer to the List",
             "remove-printer" => "remove",
@@ -102,9 +103,11 @@ return [
         "length" => "Length",
         "width" => "Width",
         "height" => "Height",
+        "diameter" => "Diameter",
         "volume" => "Volume",
         "scale" => "Scale",
         "apply-on-all-axes" => "Apply on All Axes",
+        "file" => "Model file with extension .stl",
         "list" => [
             "title" => "My Models",
             "action" => [
