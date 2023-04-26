@@ -372,7 +372,7 @@ return new class extends Migration {
                     "nozzle-temperature-max" => [260, "°C"],
                     "bed-temperature-max" => [110, "°C"],
                 ],
-                "image" => "https://www.anycubic.com/cdn/shop/products/KobraGo_1_7977c357-eeca-49ab-8746-f77ba820a396_540x.jpg?v=1680332374",
+                "image" => "https://www.anycubic.com/cdn/shop/products/KobraGo_2_540x.jpg?v=1680332374",
             ],
             [
                 "name" => "Anycubic Kobra Plus",
@@ -408,7 +408,7 @@ return new class extends Migration {
                     "nozzle-temperature-max" => [260, "°C"],
                     "bed-temperature-max" => [110, "°C"],
                 ],
-                "image" => "https://www.anycubic.com/cdn/shop/products/KobraGo_1_7977c357-eeca-49ab-8746-f77ba820a396_540x.jpg?v=1680332374",
+                "image" => "https://www.anycubic.com/cdn/shop/products/Vyper_1_540x.jpg?v=1682042687",
             ],
             [
                 "name" => "Mega X",
