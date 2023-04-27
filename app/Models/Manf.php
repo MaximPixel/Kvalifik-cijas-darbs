@@ -27,7 +27,7 @@ class Manf extends Model {
         }
 
         return $user->isAdmin() || $user->manfRoleUsers->contains(function ($manfRoleUser) {
-            return $manfRoleUser->manfRole->where("manf_id", $this->id);
+            return $manfRoleUser->manfRole->manf_id == $this->id;
         });
     }
 
