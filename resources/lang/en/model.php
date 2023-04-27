@@ -175,6 +175,7 @@ return [
             "edit" => "Edit",
             "submit-edit" => "Save Changes",
             "delete" => "Delete",
+            "create-manf" => "Create Manufacturer",
         ],
     ],
 ];

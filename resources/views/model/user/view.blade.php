@@ -25,4 +25,14 @@
     @endif
     </div>
 </div>
+
+@if (request()->user() && request()->user()->id == $user->id)
+<div class="card mb-3">
+    <div class="card-body">
+        <p>
+            <a class="btn btn-primary" href="{{ \App\Models\Manf::getCreateRoute() }}">@lang("model.user.action.create-manf")</a>
+        </p>
+    </div>
+</div>
+@endif
 @endsection
