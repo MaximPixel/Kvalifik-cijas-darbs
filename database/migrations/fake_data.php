@@ -24,7 +24,7 @@ return new class extends Migration {
         $user->user_group_id = 2;
         $user->save();
 
-        $this->faker = \Faker\Factory::create();
+        $this->faker = \Faker\Factory::create("lv_LV");
         $this->users = $this->createUsers();
         $this->featTypes = $this->createFeatTypes();
         $this->printers = $this->createPrinters();
@@ -556,7 +556,7 @@ return new class extends Migration {
 
         for ($i = 0; $i < $count; $i++) {
             $manf = new \App\Models\Manf;
-            $manf->name = "MANF $i";
+            $manf->name = $this->faker->company();
             $manf->email = $this->faker->email();
             $manf->save();
             $manfs->push($manf);
@@ -581,8 +581,23 @@ return new class extends Migration {
         foreach ($this->manfs as $i => $manf) {
             $service = new \App\Models\ManfService;
             $service->manf_id = $manf->id;
-            $service->name = "SERVICE $i";
-            $service->description = "SERVICE $i DESCRIPTION";
+            $service->name = $this->faker->randomElement([
+                "3D drukāšana",
+                "Pasūtījuma 3D drukāšana",
+                "Prototipēšana ar 3D printeri",
+                "Funkcionālu detaļu drukāšana",
+                "3D modelēšana un drukāšana",
+                "Daudzu materiālu izstrādājumu drukāšana",
+                "3D modeļu skenēšana un drukāšana",
+                "Metāla 3D modeļu drukāšana",
+            ]);
+            $service->description = $this->faker->randomElement([
+                "3D drukas pakalpojumi, piedāvājam iespēju drukāt un prototipēt jebkuras formas un sarežģītības izstrādājumus",
+                "Profesionāla 3D drukas pakalpojumu sniegšana ar iespēju drukāt detalizētus, daudzveidīgus un funkcionālus izstrādājumus",
+                "Piedāvājam iespēju izmantot 3D printerus un drukāt sarežģītas detaļas un izstrādājumus, izmantojot dažādus materiālus",
+                "3D modeļu skenēšana un drukāšana no jebkura materiāla",
+                "Piedāvājam iespēju izstrādāt un drukāt funkcionalitāti, detaļas un izstrādājumus no plaša materiālu klāsta",
+            ]);
             $service->price_base = 1;
             $service->price_min = 1;
             $service->price_per_volume = 1;
