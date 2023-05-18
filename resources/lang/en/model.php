@@ -11,6 +11,7 @@ return [
             "submit-edit" => "Save Changes",
             "create-service" => "Create Service",
             "delete" => "Delete",
+            "create-submit" => "Create",
         ],
     ],
     "manf-service" => [
