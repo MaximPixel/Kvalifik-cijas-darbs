@@ -25,11 +25,17 @@ return new class extends Migration {
         $user->save();
 
         $this->faker = \Faker\Factory::create("lv_LV");
+        dump("createUsers");
         $this->users = $this->createUsers();
+        dump("createFeatTypes");
         $this->featTypes = $this->createFeatTypes();
+        dump("createPrinters");
         $this->printers = $this->createPrinters();
+        dump("createManfs");
         $this->manfs = $this->createManfs();
+        dump("createPrintMaterials");
         $this->printMaterials = $this->createPrintMaterials();
+        dump("createServices");
         $this->services = $this->createServices();
     }
 
@@ -561,15 +567,21 @@ return new class extends Migration {
             $manf->save();
             $manfs->push($manf);
 
-            $manfRole = new \App\Models\ManfRole;
-            $manfRole->manf_id = $manf->id;
-            $manfRole->name = "Founder";
-            $manfRole->save();
+            for ($j = 0; $j < 15; $j++) {
+                $manfRole = new \App\Models\ManfRole;
+                $manfRole->manf_id = $manf->id;
+                $manfRole->name = "Founder";
+                $manfRole->save();
 
-            $manfRoleUser = new \App\Models\ManfRoleUser;
-            $manfRoleUser->manf_role_id = $manfRole->id;
-            $manfRoleUser->user_id = $this->users->random()->id;
-            $manfRoleUser->save();
+                $users = $this->users->shuffle()->take(rand(1, 3));
+
+                foreach ($users as $user) {
+                    $manfRoleUser = new \App\Models\ManfRoleUser;
+                    $manfRoleUser->manf_role_id = $manfRole->id;
+                    $manfRoleUser->user_id = $user->id;
+                    $manfRoleUser->save();
+                }
+            }
         }
 
         return $manfs;

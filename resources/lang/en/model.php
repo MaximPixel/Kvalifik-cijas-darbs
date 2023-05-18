@@ -2,6 +2,16 @@
 
 return [
     "manf" => [
+        "role" => [
+            "user-email" => "E-mail",
+            "action" => [
+                "edit" => "Edit",
+                "delete" => "Delete",
+                "remove-user" => "remove",
+                "add-user" => "Add User",
+                "add-user-submit" => "Add",
+            ],
+        ],
         "services" => "Manufacturer Services",
         "roles" => "Roles",
         "name" => "Manufacturer Name",
@@ -11,6 +21,8 @@ return [
             "submit-edit" => "Save Changes",
             "create-service" => "Create Service",
             "delete" => "Delete",
+            "create-submit" => "Create",
+            "edit-roles" => "Edit Roles",
         ],
     ],
     "manf-service" => [
