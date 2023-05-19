@@ -92,6 +92,8 @@ return [
             "create-address" => "Create Address",
             "change-status" => "Change Status",
             "change-status-submit" => "Submit",
+            "set-time" => "Set Time",
+            "set-time-submit" => "Set",
         ],
         "status" => [
             "type" => "Status Type",

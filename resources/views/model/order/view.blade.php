@@ -1,5 +1,9 @@
 @extends("layout")
 
+@php
+    $canEdit = $order->canEdit(request()->user());
+@endphp
+
 @section("content")
 <h3>@lang("model.order.display-name", ["code" => $order->getCode()])</h3>
 <div class="card mb-3">
@@ -10,8 +14,8 @@
     <div class="card-body">
         <p>@lang("model.order.material"): {{ $order->printMaterialColor->printMaterial->name }} - {{ $order->printMaterialColor->name }}</p>
         <p>@lang("model.order.amount"): {{ $order->amount }}</p>
-    @if ($order->time !== null)
-        <p>@lang("model.order.time"): {{ $order->time }}</p>
+    @if ($order->print_time !== null)
+        <p>@lang("model.order.time"): {{ $order->print_time }} @lang("unit.minutes")</p>
     @else
         <p>@lang("model.order.time"): @lang("model.order.time-not-defined")</p>
     @endif
@@ -27,6 +31,7 @@
     $statusesHistoryPagination = (new \App\Classes\CustomPaginator($order->orderOrderStatuses()->paginate(4)))->withQueryString();
 @endphp
 
+@if ($order->orderOrderStatuses()->exists())
 <div class="card mb-3">
     <div class="card-body">
     @foreach ($statusesHistoryPagination->items() as $orderOrderStatus)
@@ -51,8 +56,31 @@
         @include("bootstrap.pagination", ["pagination" => $statusesHistoryPagination])
     </div>
 </div>
+@endif
 
-@if ($order->canEdit(request()->user()))
+@if ($canEdit)
+<div class="card mb-3">
+    <div class="card-body">
+        @include("bootstrap.form", [
+            "title" => __("model.order.action.set-time"),
+            "fields" => [
+                "action" => [
+                    "type" => "hidden",
+                    "label" => "",
+                    "value" => "set-time",
+                ],
+                "time" => [
+                    "type" => "number",
+                    "label" => __("model.order.time"),
+                ],
+            ],
+            "submit" => __("model.order.action.set-time-submit"),
+        ])
+    </div>
+</div>
+@endif
+
+@if ($canEdit)
 <div class="card mb-3">
     <div class="card-body">
         @include("bootstrap.form", [
