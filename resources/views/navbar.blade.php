@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="{{ route('index' )}}">Print Services</a>
+        <a class="navbar-brand" href="{{ route('index' )}}">@lang("navbar.logo")</a>
       </div>
       <div class="navbar-nav mr-auto justify-content-start">
         <a class="nav-link" href="{{ route('model.manf-service', ['action' => 'list']) }}">@lang("navbar.services-list")</a>

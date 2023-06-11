@@ -22,7 +22,9 @@ return [
             "create-service" => "Create Service",
             "delete" => "Delete",
             "create-submit" => "Create",
+            "submit-create" => "Create",
             "edit-roles" => "Edit Roles",
+            "create" => "Create",
         ],
     ],
     "manf-service" => [

@@ -2,10 +2,29 @@
 
 return [
     "manf" => [
+        "role" => [
+            "user-email" => "E-pasts",
+            "action" => [
+                "edit" => "Rediģēt",
+                "delete" => "Dzēst",
+                "remove-user" => "noņemt",
+                "add-user" => "Pievienot lietotāju",
+                "add-user-submit" => "Pievienot",
+            ],
+        ],
         "services" => "Ražotāja pakalpojumi",
+        "roles" => "Lomas",
+        "name" => "Ražotāja nosaukums",
+        "email" => "Ražotāja e-pasts",
         "action" => [
+            "edit" => "Rediģēt",
+            "submit-edit" => "Saglabāt izmaiņas",
             "create-service" => "Izveidot pakalpojumu",
             "delete" => "Dzēst",
+            "create-submit" => "Izveidot",
+            "submit-create" => "Izveidot",
+            "edit-roles" => "Rediģēt lomas",
+            "create" => "Izveidot",
         ],
     ],
     "manf-service" => [
@@ -18,6 +37,8 @@ return [
         "price_min" => "Minimālā cena",
         "price_per_time" => "Cena par izdrukāšanas minūti",
         "price_per_volume" => "Cena par izdrukāšanas cm3",
+        "manf" => "Ražotājs",
+        "orders-count" => ":count pasūtījumi",
         "list" => [
             "title" => "Pakalpojumu saraksts",
             "manf" => "Filtrēt pēc ražotāja",
@@ -26,16 +47,31 @@ return [
             "action" => [
                 "filter" => "Filtrēt pakalpojumus",
             ],
+            "show" => "Rāda :count no :total",
+            "sort" => "Kārtot pēc",
+            "sorts" => [
+                "creation-asc" => "Izveidošanas datums ↑",
+                "creation-desc" => "Izveidošanas datums ↓",
+                "orders-asc" => "Pasūtījumu skaits ↑",
+                "orders-desc" => "Pasūtījumu skaits ↓",
+            ],
         ],
         "action" => [
+            "edit" => "Rediģēt",
+            "edit-submit" => "Saglabāt izmaiņas",
             "create-order" => "Izveidot pasūtījumu",
             "add-printer" => "Pievienot printeri sarakstam",
-            "remove-printer" => "noņemt",
+            "remove-printer" => "Noņemt",
             "edit-materials" => "Rediģēt pieejamos materiālus un krāsas",
             "delete" => "Dzēst",
             "create" => "Izveidot pakalpojumu",
             "create-submit" => "Izveidot",
             "edit-materials-submit" => "Saglabāt materiālus",
+        ],
+        "add-printer" => [
+            "filters" => "Filtri",
+            "filter" => "Filtrēt",
+            "any-manf" => "Jebkurš ražotājs",
         ],
     ],
     "order" => [
@@ -56,6 +92,25 @@ return [
             "create" => "Izveidot pasūtījumu",
             "submit-create" => "Izveidot",
             "create-address" => "Izveidot adresi",
+            "change-status" => "Mainīt statusu",
+            "change-status-submit" => "Iesniegt",
+            "set-time" => "Iestatīt laiku",
+            "set-time-submit" => "Iestatīt",
+        ],
+        "status" => [
+            "type" => "Statusa veids",
+            "comment" => "Komentārs",
+            "comment-label" => "Komentārs (neobligāts)",
+            "updated-at" => "Atjaunināts",
+            "types" => [
+                "pending" => "Gaida",
+                "awaiting-payment" => "Gaida maksājumu",
+                "printing" => "Drukā",
+                "cancelled-by-user" => "Atcelts lietotāja",
+                "cancelled-by-manf" => "Atcelts ražotāja",
+                "shipped" => "Nosūtīts",
+                "finished" => "Pabeigts",
+            ],
         ],
     ],
     "print-model" => [
@@ -64,7 +119,11 @@ return [
         "length" => "Garums",
         "width" => "Platums",
         "height" => "Augstums",
+        "diameter" => "Diameters",
         "volume" => "Tilpums",
+        "scale" => "Mērogs",
+        "apply-on-all-axes" => "Lietot visās ass virzienās",
+        "file" => "Modeļa fails ar paplašinājumu .stl",
         "list" => [
             "title" => "Mani modeļi",
             "action" => [
@@ -94,6 +153,45 @@ return [
         "action" => [
             "create" => "Izveidot adresi",
             "submit" => "Izveidot",
+        ],
+    ],
+    "printer" => [
+        "basic-info" => "Pamatinformācija",
+        "name" => "Printera nosaukums",
+        "description" => "Printera apraksts",
+        "manufacturer" => "Printera ražotājs",
+        "feats" => "Parametri",
+        "feat-type" => [
+            "print-resolution" => "Drukāšanas izšķirtspēja",
+            "print-volume-x" => "Drukāšanas apjoms X (platums)",
+            "print-volume-y" => "Drukāšanas apjoms Y (dziļums)",
+            "print-volume-d" => "Drukāšanas apjoms diametrā",
+            "print-volume-z" => "Drukāšanas apjoms Z (augstums)",
+            "printer-layer-height-min" => "Minimālais slāņa augstums",
+            "printer-layer-height-max" => "Maksimālais slāņa augstums",
+            "filament-diameter" => "Filamenta diametrs",
+            "nozzle-diameter" => "Noklikšķiniet noklikšķināt noklikšķināt noklikšķināt noklikšķināt noklikšķināt",
+            "nozzle-temperature-max" => "Maksimālā noriņa temperatūra",
+            "bed-temperature-max" => "Maksimālā gultas temperatūra",
+        ],
+        "action" => [
+            "edit" => "Rediģēt",
+            "edit-submit" => "Saglabāt izmaiņas",
+            "create" => "Izveidot",
+            "create-submit" => "Izveidot",
+        ]
+    ],
+    "user" => [
+        "name" => "Vārds",
+        "email" => "E-pasts",
+        "password" => "Parole",
+        "user_group" => "Lietotāju grupa",
+        "image" => "Profila attēls",
+        "action" => [
+            "edit" => "Rediģēt",
+            "submit-edit" => "Saglabāt izmaiņas",
+            "delete" => "Dzēst",
+            "create-manf" => "Izveidot ražotāju",
         ],
     ],
 ];
