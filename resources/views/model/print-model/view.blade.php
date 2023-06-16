@@ -22,10 +22,12 @@
 <p>
     <a class="btn btn-primary" href="{{ $printModel->getActionRoute('download') }}" target="_blank">@lang("model.print-model.action.download")</a>
 </p>
+@if ($printModel->canEdit(auth()->user()))
 <p>
     <a class="btn btn-primary" href="{{ $printModel->getActionRoute('edit') }}">@lang("model.print-model.action.edit")</a>
 </p>
 <p>
     <a class="btn btn-primary" href="{{ $printModel->getActionRoute('delete') }}">@lang("model.print-model.action.delete")</a>
 </p>
+@endif
 @endsection

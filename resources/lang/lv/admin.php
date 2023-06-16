@@ -5,6 +5,6 @@ return [
         "manf-service" => "Visi pakalpojumi",
         "user" => "Visi lietotāji",
         "manf" => "Visi ražotāji",
-        "printer" => "Visas printeris",
+        "printer" => "Visi printeri",
     ],
 ];
