@@ -16,4 +16,8 @@ class ManfRole extends Model {
     public function manfRoleUsers() {
         return $this->hasMany(ManfRoleUser::class);
     }
+
+    public function canEdit(User|null $user) {
+        return $this->manf->canEdit($user);
+    }
 }

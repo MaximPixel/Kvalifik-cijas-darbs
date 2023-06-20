@@ -146,4 +146,9 @@ return [
     ],
 
     "attributes" => [],
+
+    "manf-role" => [
+        "user-not-found" => "User not found",
+        "user-already-exist" => "User already exists",
+    ],
 ];

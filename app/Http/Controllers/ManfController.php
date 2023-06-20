@@ -12,27 +12,33 @@ class ManfController extends Controller {
 
     public function view(Request $request) {
         if ($request->has("action")) {
-            $action = $request->query("action");
+            $action = $request->get("action");
 
             if ($action == "create") {
                 return view("model.manf.create");
             } else if ($action == "delete") {
                 if ($request->has("code")) {
-                    $manf = Manf::firstCodeOrFail($request->query("code"));
+                    $manf = Manf::where("deleted", false)->firstCodeOrFail($request->get("code"));
 
                     if ($manf->canEdit($request->user())) {
                         return view("yesno");
                     }
                 }
             } else if ($action == "edit") {
-                $manf = Manf::firstCodeOrFail($request->query("code"));
+                $manf = Manf::where("deleted", false)->firstCodeOrFail($request->get("code"));
 
                 if ($manf->canEdit($request->user())) {
                     return view("model.manf.edit", ["manf" => $manf]);
                 }
+            } else if ($action == "roles-edit") {
+                $manf = Manf::where("deleted", false)->firstCodeOrFail($request->get("code"));
+
+                if ($manf->canEdit($request->user())) {
+                    return view("model.manf.roles-edit", ["manf" => $manf]);
+                }
             }
         } else if ($request->has("code")) {
-            $manf = Manf::where("deleted", false)->firstCodeOrFail($request->query("code"));
+            $manf = Manf::where("deleted", false)->firstCodeOrFail($request->get("code"));
             return view("model.manf.view", ["manf" => $manf]);
         }
 

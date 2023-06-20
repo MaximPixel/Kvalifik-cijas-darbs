@@ -29,7 +29,7 @@ $printMaterials = $printMaterialColors->pluck("printMaterial")->unique("id");
     <div class="mb-3">
         <label for="model">@lang("model.order.model")</label>
         <select class="form-select" name="model" id="model" value="{{ old('model', 1) }}">
-        @foreach (\App\Models\PrintModel::all() as $model)
+        @foreach (auth()->user()->printModelsVisible as $model)
             <option value="{{ $model->getCode() }}">{{ $model->name }}</option>
         @endforeach
         </select>

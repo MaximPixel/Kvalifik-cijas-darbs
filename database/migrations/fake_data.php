@@ -25,11 +25,17 @@ return new class extends Migration {
         $user->save();
 
         $this->faker = \Faker\Factory::create("lv_LV");
+        dump("createUsers");
         $this->users = $this->createUsers();
+        dump("createFeatTypes");
         $this->featTypes = $this->createFeatTypes();
+        dump("createPrinters");
         $this->printers = $this->createPrinters();
+        dump("createManfs");
         $this->manfs = $this->createManfs();
+        dump("createPrintMaterials");
         $this->printMaterials = $this->createPrintMaterials();
+        dump("createServices");
         $this->services = $this->createServices();
     }
 
@@ -561,15 +567,21 @@ return new class extends Migration {
             $manf->save();
             $manfs->push($manf);
 
-            $manfRole = new \App\Models\ManfRole;
-            $manfRole->manf_id = $manf->id;
-            $manfRole->name = "Founder";
-            $manfRole->save();
+            for ($j = 0; $j < 15; $j++) {
+                $manfRole = new \App\Models\ManfRole;
+                $manfRole->manf_id = $manf->id;
+                $manfRole->name = "Founder";
+                $manfRole->save();
 
-            $manfRoleUser = new \App\Models\ManfRoleUser;
-            $manfRoleUser->manf_role_id = $manfRole->id;
-            $manfRoleUser->user_id = $this->users->random()->id;
-            $manfRoleUser->save();
+                $users = $this->users->shuffle()->take(rand(1, 3));
+
+                foreach ($users as $user) {
+                    $manfRoleUser = new \App\Models\ManfRoleUser;
+                    $manfRoleUser->manf_role_id = $manfRole->id;
+                    $manfRoleUser->user_id = $user->id;
+                    $manfRoleUser->save();
+                }
+            }
         }
 
         return $manfs;
@@ -578,26 +590,24 @@ return new class extends Migration {
     private function createServices() {
         $services = collect();
 
+        $namesAndDescriptions = [
+            [
+                "3D drukāšana",
+                "3D drukas pakalpojumi, piedāvājam iespēju drukāt un prototipēt jebkuras formas un sarežģītības izstrādājumus",
+            ],
+            [
+                "3D 0.1mm dukāšana",
+                "Profesionāla 3D drukas pakalpojumu sniegšana ar iespēju drukāt detalizētus, daudzveidīgus un funkcionālus izstrādājumus",
+            ],
+        ];
+
         foreach ($this->manfs as $i => $manf) {
+            $nameAndDescription = $this->faker->randomElement($namesAndDescriptions);
+
             $service = new \App\Models\ManfService;
             $service->manf_id = $manf->id;
-            $service->name = $this->faker->randomElement([
-                "3D drukāšana",
-                "Pasūtījuma 3D drukāšana",
-                "Prototipēšana ar 3D printeri",
-                "Funkcionālu detaļu drukāšana",
-                "3D modelēšana un drukāšana",
-                "Daudzu materiālu izstrādājumu drukāšana",
-                "3D modeļu skenēšana un drukāšana",
-                "Metāla 3D modeļu drukāšana",
-            ]);
-            $service->description = $this->faker->randomElement([
-                "3D drukas pakalpojumi, piedāvājam iespēju drukāt un prototipēt jebkuras formas un sarežģītības izstrādājumus",
-                "Profesionāla 3D drukas pakalpojumu sniegšana ar iespēju drukāt detalizētus, daudzveidīgus un funkcionālus izstrādājumus",
-                "Piedāvājam iespēju izmantot 3D printerus un drukāt sarežģītas detaļas un izstrādājumus, izmantojot dažādus materiālus",
-                "3D modeļu skenēšana un drukāšana no jebkura materiāla",
-                "Piedāvājam iespēju izstrādāt un drukāt funkcionalitāti, detaļas un izstrādājumus no plaša materiālu klāsta",
-            ]);
+            $service->name = $nameAndDescription[0];
+            $service->description = $nameAndDescription[1];
             $service->price_base = 1;
             $service->price_min = 1;
             $service->price_per_volume = 1;

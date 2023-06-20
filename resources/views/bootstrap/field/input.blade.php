@@ -10,4 +10,7 @@
 @if ($max !== null)
     maxlength="{{ $max }}"
 @endif
+@isset($field["step"])
+    step="{{ $field['step'] }}"
+@endisset
 >

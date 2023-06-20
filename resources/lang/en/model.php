@@ -2,6 +2,16 @@
 
 return [
     "manf" => [
+        "role" => [
+            "user-email" => "E-mail",
+            "action" => [
+                "edit" => "Edit",
+                "delete" => "Delete",
+                "remove-user" => "remove",
+                "add-user" => "Add User",
+                "add-user-submit" => "Add",
+            ],
+        ],
         "services" => "Manufacturer Services",
         "roles" => "Roles",
         "name" => "Manufacturer Name",
@@ -12,6 +22,9 @@ return [
             "create-service" => "Create Service",
             "delete" => "Delete",
             "create-submit" => "Create",
+            "submit-create" => "Create",
+            "edit-roles" => "Edit Roles",
+            "create" => "Create",
         ],
     ],
     "manf-service" => [
@@ -20,10 +33,10 @@ return [
         "orders" => "Service Orders",
         "name" => "Name",
         "description" => "Description",
-        "price_base" => "Base Price",
-        "price_min" => "Min Price",
-        "price_per_time" => "Price per Print Minute",
-        "price_per_volume" => "Price per Print cm3",
+        "price_base" => "Base Price (euro)",
+        "price_min" => "Min Price (euro)",
+        "price_per_time" => "Price per Print Minute (euro)",
+        "price_per_volume" => "Price per Print mm3 (euro)",
         "manf" => "Manufacturer",
         "orders-count" => ":count orders",
         "list" => [
@@ -70,9 +83,9 @@ return [
         "amount" => "Amount",
         "comment" => "Comment",
         "service" => "Service",
-        "time" => "Time",
+        "time" => "Time (in minutes)",
         "time-not-defined" => "not defined",
-        "price" => "Calculated price",
+        "price" => "Calculated price (in euro)",
         "price-cant-calculate" => "Can't calculate price",
         "action" => [
             "list" => "Orders List",
@@ -81,6 +94,8 @@ return [
             "create-address" => "Create Address",
             "change-status" => "Change Status",
             "change-status-submit" => "Submit",
+            "set-time" => "Set Print Time",
+            "set-time-submit" => "Set",
         ],
         "status" => [
             "type" => "Status Type",

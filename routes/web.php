@@ -16,6 +16,8 @@ use App\Http\Controllers\AdminController;
 
 Route::get("/", fn() => view("index"))->name("index");
 
+Route::redirect("/", "/service?action=list");
+
 Route::get("/change-lang/{locale}", [ChangeLangController::class, "changeLang"])->name("change-lang");
 
 Route::get("/register", [AuthController::class, "registerView"])->name("auth.register");

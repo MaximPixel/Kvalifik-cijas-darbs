@@ -41,7 +41,7 @@ class PrintModel extends Model {
             return false;
         }
 
-        return $this->user_id == $user->id || $user->idAdmin();
+        return $this->user_id == $user->id || $user->isAdmin();
     }
 
     public function getOriginalLength() {

@@ -106,7 +106,8 @@ class UserController extends Controller {
                 $userModel = User::firstCodeOrFail($request->get("code"));
 
                 if ($userModel->canEdit($request->user())) {
-                    $userModel->delete();
+                    $userModel->email = null;
+                    $userModel->save();
                     return autoredirect();
                 }
             }

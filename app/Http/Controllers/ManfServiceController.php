@@ -223,10 +223,10 @@ class ManfServiceController extends Controller {
                         $data = $request->validate([
                             "name" => "required|min:5|max:255",
                             "description" => "required|min:5|max:1000",
-                            "price_base" => "required|decimal:0,2",
-                            "price_min" => "required|decimal:0,2",
-                            "price_per_time" => "required|decimal:0,2",
-                            "price_per_volume" => "required|decimal:0,2",
+                            "price_base" => "required|decimal:0,4",
+                            "price_min" => "required|decimal:0,4",
+                            "price_per_time" => "required|decimal:0,4",
+                            "price_per_volume" => "required|decimal:0,4",
                         ]);
 
                         foreach ($data as $key => $value) {

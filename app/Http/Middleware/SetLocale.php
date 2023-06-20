@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\App;
 class SetLocale {
 
     public function handle(Request $request, Closure $next): Response {
-        App::setLocale(session("locale"));
+        App::setLocale(session("locale") ?? "lv");
         return $next($request);
     }
 }

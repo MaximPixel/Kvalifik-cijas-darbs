@@ -43,4 +43,20 @@
     ],
     "submit" => __("model.user-address.action.submit"),
 ])
+<p>
+    <button class="btn btn-warning" id="test" onclick="test()">Test</button>
+</p>
+<script>
+    function test() {
+        document.getElementById("contact_name").value = "Test";
+        document.getElementById("phone_number_prefix").value = "+371";
+        document.getElementById("phone_number").value = "12345678";
+        document.getElementById("address_street").value = "Kaut kāda iela";
+        document.getElementById("address_apt").value = "";
+        document.getElementById("address_province").value = "Riga";
+        document.getElementById("address_city").value = "Riga";
+        document.getElementById("address_zipcode").value = "1234";
+        document.getElementById("comment").value = "";
+    }
+</script>
 @endsection

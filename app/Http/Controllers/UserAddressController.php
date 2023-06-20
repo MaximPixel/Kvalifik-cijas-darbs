@@ -30,17 +30,17 @@ class UserAddressController extends Controller {
                     "phone_number_prefix" => "required|max:255",
                     "phone_number" => "required|max:255",
                     "address_street" => "required|max:255",
-                    "address_apt" => "required|max:255",
+                    "address_apt" => "max:255",
                     "address_province" => "required|max:255",
                     "address_city" => "required|max:255",
                     "address_zipcode" => "required|max:255",
-                    "comment" => "required|max:255",
+                    "comment" => "max:255",
                 ]);
 
                 $userAddress = new UserAddress;
                 $userAddress->user_id = auth()->user()->id;
                 foreach ($data as $key => $value) {
-                    $userAddress->$key = $value;
+                    $userAddress->$key = $value ?? "";
                 }
                 $userAddress->save();
 

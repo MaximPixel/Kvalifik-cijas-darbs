@@ -77,19 +77,32 @@ class OrderController extends Controller {
                     return redirect()->route("index");
                 }
             } else if ($action == "change-status") {
-                if ($request->has("code") && $request->has("status")) {
-                    $order = Order::firstCodeOrFail($request->get("code"));
+                $order = Order::firstCodeOrFail($request->get("code"));
 
-                    if ($order->canEdit($request->user())) {
-                        $orderStatus = OrderStatus::where("name", $request->get("status"))->firstOrFail();
+                if ($order->canEdit($request->user())) {
+                    $orderStatus = OrderStatus::where("name", $request->get("status"))->firstOrFail();
 
-                        $orderOrderStatus = new OrderOrderStatus;
-                        $orderOrderStatus->order_id = $order->id;
-                        $orderOrderStatus->order_status_id = $orderStatus->id;
-                        $orderOrderStatus->comment = $request->get("comment") ?? "";
-                        $orderOrderStatus->user_id = $request->user()->id ?? null;
-                        $orderOrderStatus->save();
-                    }
+                    $orderOrderStatus = new OrderOrderStatus;
+                    $orderOrderStatus->order_id = $order->id;
+                    $orderOrderStatus->order_status_id = $orderStatus->id;
+                    $orderOrderStatus->comment = $request->get("comment") ?? "";
+                    $orderOrderStatus->user_id = $request->user()->id ?? null;
+                    $orderOrderStatus->save();
+                }
+
+                return autoredirect($order->getRoute());
+            } else if ($action == "set-time") {
+                $order = Order::firstCodeOrFail($request->get("code"));
+
+                if ($order->canEdit($request->user())) {
+                    $data = $request->validate([
+                        "time" => "required|decimal:0,2",
+                    ]);
+
+                    $order->print_time = $data["time"];
+                    $order->save();
+
+                    return autoredirect($order->getRoute());
                 }
             }
         }

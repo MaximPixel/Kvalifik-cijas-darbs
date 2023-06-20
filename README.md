@@ -1,66 +1,40 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## 3D drukas pakalpojumu sludinājumu publicēšanas sistēma ar iespēju veidot pasūtījumus
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### Programmas apraksts
 
-## About Laravel
+No lietotāja puses, kurš vēlas sniegt 3D drukas pakalpojumus:
+Šī sistēma ļauj ātri izveidot pakalpojumus, izvēloties esošo printeri un pieejamos materiālus no populāriem ražotājiem. Kad lietotāji atstāj pasūtījumus, jūs varat tos apskatīt un iestatīt drukāšanas laiku, kas, pamatojoties uz iestatījumiem, tiks ņemts vērā pasūtījuma cenā.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+No lietotāja puses, kurš vēlas pasūtīt pakalpojumu:
+Ir iespējams augšupielādēt sistēmā savu modeli un atrast servisu, kas atbilst drukas parametriem. Pēc tam ir iespējams atstāt pasūtījumu, uzrakstot savu adresi turpmākai piegādei.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Izmantotas tehnoloģijas
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* Wampserver - viens no populārākajiem rīkiem tīmekļa serveru izveidei operātājsistēmai Windows. Šis rīks ir aprīkots ar PHP programmēšanas valodas atbalstu (versija 8.1.13), ar MySQL datu bāzes pārvaldības sistēmu (versija 8.0.31), ar Apache2 serveri (versija 2.4.54.2) un ar phpMyAdmin datu bāzes pārvaldības rīku (5.2.0). Citi WampServer rīki netika izmantoti.
+* Laravel – PHP ietvars ļauj ātri izveidot tīmekļa lietojumprogrammas. Projekta izveides laikā tika izmantota jaunākā versija 10.3.3.
+* Composer - rīks PHP projektu izveidei ar pakotnes un bibliotēkas pārvaldnieku. Tika izmantota jaunākā versija 2.4.3.
+* JavaScript - skriptu programmēšanas valoda, ko izmanto visās pārlūkprogrammās.
+Bootstrap 5 - CSS ietvars ar gataviem elementiem. Tika izmantota jaunākā versija 5.3.0.
+* Python — šajā valodā tika uzrakstīts viens skripts, lai izveidotu 3D modeļu attēlus.
 
-## Learning Laravel
+### Uzstādīšanas instrukcijas
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. Ir nepieciešams instalēt visu iepriekš minēto programmatūru. MySQL, PHP, Apache2 tiek automātiski instalēts, instalējot Wampserver. Svarīgi, ka Composer ir jāinstalē pēc PHP instalēšanas, lai izvēlētos pareizo ceļu PHP versijai 8.1 vai jaunākai.
+2. Tālāk ir jāizvēlas pareizā PHP versija. Noklikšķiniet uz WampServer ikonas uzdevumu joslā kreisajā pusē, ir jāvirza kursoru virs “PHP”, pēc tam virs “Version” un pēc tam noklikšķiniet uz jebkuras versijas, kas sākas ar “8.1” vai “8.2”.
+3. Jums ir jāatver konsole (Windows logotipa taustiņš + R, ierakstiet "cmd" un nospiediet Enter). Pēc tam rindu pa rindiņai ievadiet šādas 7 komandas:
+    * cd C:\wamp64\www
+    * git clone https://github.com/MaximPixel/Kvalifik-cijas-darbs
+    * cd C:\wamp64\www\Kvalifik-cijas-darbs
+    * composer install
+    * copy .env.example .env
+    * php artisan key:generate
+    * php artisan migrate
+4. Failā pa ceļu “D:\wamp64\bin\apache\apache2.4.54.2\conf\extra\httpd-vhosts” (“2.4.54.2” vietā var būt cita instalēta versija) atveriet failu jebkurā teksta redaktorā un jādara šādi:
+    * ceļš “${INSTALL_DIR}/www” jāizstāj ar “${INSTALL_DIR}/www/Kvalifik-cijas-darbs/public”,
+    * ceļš “${INSTALL_DIR}/www/” jāizstāj ar “${INSTALL_DIR}/www/Kvalifik-cijas-darbs/public/”.
+5. Pēc tam ir jārestartē Apache. Noklikšķiniet uz WampServer ikonas uzdevumu joslā kreisajā pusē un pēc tam noklikšķiniet uz "Restart All Services".
+6. Tālāk ir jāizveido jauna datu bāze un jāizveido saites failu sistēmā, izmantojot šīs 2 komandas:
+    * php artisan migrate
+    * php artisan storage:link
+7. Visbeidzot, jums ir jāuzsāk process, kas apstrādās fona uzdevumus, izmantojot šo komandu:
+    * php artisan queue:work

@@ -18,10 +18,10 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Manf::class)->constrained();
             $table->string("name");
             $table->text("description");
-            $table->decimal("price_base");
-            $table->decimal("price_min");
-            $table->decimal("price_per_time");
-            $table->decimal("price_per_volume");
+            $table->decimal("price_base", 10, 4);
+            $table->decimal("price_min", 10, 4);
+            $table->decimal("price_per_time", 10, 4);
+            $table->decimal("price_per_volume", 10, 4);
             $table->foreignIdFor(\App\Models\Image::class)->nullable()->constrained();
             $table->unsignedInteger("_orders_count")->default(0)->index();
             $table->timestamps();

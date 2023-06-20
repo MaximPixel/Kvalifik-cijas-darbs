@@ -50,7 +50,9 @@ class ManfService extends Model {
 
         $price += $this->price_base;
 
-        return max($order->price_min, $price);
+        $price = max($order->price_min, $price);
+
+        return ceil($price * 100) / 100;
     }
 
     public function canEdit(User|null $user) {

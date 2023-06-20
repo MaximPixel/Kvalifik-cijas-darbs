@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("code")->collation("utf8mb4_bin")->nullable()->unique();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email')->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
