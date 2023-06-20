@@ -17,7 +17,7 @@
     <a class="btn btn-primary" href="{{ $manfService->getEditRoute() }}">@lang("model.manf-service.action.edit")</a>
 </p>
 @endif
-@if (auth()->check())
+@if (auth()->check() && auth()->user()->printModelsVisible()->exists())
 <p>
     <a class="btn btn-primary" href="{{ route('model.order', ['action' => 'create', 'service' => $manfService->getCode()]) }}">@lang("model.manf-service.action.create-order")</a>
 </p>
